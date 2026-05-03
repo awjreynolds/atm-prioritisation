@@ -2,6 +2,10 @@ import { formatRouteDetail } from "./route-details.mjs";
 import { styleRouteForMap } from "./route-styles.mjs";
 
 export function renderRouteMap(routes, options = {}) {
+  const destinations = Array.isArray(options.destinations)
+    ? options.destinations
+    : [];
+  const showDestinations = options.showDestinations !== false;
   const backgroundRoutes = routes.filter(
     (route) => route.route_layer === "atm-background",
   );
@@ -22,7 +26,8 @@ export function renderRouteMap(routes, options = {}) {
     "<h2>Simplified prototype layer</h2>",
     ...prototypeRoutes.map((route) => renderRoute(route, selectedRoute)),
     "</div>",
-    renderRouteDetail(selectedRoute),
+    renderDestinationLayer(destinations, { showDestinations }),
+    renderRouteDetail(selectedRoute, destinations),
     "<footer class=\"map-attribution\">Route data: checked-in pilot dataset. B&amp;NES Active Travel Masterplan source context retained as background evidence.</footer>",
     "</section>",
   ].join("");
@@ -59,7 +64,64 @@ function renderRoute(route, selectedRoute) {
   ].join("");
 }
 
-function renderRouteDetail(route) {
+function renderDestinationLayer(destinations, options) {
+  if (destinations.length === 0) {
+    return "";
+  }
+
+  return [
+    "<div class=\"destination-layer\" data-destination-layer=\"pilot-destinations\">",
+    "<label class=\"destination-toggle\">",
+    "<input type=\"checkbox\" data-destination-toggle",
+    options.showDestinations ? " checked" : "",
+    ">",
+    "<span>School and key destination context</span>",
+    "</label>",
+    options.showDestinations
+      ? [
+          "<div class=\"destination-marker-list\">",
+          ...destinations.map(renderDestination),
+          "</div>",
+        ].join("")
+      : "",
+    "</div>",
+  ].join("");
+}
+
+function renderDestination(destination) {
+  return [
+    "<article class=\"destination-marker\" data-destination-id=\"",
+    escapeHtml(destination.destination_id),
+    "\" style=\"--destination-x:",
+    escapeHtml(destination.display_position?.x ?? 0),
+    "%;--destination-y:",
+    escapeHtml(destination.display_position?.y ?? 0),
+    "%;\">",
+    "<p class=\"destination-marker-type\">",
+    escapeHtml(destination.destination_type),
+    "</p>",
+    "<h3>",
+    escapeHtml(destination.destination_name),
+    "</h3>",
+    "<p>",
+    escapeHtml(destination.destination_status),
+    " / ",
+    escapeHtml(destination.location_status),
+    "</p>",
+    "<p>",
+    escapeHtml(destination.provenance_notes),
+    "</p>",
+    "<p>",
+    escapeHtml(destination.uncertainty_notes),
+    "</p>",
+    "<p>",
+    escapeHtml(destination.claim_limits),
+    "</p>",
+    "</article>",
+  ].join("");
+}
+
+function renderRouteDetail(route, destinations = []) {
   if (!route) {
     return [
       "<aside class=\"route-detail-panel route-detail-empty\" id=\"route-detail\" aria-label=\"Route detail panel\">",
@@ -70,6 +132,9 @@ function renderRouteDetail(route) {
   }
 
   const detail = formatRouteDetail(route);
+  const linkedDestinations = destinations.filter((destination) =>
+    destination.related_route_ids?.includes(route.route_id),
+  );
   const summaryRows = [
     ["Proposed network status", detail.summary.networkStatus],
     ["Network role", detail.summary.networkRole],
@@ -107,7 +172,51 @@ function renderRouteDetail(route) {
     "<ul>",
     ...detail.notes.map((note) => `<li>${escapeHtml(note)}</li>`),
     "</ul>",
+    renderLinkedDestinations(linkedDestinations),
     "</aside>",
+  ].join("");
+}
+
+const schoolAccessLabels = {
+  high: "High school access relevance",
+  medium: "Medium school access relevance",
+  low: "Low school access relevance",
+  unknown: "Unknown school access relevance",
+};
+
+function renderLinkedDestinations(destinations) {
+  if (destinations.length === 0) {
+    return "";
+  }
+
+  return [
+    "<section class=\"route-detail-destinations\">",
+    "<h3>Route-linked destination context</h3>",
+    "<ul>",
+    ...destinations.map(renderLinkedDestination),
+    "</ul>",
+    "</section>",
+  ].join("");
+}
+
+function renderLinkedDestination(destination) {
+  return [
+    "<li>",
+    "<strong>",
+    escapeHtml(destination.destination_name),
+    "</strong>",
+    " - ",
+    escapeHtml(
+      schoolAccessLabels[destination.school_access_relevance] ??
+        "Unknown school access relevance",
+    ),
+    ". ",
+    escapeHtml(destination.provenance_notes),
+    " ",
+    escapeHtml(destination.uncertainty_notes),
+    " ",
+    escapeHtml(destination.claim_limits),
+    "</li>",
   ].join("");
 }
 

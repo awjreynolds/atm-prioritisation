@@ -1,0 +1,41 @@
+[
+  {
+    "destination_id": "somer-valley-education-destinations",
+    "destination_name": "Somer Valley education destinations",
+    "destination_type": "school-cluster",
+    "pilot_area": "Bath to Somer Valley",
+    "destination_status": "indicative-source-context",
+    "location_status": "indicative",
+    "display_position": {
+      "x": 68,
+      "y": 62
+    },
+    "source_ids": ["dfe-get-information-about-schools", "os-open-names"],
+    "related_route_ids": ["prototype-somer-valley-school-access-review"],
+    "school_access_relevance": "high",
+    "provenance_notes": "Use DfE school records and OS Open Names place context before replacing this cluster with establishment-level markers.",
+    "uncertainty_notes": "This is an indicative school-access cluster for MVP review, not a catchment, pupil-flow, or school-run impact model.",
+    "claim_limits": "destination context only; no school-run impact; no catchment coverage; no route preference; no quantified modal-shift claims"
+  },
+  {
+    "destination_id": "radstock-midsomer-norton-centres",
+    "destination_name": "Radstock and Midsomer Norton centre context",
+    "destination_type": "settlement-centre",
+    "pilot_area": "Bath to Somer Valley",
+    "destination_status": "indicative-source-context",
+    "location_status": "indicative",
+    "display_position": {
+      "x": 62,
+      "y": 72
+    },
+    "source_ids": ["os-open-names"],
+    "related_route_ids": [
+      "prototype-a367-utility-corridor-hypothesis",
+      "prototype-greenway-utility-comparison"
+    ],
+    "school_access_relevance": "unknown",
+    "provenance_notes": "Use OS Open Names place context for settlement-centre labelling before replacing this cluster with more precise destination records.",
+    "uncertainty_notes": "This is indicative place context only; it does not prove route usefulness, destination catchment, or modal-shift potential.",
+    "claim_limits": "destination context only; no school-run impact; no catchment coverage; no route preference; no quantified modal-shift claims"
+  }
+]
