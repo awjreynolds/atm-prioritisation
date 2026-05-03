@@ -35,12 +35,19 @@ evidence has been added.
 
 ```sh
 npm test
+npm run test:smoke
 npm run build
 npm run validate:sources
 npm run validate:destinations
 ```
 
 The build output is written to `dist/`.
+
+`npm run test:smoke` builds the static site, loads the generated `dist/`
+assets through a local static-asset harness, verifies the MVP loads, checks the
+caveat, route rendering, route-detail selection, legend wording, narrow/mobile
+CSS coverage, and runs focused accessibility assertions over the rendered
+prototype surface.
 
 ## Route Data Contract
 
