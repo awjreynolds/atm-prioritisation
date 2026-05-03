@@ -9,3 +9,4 @@ await copyFile("src/route-details.mjs", "dist/route-details.mjs");
 await copyFile("src/app.mjs", "dist/app.mjs");
 await copyFile("src/route-map.mjs", "dist/route-map.mjs");
 await copyFile("data/pilot-routes.json", "dist/data/pilot-routes.json");
+await copyFile("data/pilot-destinations.json", "dist/data/pilot-destinations.json");

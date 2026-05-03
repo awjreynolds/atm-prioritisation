@@ -77,7 +77,13 @@ assert.equal(
   "node scripts/validate-source-inventory.mjs",
 );
 
+assert.equal(
+  packageJson.scripts["validate:destinations"],
+  "node scripts/validate-destinations.mjs",
+);
+
 execFileSync("npm", ["run", "validate:sources"], { stdio: "pipe" });
+execFileSync("npm", ["run", "validate:destinations"], { stdio: "pipe" });
 
 assert.equal(sourceInventory.pilot_area, "Bath to Somer Valley");
 assert.equal(sourceInventory.review_status, "reviewed-for-mvp");
@@ -128,6 +134,24 @@ function validationFailure(routeFile) {
   assert.fail(`Expected route validation to fail for ${routeFile}`);
 }
 
+function validateDestinations(destinationFile) {
+  return execFileSync("node", ["scripts/validate-destinations.mjs", destinationFile], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
+
+function destinationValidationFailure(destinationFile) {
+  try {
+    validateDestinations(destinationFile);
+  } catch (error) {
+    assert.notEqual(error.status, 0);
+    return error.stderr;
+  }
+
+  assert.fail(`Expected destination validation to fail for ${destinationFile}`);
+}
+
 const completeRouteRecord = {
   route_id: "bath-somer-valley-pilot",
   route_name: "Bath to Somer Valley pilot corridor",
@@ -146,6 +170,28 @@ const completeRouteRecord = {
   evidence_notes: "No final evidence conclusion has been encoded.",
   provenance_notes: "Prototype fixture for route contract validation.",
   uncertainty_notes: "Open MVP evidence questions remain unresolved.",
+};
+
+const completeDestinationRecord = {
+  destination_id: "somer-valley-education-destinations",
+  destination_name: "Somer Valley education destinations",
+  destination_type: "school-cluster",
+  pilot_area: "Bath to Somer Valley",
+  destination_status: "indicative-source-context",
+  location_status: "indicative",
+  display_position: {
+    x: 68,
+    y: 62,
+  },
+  source_ids: ["dfe-get-information-about-schools", "os-open-names"],
+  related_route_ids: ["prototype-somer-valley-school-access-review"],
+  school_access_relevance: "high",
+  provenance_notes:
+    "Use DfE school records and OS Open Names before replacing this cluster.",
+  uncertainty_notes:
+    "This is destination context only, not catchment analysis.",
+  claim_limits:
+    "destination context only; no school-run impact; no catchment coverage; no route preference; no quantified modal-shift claims",
 };
 
 const supportingRouteDetail = formatRouteDetail({
@@ -321,17 +367,90 @@ await writeFile(
 
 validateRoutes("tmp-route-tests/valid-routes.json");
 
+await writeFile(
+  "tmp-route-tests/valid-destinations.json",
+  `${JSON.stringify([completeDestinationRecord], null, 2)}\n`,
+);
+
+validateDestinations("tmp-route-tests/valid-destinations.json");
+
+const destinationWithoutProvenance = { ...completeDestinationRecord };
+delete destinationWithoutProvenance.provenance_notes;
+
+await writeFile(
+  "tmp-route-tests/destination-missing-provenance.json",
+  `${JSON.stringify([destinationWithoutProvenance], null, 2)}\n`,
+);
+
+assert.match(
+  destinationValidationFailure(
+    "tmp-route-tests/destination-missing-provenance.json",
+  ),
+  /provenance_notes/,
+);
+
+const destinationWithUnknownSource = {
+  ...completeDestinationRecord,
+  source_ids: ["unknown-source"],
+};
+
+await writeFile(
+  "tmp-route-tests/destination-unknown-source.json",
+  `${JSON.stringify([destinationWithUnknownSource], null, 2)}\n`,
+);
+
+assert.match(
+  destinationValidationFailure("tmp-route-tests/destination-unknown-source.json"),
+  /unknown-source/,
+);
+
+const destinationWithUnsafeSource = {
+  ...completeDestinationRecord,
+  source_ids: ["dft-bus-open-data-service"],
+};
+
+await writeFile(
+  "tmp-route-tests/destination-unsafe-source.json",
+  `${JSON.stringify([destinationWithUnsafeSource], null, 2)}\n`,
+);
+
+assert.match(
+  destinationValidationFailure("tmp-route-tests/destination-unsafe-source.json"),
+  /safe-for-first-prototype/,
+);
+
 assert.equal(existsSync("data/pilot-routes.json"), true);
 validateRoutes("data/pilot-routes.json");
+assert.equal(existsSync("data/pilot-destinations.json"), true);
+validateDestinations("data/pilot-destinations.json");
 
 const pilotRoutes = JSON.parse(
   await readFile("data/pilot-routes.json", "utf8"),
+);
+const pilotDestinations = JSON.parse(
+  await readFile("data/pilot-destinations.json", "utf8"),
 );
 const pilotRouteLayers = new Set(pilotRoutes.map((route) => route.route_layer));
 assert.equal(pilotRoutes.length >= 4, true);
 assert.equal(pilotRoutes.length <= 6, true);
 assert.equal(pilotRouteLayers.has("atm-background"), true);
 assert.equal(pilotRouteLayers.has("prototype-simplified"), true);
+
+const pilotDestinationTypes = new Set(
+  pilotDestinations.map((destination) => destination.destination_type),
+);
+assert.equal(pilotDestinationTypes.has("school-cluster"), true);
+assert.equal(pilotDestinationTypes.has("settlement-centre"), true);
+
+const sourceInventoryIds = new Set(
+  sourceInventory.sources.map((source) => source.id),
+);
+for (const destination of pilotDestinations) {
+  assert.equal(
+    destination.source_ids.every((sourceId) => sourceInventoryIds.has(sourceId)),
+    true,
+  );
+}
 
 const allowedDataStatuses = new Set([
   "source-context",
@@ -363,8 +482,17 @@ for (const route of pilotRoutes.filter(
 }
 const { renderRouteMap } = await import("../src/route-map.mjs");
 const renderedRouteMap = renderRouteMap(pilotRoutes);
+const renderedRouteMapWithDestinations = renderRouteMap(pilotRoutes, {
+  destinations: pilotDestinations,
+  showDestinations: true,
+});
 const renderedSelectedRouteMap = renderRouteMap(pilotRoutes, {
   selectedRouteId: "prototype-a367-utility-corridor-hypothesis",
+});
+const renderedSelectedSchoolRouteMap = renderRouteMap(pilotRoutes, {
+  destinations: pilotDestinations,
+  selectedRouteId: "prototype-somer-valley-school-access-review",
+  showDestinations: true,
 });
 assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
 assert.match(renderedRouteMap, /Simplified prototype layer/i);
@@ -386,6 +514,15 @@ assert.match(renderedRouteMap, /prototype-indicative/i);
 assert.match(renderedRouteMap, /manual-prototype-sketch/i);
 assert.match(renderedRouteMap, /not a final preferred alignment/i);
 
+assert.match(renderedRouteMapWithDestinations, /School and key destination context/i);
+assert.match(renderedRouteMapWithDestinations, /data-destination-layer="pilot-destinations"/i);
+assert.match(renderedRouteMapWithDestinations, /data-destination-id="somer-valley-education-destinations"/i);
+assert.match(renderedRouteMapWithDestinations, /Somer Valley education destinations/i);
+assert.match(renderedRouteMapWithDestinations, /indicative-source-context/i);
+assert.match(renderedRouteMapWithDestinations, /no school-run impact/i);
+assert.match(renderedRouteMapWithDestinations, /data-destination-toggle/i);
+assert.match(renderedRouteMapWithDestinations, /checked/i);
+
 assert.match(renderedRouteMap, /Route data:/i);
 assert.match(renderedRouteMap, /checked-in pilot dataset/i);
 assert.match(renderedRouteMap, /B&amp;NES Active Travel Masterplan source context/i);
@@ -406,6 +543,13 @@ assert.match(renderedSelectedRouteMap, /What needs review/i);
 assert.match(renderedSelectedRouteMap, /Evidence and provenance/i);
 assert.match(renderedSelectedRouteMap, /not a final preferred alignment/i);
 assert.doesNotMatch(renderedSelectedRouteMap, /final route decision/i);
+
+assert.match(renderedSelectedSchoolRouteMap, /class="route-detail-destinations"/i);
+assert.match(renderedSelectedSchoolRouteMap, /Route-linked destination context/i);
+assert.match(renderedSelectedSchoolRouteMap, /Somer Valley education destinations/i);
+assert.match(renderedSelectedSchoolRouteMap, /High school access relevance/i);
+assert.match(renderedSelectedSchoolRouteMap, /no school-run impact/i);
+assert.doesNotMatch(renderedSelectedSchoolRouteMap, /school-run reduction/i);
 
 const pilotRoutesText = JSON.stringify(pilotRoutes);
 assert.doesNotMatch(
@@ -474,6 +618,7 @@ assert.equal(existsSync("dist/route-details.mjs"), true);
 assert.equal(existsSync("dist/app.mjs"), true);
 assert.equal(existsSync("dist/route-map.mjs"), true);
 assert.equal(existsSync("dist/data/pilot-routes.json"), true);
+assert.equal(existsSync("dist/data/pilot-destinations.json"), true);
 
 const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
@@ -484,10 +629,13 @@ assert.match(page, /type="module" src="app\.mjs"/i);
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ renderRouteMap \}/i);
 assert.match(clientScript, /pilot-routes\.json/i);
+assert.match(clientScript, /pilot-destinations\.json/i);
 assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
 assert.match(clientScript, /addEventListener\("click"/i);
 assert.match(clientScript, /closest\("\[data-route-id\]"\)/i);
+assert.match(clientScript, /closest\("\[data-destination-toggle\]"\)/i);
 assert.match(clientScript, /selectedRouteId/i);
+assert.match(clientScript, /showDestinations/i);
 
 assert.match(
   visibleText,
@@ -512,6 +660,10 @@ assert.match(styles, /route-layer-background[\s\S]*opacity:\s*0\.[0-9]+/i);
 assert.match(styles, /route-layer-prototype[\s\S]*border-left:\s*[4-9]px/i);
 assert.match(styles, /route-line[\s\S]*cursor:\s*pointer/i);
 assert.match(styles, /route-detail-panel/i);
+assert.match(styles, /destination-layer/i);
+assert.match(styles, /destination-marker/i);
+assert.match(styles, /destination-toggle/i);
+assert.match(styles, /route-detail-destinations/i);
 assert.match(styles, /map-attribution/i);
 
 assert.equal(existsSync("README.md"), true);
@@ -525,6 +677,10 @@ assert.match(readmeText, /npm run validate:routes -- path\/to\/routes\.json/i);
 assert.match(readmeText, /data\/pilot-routes\.json/i);
 assert.match(readmeText, /pilot source inventory/i);
 assert.match(readmeText, /npm run validate:sources/i);
+assert.match(readmeText, /pilot destination dataset/i);
+assert.match(readmeText, /data\/pilot-destinations\.json/i);
+assert.match(readmeText, /npm run validate:destinations/i);
+assert.match(readmeText, /no school-run impact/i);
 
 assert.equal(existsSync(".github/workflows/pages.yml"), true);
 const workflow = await readFile(".github/workflows/pages.yml", "utf8");

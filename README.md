@@ -37,6 +37,7 @@ evidence has been added.
 npm test
 npm run build
 npm run validate:sources
+npm run validate:destinations
 ```
 
 The build output is written to `dist/`.
@@ -93,3 +94,20 @@ npm run validate:sources
 The inventory must distinguish official source evidence from advisory context,
 keep hypotheses marked as hypotheses, and identify which sources are safe enough
 for the first prototype dataset.
+
+## Pilot Destination Dataset
+
+The pilot destination dataset lives in `data/pilot-destinations.json`. It adds
+school and key-destination context for the Bath to Somer Valley pilot without
+attempting full catchment modelling.
+
+Validate it locally with:
+
+```sh
+npm run validate:destinations
+```
+
+Destination records must include source IDs, provenance notes, uncertainty
+notes, and claim limits. Indicative destination context must remain labelled as
+indicative or unknown, and the dataset must make no school-run impact,
+catchment coverage, route preference, or quantified modal-shift claims.
