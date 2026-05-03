@@ -7,6 +7,7 @@ const routeContract = JSON.parse(
   await readFile("data/route-contract.json", "utf8"),
 );
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
+const { styleRouteForMap } = await import("../src/route-styles.mjs");
 
 assert.deepEqual(routeContract.requiredFields, [
   "route_id",
@@ -108,6 +109,101 @@ const completeRouteRecord = {
   uncertainty_notes: "Open MVP evidence questions remain unresolved.",
 };
 
+const atmBackgroundStyle = styleRouteForMap({
+  ...completeRouteRecord,
+  route_layer: "atm-background",
+  network_status: "supporting",
+  modal_shift_potential: "high",
+});
+
+assert.equal(atmBackgroundStyle.stroke, "#b8c2cc");
+assert.equal(atmBackgroundStyle.strokeWidth, 2);
+assert.equal(atmBackgroundStyle.strokeOpacity, 0.45);
+assert.equal(atmBackgroundStyle.strokeDasharray, "2 7");
+assert.equal(atmBackgroundStyle.layerOrder, 0);
+
+const prototypeStatusStyles = routeContract.allowedValues.network_status.map(
+  (network_status) => [
+    network_status,
+    styleRouteForMap({
+      ...completeRouteRecord,
+      route_layer: "prototype-simplified",
+      network_status,
+      modal_shift_potential: "medium",
+    }),
+  ],
+);
+
+assert.deepEqual(
+  prototypeStatusStyles.map(([network_status, style]) => [
+    network_status,
+    style.stroke,
+    style.strokeDasharray,
+    style.statusLabel,
+  ]),
+  [
+    ["preferred", "#0072b2", "none", "Preferred in simplified layer"],
+    ["supporting", "#009e73", "8 4", "Supporting route"],
+    ["not-preferred", "#d55e00", "2 5", "Not preferred in simplified layer"],
+    ["needs-review", "#cc79a7", "10 3 2 3", "Needs review"],
+  ],
+);
+
+const prototypeModalShiftStyles =
+  routeContract.allowedValues.modal_shift_potential.map(
+    (modal_shift_potential) => [
+      modal_shift_potential,
+      styleRouteForMap({
+        ...completeRouteRecord,
+        route_layer: "prototype-simplified",
+        network_status: "needs-review",
+        modal_shift_potential,
+      }),
+    ],
+  );
+
+assert.deepEqual(
+  prototypeModalShiftStyles.map(([modal_shift_potential, style]) => [
+    modal_shift_potential,
+    style.strokeWidth,
+    style.modalShiftLabel,
+  ]),
+  [
+    ["high", 8, "High modal shift potential"],
+    ["medium", 5, "Medium modal shift potential"],
+    ["low", 3, "Low modal shift potential"],
+    ["unknown", 4, "Unknown modal shift potential"],
+  ],
+);
+
+assert.throws(
+  () =>
+    styleRouteForMap({
+      ...completeRouteRecord,
+      route_layer: "prototype-simplified",
+      network_status: "decided",
+      modal_shift_potential: "medium",
+    }),
+  {
+    name: "RangeError",
+    message: /Unsupported network_status value "decided"/,
+  },
+);
+
+assert.throws(
+  () =>
+    styleRouteForMap({
+      ...completeRouteRecord,
+      route_layer: "prototype-simplified",
+      network_status: "needs-review",
+      modal_shift_potential: "certain",
+    }),
+  {
+    name: "RangeError",
+    message: /Unsupported modal_shift_potential value "certain"/,
+  },
+);
+
 await writeFile(
   "tmp-route-tests/valid-routes.json",
   `${JSON.stringify([completeRouteRecord], null, 2)}\n`,
@@ -171,6 +267,7 @@ execFileSync("npm", ["run", "build"], { stdio: "pipe" });
 
 assert.equal(existsSync("dist/index.html"), true);
 assert.equal(existsSync("dist/styles.css"), true);
+assert.equal(existsSync("dist/route-styles.mjs"), true);
 
 const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
@@ -188,6 +285,12 @@ assert.match(visibleText, /map placeholder/i);
 assert.match(page, /<aside[^>]+aria-label="Prototype legend"/i);
 assert.match(visibleText, /route status/i);
 assert.match(visibleText, /modal shift potential/i);
+assert.match(visibleText, /Preferred in simplified layer/i);
+assert.match(visibleText, /Needs review/i);
+assert.match(visibleText, /line pattern/i);
+assert.match(visibleText, /High modal shift potential/i);
+assert.match(visibleText, /Low modal shift potential/i);
+assert.match(visibleText, /wider lines indicate stronger potential/i);
 
 assert.equal(existsSync("README.md"), true);
 const readme = await readFile("README.md", "utf8");
