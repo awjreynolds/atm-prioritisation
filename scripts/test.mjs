@@ -6,6 +6,9 @@ import { execFileSync } from "node:child_process";
 const routeContract = JSON.parse(
   await readFile("data/route-contract.json", "utf8"),
 );
+const sourceInventory = JSON.parse(
+  await readFile("data/pilot-source-inventory.json", "utf8"),
+);
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 
 assert.deepEqual(routeContract.requiredFields, [
@@ -67,6 +70,41 @@ assert.equal(
   "node scripts/validate-routes.mjs",
 );
 
+assert.equal(
+  packageJson.scripts["validate:sources"],
+  "node scripts/validate-source-inventory.mjs",
+);
+
+execFileSync("npm", ["run", "validate:sources"], { stdio: "pipe" });
+
+assert.equal(sourceInventory.pilot_area, "Bath to Somer Valley");
+assert.equal(sourceInventory.review_status, "reviewed-for-mvp");
+assert.equal(
+  sourceInventory.sources.some(
+    (source) =>
+      source.category === "a367-hypothesis" &&
+      source.mvp_dataset_safety === "review-before-use" &&
+      source.claim_limits.includes("not route preference"),
+  ),
+  true,
+);
+assert.equal(
+  sourceInventory.sources.some(
+    (source) =>
+      source.category === "greenway-context" &&
+      source.claim_limits.includes("not automatically preferred"),
+  ),
+  true,
+);
+assert.equal(
+  sourceInventory.sources.some((source) =>
+    ["unavailable-for-mvp", "unsuitable-for-mvp"].includes(
+      source.mvp_dataset_safety,
+    ),
+  ),
+  true,
+);
+
 await rm("tmp-route-tests", { recursive: true, force: true });
 await mkdir("tmp-route-tests", { recursive: true });
 
@@ -114,6 +152,72 @@ await writeFile(
 );
 
 validateRoutes("tmp-route-tests/valid-routes.json");
+
+assert.equal(existsSync("data/pilot-routes.json"), true);
+validateRoutes("data/pilot-routes.json");
+
+const pilotRoutes = JSON.parse(
+  await readFile("data/pilot-routes.json", "utf8"),
+);
+const pilotRouteLayers = new Set(pilotRoutes.map((route) => route.route_layer));
+assert.equal(pilotRoutes.length >= 4, true);
+assert.equal(pilotRoutes.length <= 6, true);
+assert.equal(pilotRouteLayers.has("atm-background"), true);
+assert.equal(pilotRouteLayers.has("prototype-simplified"), true);
+
+const allowedDataStatuses = new Set([
+  "source-context",
+  "prototype",
+  "hypothesis",
+]);
+for (const route of pilotRoutes) {
+  assert.equal(allowedDataStatuses.has(route.data_status), true);
+}
+const a367Route = pilotRoutes.find((route) => /a367/i.test(route.route_id));
+assert.equal(a367Route.data_status, "hypothesis");
+assert.notEqual(a367Route.network_status, "preferred");
+
+const allowedGeometrySources = new Set([
+  "official-map-context",
+  "manual-prototype-sketch",
+  "not-included",
+]);
+for (const route of pilotRoutes) {
+  assert.equal(allowedGeometrySources.has(route.geometry_source), true);
+  assert.equal(Array.isArray(route.source_ids), true);
+  assert.equal(route.source_ids.length > 0, true);
+}
+for (const route of pilotRoutes.filter(
+  (route) => route.route_layer === "prototype-simplified",
+)) {
+  assert.equal(route.route_geometry_status, "prototype-indicative");
+  assert.match(route.route_geometry_notes, /prototype|indicative/i);
+}
+const { renderRouteMap } = await import("../src/route-map.mjs");
+const renderedRouteMap = renderRouteMap(pilotRoutes);
+assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
+assert.match(renderedRouteMap, /Simplified prototype layer/i);
+assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
+assert.match(renderedRouteMap, /data-route-layer="prototype-simplified"/i);
+assert.equal(
+  renderedRouteMap.indexOf('data-route-layer="atm-background"') <
+    renderedRouteMap.indexOf('data-route-layer="prototype-simplified"'),
+  true,
+);
+
+assert.match(renderedRouteMap, /prototype-indicative/i);
+assert.match(renderedRouteMap, /manual-prototype-sketch/i);
+assert.match(renderedRouteMap, /not a final preferred alignment/i);
+
+assert.match(renderedRouteMap, /Route data:/i);
+assert.match(renderedRouteMap, /checked-in pilot dataset/i);
+assert.match(renderedRouteMap, /B&amp;NES Active Travel Masterplan source context/i);
+
+const pilotRoutesText = JSON.stringify(pilotRoutes);
+assert.doesNotMatch(
+  pilotRoutesText,
+  /\d+\s*(%|percent|car-mile|car mile|school-run|school run|modal shift|funding eligibility)/i,
+);
 
 await writeFile("tmp-route-tests/non-object-record.json", "[null]\n");
 
@@ -171,11 +275,20 @@ execFileSync("npm", ["run", "build"], { stdio: "pipe" });
 
 assert.equal(existsSync("dist/index.html"), true);
 assert.equal(existsSync("dist/styles.css"), true);
+assert.equal(existsSync("dist/app.mjs"), true);
+assert.equal(existsSync("dist/route-map.mjs"), true);
+assert.equal(existsSync("dist/data/pilot-routes.json"), true);
 
 const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
 
 assert.match(page, /href="styles\.css"/i);
+assert.match(page, /type="module" src="app\.mjs"/i);
+
+const clientScript = await readFile("dist/app.mjs", "utf8");
+assert.match(clientScript, /import \{ renderRouteMap \}/i);
+assert.match(clientScript, /pilot-routes\.json/i);
+assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
 
 assert.match(
   visibleText,
@@ -189,6 +302,11 @@ assert.match(page, /<aside[^>]+aria-label="Prototype legend"/i);
 assert.match(visibleText, /route status/i);
 assert.match(visibleText, /modal shift potential/i);
 
+const styles = await readFile("dist/styles.css", "utf8");
+assert.match(styles, /route-layer-background[\s\S]*opacity:\s*0\.[0-9]+/i);
+assert.match(styles, /route-layer-prototype[\s\S]*border-left:\s*[4-9]px/i);
+assert.match(styles, /map-attribution/i);
+
 assert.equal(existsSync("README.md"), true);
 const readme = await readFile("README.md", "utf8");
 const readmeText = readme.replace(/\s+/g, " ");
@@ -197,6 +315,9 @@ assert.match(readmeText, /not.*official council/i);
 assert.match(readmeText, /GitHub Pages/i);
 assert.match(readmeText, /prototype data assumptions/i);
 assert.match(readmeText, /npm run validate:routes -- path\/to\/routes\.json/i);
+assert.match(readmeText, /data\/pilot-routes\.json/i);
+assert.match(readmeText, /pilot source inventory/i);
+assert.match(readmeText, /npm run validate:sources/i);
 
 assert.equal(existsSync(".github/workflows/pages.yml"), true);
 const workflow = await readFile(".github/workflows/pages.yml", "utf8");
