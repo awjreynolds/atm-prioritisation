@@ -36,6 +36,19 @@
       "claim_limits": "official context only; not route preference; no formal funding eligibility or route deliverability claims"
     },
     {
+      "id": "banes-active-travel-masterplan-route-map",
+      "title": "Active Travel Masterplan Route Map appendix",
+      "publisher": "Bath and North East Somerset Council",
+      "url": "https://democracy.bathnes.gov.uk/documents/s85703/E3594%20-%20Appendix%20B%20-%20Active%20Travel%20Masterplan%20Route%20Map.pdf",
+      "category": "atm-route-evidence",
+      "evidence_strength": "official-source-evidence",
+      "mvp_dataset_safety": "review-before-use",
+      "what_it_would_be_used_for": "Provide public ATM network-map graphics for best-fit extraction when reusable route GeoJSON is unavailable.",
+      "provenance_guidance": "Record page, visible route classification, extraction date, and whether the line was best-fit traced from the public map graphic.",
+      "uncertainty_guidance": "Use as official source context for visible route intent only; extracted coordinates are best-fit indicative geometry, not official reusable council GeoJSON.",
+      "claim_limits": "public map graphic context only; not official reusable geometry; no route preference, deliverability, or engineering alignment claims"
+    },
+    {
       "id": "banes-planned-active-travel-routes",
       "title": "View and comment on planned Active Travel routes",
       "publisher": "Bath and North East Somerset Council",

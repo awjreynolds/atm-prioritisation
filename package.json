@@ -8,6 +8,7 @@
     "test": "node scripts/test.mjs && node scripts/smoke-test.mjs",
     "test:smoke": "node scripts/smoke-test.mjs",
     "validate:routes": "node scripts/validate-routes.mjs",
+    "validate:atm-routes": "node scripts/validate-atm-routes.mjs",
     "validate:sources": "node scripts/validate-source-inventory.mjs",
     "validate:destinations": "node scripts/validate-destinations.mjs"
   }

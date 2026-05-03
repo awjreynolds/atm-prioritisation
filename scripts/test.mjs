@@ -82,8 +82,83 @@ assert.equal(
   "node scripts/validate-destinations.mjs",
 );
 
+assert.equal(
+  packageJson.scripts["validate:atm-routes"],
+  "node scripts/validate-atm-routes.mjs",
+);
+
 execFileSync("npm", ["run", "validate:sources"], { stdio: "pipe" });
 execFileSync("npm", ["run", "validate:destinations"], { stdio: "pipe" });
+
+function validateAtmRoutes(geoJsonFile) {
+  return execFileSync("node", ["scripts/validate-atm-routes.mjs", geoJsonFile], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
+
+function atmRoutesValidationFailure(geoJsonFile) {
+  try {
+    validateAtmRoutes(geoJsonFile);
+  } catch (error) {
+    assert.notEqual(error.status, 0);
+    return error.stderr;
+  }
+
+  assert.fail(`Expected ATM route validation to fail for ${geoJsonFile}`);
+}
+
+assert.equal(existsSync("data/atm-routes-bath-somer-valley.geojson"), true);
+validateAtmRoutes("data/atm-routes-bath-somer-valley.geojson");
+const bathSomerValleyAtmRoutes = JSON.parse(
+  await readFile("data/atm-routes-bath-somer-valley.geojson", "utf8"),
+);
+assert.equal(bathSomerValleyAtmRoutes.type, "FeatureCollection");
+assert.equal(bathSomerValleyAtmRoutes.features.length >= 5, true);
+assert.equal(
+  bathSomerValleyAtmRoutes.features.some(
+    (feature) => feature.properties?.source_layer === "atm-route",
+  ),
+  true,
+);
+assert.equal(
+  bathSomerValleyAtmRoutes.features.some(
+    (feature) => feature.properties?.source_layer === "context-greenway",
+  ),
+  true,
+);
+assert.equal(
+  bathSomerValleyAtmRoutes.features.some(
+    (feature) => feature.properties?.source_layer === "prototype-hypothesis",
+  ),
+  false,
+);
+const knownSourceIds = new Set(
+  sourceInventory.sources.map((source) => source.id),
+);
+for (const feature of bathSomerValleyAtmRoutes.features) {
+  assert.equal(
+    feature.properties.source_ids.every((sourceId) =>
+      knownSourceIds.has(sourceId),
+    ),
+    true,
+  );
+}
+assert.equal(
+  existsSync("docs/product/bath-somer-valley-atm-extraction.md"),
+  true,
+);
+const bathSomerValleyExtractionNote = await readFile(
+  "docs/product/bath-somer-valley-atm-extraction.md",
+  "utf8",
+);
+const bathSomerValleyExtractionNoteText =
+  bathSomerValleyExtractionNote.replace(/\s+/g, " ");
+assert.match(bathSomerValleyExtractionNoteText, /Bath to Somer Valley/i);
+assert.match(bathSomerValleyExtractionNoteText, /Active Travel Masterplan Route Map/i);
+assert.match(bathSomerValleyExtractionNoteText, /best-fit/i);
+assert.match(bathSomerValleyExtractionNoteText, /ambigu/i);
+assert.match(bathSomerValleyExtractionNoteText, /not official reusable council GeoJSON/i);
 
 assert.equal(sourceInventory.pilot_area, "Bath to Somer Valley");
 assert.equal(sourceInventory.review_status, "reviewed-for-mvp");
@@ -115,6 +190,42 @@ assert.equal(
 
 await rm("tmp-route-tests", { recursive: true, force: true });
 await mkdir("tmp-route-tests", { recursive: true });
+
+await writeFile("tmp-route-tests/not-feature-collection.geojson", "{}\n");
+assert.match(
+  atmRoutesValidationFailure("tmp-route-tests/not-feature-collection.geojson"),
+  /FeatureCollection/,
+);
+
+await writeFile(
+  "tmp-route-tests/atm-feature-missing-properties.geojson",
+  `${JSON.stringify(
+    {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [-2.45, 51.29],
+              [-2.42, 51.32],
+            ],
+          },
+          properties: {},
+        },
+      ],
+    },
+    null,
+    2,
+  )}\n`,
+);
+assert.match(
+  atmRoutesValidationFailure(
+    "tmp-route-tests/atm-feature-missing-properties.geojson",
+  ),
+  /atm_route_id/,
+);
 
 function validateRoutes(routeFile) {
   return execFileSync("node", ["scripts/validate-routes.mjs", routeFile], {

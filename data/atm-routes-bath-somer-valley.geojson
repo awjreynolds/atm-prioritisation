@@ -1,0 +1,204 @@
+{
+  "type": "FeatureCollection",
+  "name": "Bath to Somer Valley extracted ATM source geometry",
+  "metadata": {
+    "batch_id": "bath-somer-valley",
+    "geometry_precision": "review-map",
+    "geometry_status": "best-fit-extracted-from-public-atm-map",
+    "official_geometry": false,
+    "notes": "Best-fit indicative source/context geometry extracted from public ATM map and document context for prototype review. This is not official reusable council GeoJSON or engineering/legal alignment."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.448, 51.293],
+          [-2.439, 51.301],
+          [-2.431, 51.31],
+          [-2.426, 51.316]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "atm-5-6A-a367-bristol-road-strategic",
+        "route_name": "A367 / Bristol Road strategic route",
+        "source_layer": "atm-route",
+        "source_atm_classification": "strategic",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from the public ATM route-map PDF and Part 6 route table text describing route 5-6 as A367/Bristol Road strategic route between Radstock and Peasedown St John.",
+        "uncertainty_notes": "Best-fit follows the visible A367/Bristol Road corridor at review-map precision. It is not official geometry, does not settle exact alignment, and should be spot-checked against the source map."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.448, 51.293],
+          [-2.441, 51.302],
+          [-2.435, 51.311],
+          [-2.426, 51.316]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "atm-5-6a-bath-old-road-quiet",
+        "route_name": "Bath Old Road quiet route alternative",
+        "source_layer": "atm-route",
+        "source_atm_classification": "quiet",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "low",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from the public ATM route-map PDF and Part 6 route table text describing route 5-6a as the nearby quiet route along Bath Old Road to avoid the steep hill out of Radstock.",
+        "uncertainty_notes": "The source text identifies the quiet alternative but the public map graphic is dense in this area. Alignment is best-fit and low-confidence until visually checked."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.426, 51.316],
+          [-2.403, 51.334],
+          [-2.383, 51.354],
+          [-2.371, 51.369]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "atm-6-8A-peasedown-bath-strategic",
+        "route_name": "Peasedown St John to Bath strategic route",
+        "source_layer": "atm-route",
+        "source_atm_classification": "strategic",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from the public ATM route-map PDF and Part 6 route table text describing route 6-8A as continuing from Peasedown St John into Bath, with the SVL text noting the A367 approach along Wellsway to the A36 Churchill gyratory.",
+        "uncertainty_notes": "Best-fit follows the broad Peasedown to Bath/Wellsway corridor. It is not official route geometry and does not settle junction or carriageway-side detail."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.448, 51.293],
+          [-2.473, 51.287],
+          [-2.485, 51.285],
+          [-2.529, 51.298]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "atm-5-3A-a362-radstock-midsomer-farrington",
+        "route_name": "A362 strategic route from Radstock to Midsomer Norton and Farrington Gurney",
+        "source_layer": "atm-route",
+        "source_atm_classification": "strategic",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from the public ATM route-map PDF and Part 6 route table text describing route 5-3A as a new strategic route proposal on the A362 providing direct access for cyclists.",
+        "uncertainty_notes": "Best-fit follows the Radstock, Midsomer Norton and Farrington Gurney corridor at review-map precision. Exact scheme limits remain unresolved."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.485, 51.285],
+          [-2.501, 51.305],
+          [-2.515, 51.314],
+          [-2.535, 51.322]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "atm-3-4b-old-mills-lane-quiet",
+        "route_name": "Old Mills Lane quiet route",
+        "source_layer": "atm-route",
+        "source_atm_classification": "quiet",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from the public ATM route-map PDF and Part 6 text describing a proposed quiet route on Old Mills Lane, accessible from the A362 strategic route.",
+        "uncertainty_notes": "Best-fit uses the Old Mills/Paulton/Hallatrow corridor for review. It should be checked against the source map before any public-facing precision is implied."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.359, 51.381],
+          [-2.336, 51.359],
+          [-2.345, 51.327],
+          [-2.448, 51.293],
+          [-2.485, 51.285]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "context-ncn24-two-tunnels-colliers-way",
+        "route_name": "NCN 24 / Two Tunnels / Colliers Way context",
+        "source_layer": "context-greenway",
+        "source_atm_classification": "context",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map",
+          "walk-wheel-cycle-trust-ncn-public"
+        ],
+        "provenance_notes": "Derived from public ATM Part 6 existing infrastructure text describing NCN Route 24 from Bath through Radstock, Colliers Way, and NCN 244 / Two Tunnels Greenway connections.",
+        "uncertainty_notes": "Included as greenway context for comparison with ATM/prototype corridors. It is not a prototype prioritisation decision and should not be treated as official extracted NCN geometry."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-2.485, 51.285],
+          [-2.471, 51.287],
+          [-2.456, 51.286],
+          [-2.448, 51.293]
+        ]
+      },
+      "properties": {
+        "atm_route_id": "context-norton-radstock-greenway-five-arches",
+        "route_name": "Norton-Radstock and Five Arches greenway context",
+        "source_layer": "context-greenway",
+        "source_atm_classification": "context",
+        "geometry_status": "best-fit-extracted-from-public-atm-map",
+        "geometry_confidence": "medium",
+        "needs_human_spot_check": true,
+        "source_ids": [
+          "banes-active-travel-masterplan-documents",
+          "banes-active-travel-masterplan-route-map"
+        ],
+        "provenance_notes": "Derived from public ATM Part 6 existing infrastructure text describing the Norton-Radstock Greenway from Northmead Road in Midsomer Norton to Somervale Road in Radstock, plus Five Arches Greenway context.",
+        "uncertainty_notes": "Best-fit greenway context only. Exact trail alignment and legal status are not established by this dataset."
+      }
+    }
+  ]
+}
