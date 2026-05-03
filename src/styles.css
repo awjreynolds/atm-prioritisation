@@ -1,0 +1,154 @@
+:root {
+  color: #17202a;
+  background: #f4f7f9;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  grid-template-rows: auto minmax(520px, 1fr);
+  gap: 16px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.masthead,
+.map-panel,
+.legend-panel {
+  border: 1px solid #d7e0e7;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(23, 32, 42, 0.07);
+}
+
+.masthead {
+  grid-column: 1 / -1;
+  padding: 20px 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #0b5cad;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: 3rem;
+  line-height: 1.05;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.caveat {
+  max-width: 860px;
+  margin-bottom: 0;
+  color: #425466;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.map-panel {
+  display: grid;
+  place-items: center;
+  min-height: 520px;
+  padding: 32px;
+  border-style: dashed;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
+    repeating-linear-gradient(
+      45deg,
+      #edf3f6,
+      #edf3f6 12px,
+      #f8fbfc 12px,
+      #f8fbfc 24px
+    );
+  text-align: center;
+}
+
+.map-panel p {
+  max-width: 520px;
+  margin-bottom: 0;
+  color: #52616f;
+  line-height: 1.6;
+}
+
+.legend-panel {
+  padding: 20px;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid #e5edf2;
+}
+
+.legend-item p {
+  margin-bottom: 0;
+  color: #425466;
+  line-height: 1.45;
+}
+
+.legend-swatch {
+  display: block;
+}
+
+.legend-swatch-status {
+  width: 28px;
+  height: 18px;
+  border-radius: 4px;
+  background: #0072b2;
+}
+
+.legend-swatch-width {
+  width: 34px;
+  height: 0;
+  border-top: 6px solid #0072b2;
+}
+
+@media (max-width: 780px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 12px;
+  }
+
+  .masthead {
+    padding: 18px;
+  }
+
+  .map-panel {
+    min-height: 420px;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+}
