@@ -28,14 +28,46 @@
       </section>
 
       <aside class="legend-panel" aria-label="Prototype legend">
-        <h2>Legend placeholder</h2>
+        <h2>Legend</h2>
+        <p class="legend-note">
+          Route status uses colour and line pattern. Modal shift potential uses
+          line width; wider lines indicate stronger potential.
+        </p>
+
+        <h3>Route status</h3>
         <div class="legend-item">
-          <span class="legend-swatch legend-swatch-status"></span>
-          <p>Route status will be shown with colourblind-safe colours.</p>
+          <span class="legend-swatch legend-swatch-preferred"></span>
+          <p>Preferred in simplified layer</p>
         </div>
         <div class="legend-item">
-          <span class="legend-swatch legend-swatch-width"></span>
-          <p>Modal shift potential will be shown with route line width.</p>
+          <span class="legend-swatch legend-swatch-supporting"></span>
+          <p>Supporting route</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch legend-swatch-not-preferred"></span>
+          <p>Not preferred in simplified layer</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch legend-swatch-needs-review"></span>
+          <p>Needs review</p>
+        </div>
+
+        <h3>Modal shift potential</h3>
+        <div class="legend-item">
+          <span class="legend-line legend-line-high"></span>
+          <p>High modal shift potential</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-line legend-line-medium"></span>
+          <p>Medium modal shift potential</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-line legend-line-low"></span>
+          <p>Low modal shift potential</p>
+        </div>
+        <div class="legend-item">
+          <span class="legend-line legend-line-unknown"></span>
+          <p>Unknown modal shift potential</p>
         </div>
       </aside>
     </main>

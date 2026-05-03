@@ -1,3 +1,5 @@
+import { styleRouteForMap } from "./route-styles.mjs";
+
 export function renderRouteMap(routes) {
   const backgroundRoutes = routes.filter(
     (route) => route.route_layer === "atm-background",
@@ -22,9 +24,17 @@ export function renderRouteMap(routes) {
 }
 
 function renderRoute(route) {
+  const style = styleRouteForMap(route);
+
   return [
-    "<article class=\"route-line\" data-route-id=\"",
+    "<article class=\"route-line\" style=\"",
+    renderRouteStyle(style),
+    "\" data-route-id=\"",
     escapeHtml(route.route_id),
+    "\" data-route-status-label=\"",
+    escapeHtml(style.statusLabel ?? "Original ATM-style source evidence"),
+    "\" data-modal-shift-label=\"",
+    escapeHtml(style.modalShiftLabel ?? "Background evidence"),
     "\">",
     "<h3>",
     escapeHtml(route.route_name),
@@ -38,6 +48,24 @@ function renderRoute(route) {
     escapeHtml(route.route_geometry_notes),
     "</p>",
     "</article>",
+  ].join("");
+}
+
+function renderRouteStyle(style) {
+  return [
+    "--route-stroke:",
+    style.stroke,
+    ";--route-stroke-width:",
+    style.strokeWidth,
+    "px;--route-opacity:",
+    style.strokeOpacity,
+    ";--route-dasharray:",
+    escapeHtml(style.strokeDasharray),
+    ";--route-stroke-style:",
+    style.strokeDasharray === "none" ? "solid" : "dashed",
+    ";--route-layer-order:",
+    style.layerOrder,
+    ";",
   ].join("");
 }
 
