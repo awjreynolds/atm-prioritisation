@@ -705,7 +705,8 @@ const firstReviewNote = await readFile(
 );
 const firstReviewNoteText = firstReviewNote.replace(/\s+/g, " ");
 assert.match(firstReviewNoteText, /first review-ready prototype pass/i);
-assert.match(firstReviewNoteText, /pending maintainer re-review/i);
+assert.match(firstReviewNoteText, /Maintainer sign-off completed/i);
+assert.match(firstReviewNoteText, /approved to share/i);
 assert.match(firstReviewNoteText, /independent personal proof-of-concept/i);
 assert.match(firstReviewNoteText, /not.*council.*endorsed/i);
 assert.match(firstReviewNoteText, /not.*WECA.*endorsed/i);

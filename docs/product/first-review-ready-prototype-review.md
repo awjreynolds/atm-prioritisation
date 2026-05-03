@@ -11,7 +11,7 @@ Review date: 2026-05-03
 ## Ready to share
 
 - Status correction on 2026-05-03: the earlier sign-off was withdrawn because the prototype rendered route records rather than an interactive route map.
-- The prototype now includes a clickable indicative route sketch as independent personal proof-of-concept work, but it is pending maintainer re-review before being shared with first reviewers.
+- Maintainer sign-off completed on 2026-05-03 after the clickable indicative route sketch was added. The prototype is approved to share with first reviewers as independent personal proof-of-concept work.
 - The masthead visibly says the prototype is not a council-owned plan, WECA-owned plan, formal LCWIP, or final prioritised network.
 - The README repeats that it is not council endorsed and not WECA endorsed.
 - The map keeps original ATM-style source evidence visually separate from the simplified prototype layer.
@@ -29,8 +29,9 @@ Review date: 2026-05-03
 - Destination context does not claim school-run impact, catchment coverage, route preference, or quantified modal-shift outcomes.
 - The prototype does not claim council endorsement, WECA endorsement, formal funding eligibility, route deliverability, or final network status.
 
-## Unresolved before first-review sign-off
+## Unresolved after first-review sign-off
 
 - The current route and destination geometry is indicative and should be replaced if reusable official geometry becomes available.
 - The prototype has not resolved exact ATM route geometry, exact pilot boundary, bus-service evidence, current route quality, deliverability, or which routes officers would consider preferred after evidence review.
+- A follow-up issue should move the prototype from the current clickable route sketch toward a fuller interactive map when route geometry and map approach decisions are ready.
 - The first feedback request should explicitly ask reviewers to challenge the route language, A367 hypothesis framing, data provenance, and whether the visual hierarchy is simple enough.
