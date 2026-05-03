@@ -1,0 +1,54 @@
+{
+  "requiredFields": [
+    "route_id",
+    "route_name",
+    "corridor_name",
+    "source_atm_classification",
+    "network_status",
+    "network_role",
+    "modal_shift_potential",
+    "age12_standard_target",
+    "school_access_relevance",
+    "broad_intervention_need",
+    "why_this_route_matters",
+    "what_needs_review",
+    "evidence_notes",
+    "provenance_notes",
+    "uncertainty_notes"
+  ],
+  "allowedValues": {
+    "network_status": [
+      "preferred",
+      "supporting",
+      "not-preferred",
+      "needs-review"
+    ],
+    "network_role": [
+      "utility-spine",
+      "settlement-connector",
+      "school-access-link",
+      "greenway-strategic-link",
+      "leisure-tourism-link",
+      "bus-corridor-access",
+      "gap-filler",
+      "local-feeder",
+      "unknown"
+    ],
+    "modal_shift_potential": ["high", "medium", "low", "unknown"],
+    "age12_standard_target": [
+      "likely-after-intervention",
+      "partial-after-intervention",
+      "unlikely-without-major-change",
+      "already-good-enough",
+      "unknown"
+    ],
+    "school_access_relevance": ["high", "medium", "low", "unknown"],
+    "broad_intervention_need": [
+      "existing-route-may-be-sufficient",
+      "upgrade-likely-needed",
+      "new-or-substantially-improved-route-likely-needed",
+      "officer-review-needed",
+      "unknown"
+    ]
+  }
+}

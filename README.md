@@ -39,3 +39,19 @@ npm run build
 ```
 
 The build output is written to `dist/`.
+
+## Route Data Contract
+
+Pilot route records are validated against `data/route-contract.json`. The
+contract contains the MVP route fields, allowed values for controlled fields,
+and required provenance, evidence, and uncertainty notes.
+
+Validate a route record file locally with:
+
+```sh
+npm run validate:routes -- path/to/routes.json
+```
+
+Use `unknown`, `needs-review`, and review notes where the MVP brief identifies
+unresolved evidence questions. Do not encode final route conclusions unless the
+supporting evidence has been added.
