@@ -18,6 +18,7 @@ export function renderRouteMap(routes, options = {}) {
 
   return [
     "<section class=\"route-map\" aria-label=\"Pilot route map\">",
+    renderSketchMap(routes, selectedRoute),
     "<div class=\"route-layer route-layer-background\" data-route-layer=\"atm-background\">",
     "<h2>Original ATM-style source evidence</h2>",
     ...backgroundRoutes.map((route) => renderRoute(route, selectedRoute)),
@@ -30,6 +31,88 @@ export function renderRouteMap(routes, options = {}) {
     renderRouteDetail(selectedRoute, destinations),
     "<footer class=\"map-attribution\">Route data: checked-in pilot dataset. B&amp;NES Active Travel Masterplan source context retained as background evidence.</footer>",
     "</section>",
+  ].join("");
+}
+
+function renderSketchMap(routes, selectedRoute) {
+  const routesWithGeometry = routes.filter((route) =>
+    Array.isArray(route.map_geometry?.points),
+  );
+
+  if (routesWithGeometry.length === 0) {
+    return "";
+  }
+
+  return [
+    "<div class=\"route-sketch\" aria-label=\"Indicative route map sketch\">",
+    "<svg class=\"route-sketch-map\" viewBox=\"0 0 100 100\" role=\"img\" aria-labelledby=\"route-sketch-title route-sketch-description\">",
+    "<title id=\"route-sketch-title\">Bath to Somer Valley indicative route sketch</title>",
+    "<desc id=\"route-sketch-description\">Clickable indicative route lines showing original ATM-style source evidence and simplified prototype corridors. Lines are sketch geometry, not official route alignments.</desc>",
+    renderSketchBackground(),
+    ...routesWithGeometry.map((route) =>
+      renderSketchRoute(route, selectedRoute),
+    ),
+    renderSketchLabel("Bath", 12, 86),
+    renderSketchLabel("Odd Down", 29, 64),
+    renderSketchLabel("Peasedown St John", 45, 45),
+    renderSketchLabel("Radstock", 67, 62),
+    renderSketchLabel("Midsomer Norton", 73, 88),
+    "</svg>",
+    "<p class=\"route-sketch-note\">Indicative sketch only: original ATM-style source evidence is shown as pale background context and prototype routes are shown above it. These lines are not official alignments.</p>",
+    "</div>",
+  ].join("");
+}
+
+function renderSketchBackground() {
+  return [
+    "<rect class=\"route-sketch-base\" x=\"0\" y=\"0\" width=\"100\" height=\"100\"></rect>",
+    "<path class=\"route-sketch-context route-sketch-context-a\" d=\"M8 30 C22 24 33 24 45 33 S68 44 91 36\"></path>",
+    "<path class=\"route-sketch-context route-sketch-context-b\" d=\"M11 82 C25 75 36 70 49 73 S72 86 90 79\"></path>",
+    "<path class=\"route-sketch-road\" d=\"M17 80 C31 62 47 49 62 38 S78 28 87 22\"></path>",
+  ].join("");
+}
+
+function renderSketchRoute(route, selectedRoute) {
+  const style = styleRouteForMap(route);
+  const isSelected = selectedRoute?.route_id === route.route_id;
+
+  return [
+    "<path class=\"route-sketch-line",
+    route.route_layer === "atm-background"
+      ? " route-sketch-line-background"
+      : " route-sketch-line-prototype",
+    isSelected ? " route-sketch-line-selected" : "",
+    "\" d=\"",
+    renderSketchPath(route.map_geometry.points),
+    "\" style=\"",
+    renderRouteStyle(style),
+    "\" data-route-id=\"",
+    escapeHtml(route.route_id),
+    "\" data-route-layer=\"",
+    escapeHtml(route.route_layer),
+    "\" tabindex=\"0\" role=\"button\" aria-controls=\"route-detail\" aria-pressed=\"",
+    isSelected ? "true" : "false",
+    "\" aria-label=\"Review ",
+    escapeHtml(route.route_name),
+    "\"></path>",
+  ].join("");
+}
+
+function renderSketchPath(points) {
+  return points
+    .map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
+    .join(" ");
+}
+
+function renderSketchLabel(label, x, y) {
+  return [
+    "<text class=\"route-sketch-label\" x=\"",
+    x,
+    "\" y=\"",
+    y,
+    "\">",
+    escapeHtml(label),
+    "</text>",
   ].join("");
 }
 

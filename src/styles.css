@@ -209,6 +209,84 @@ h3 {
   text-align: left;
 }
 
+.route-sketch {
+  display: grid;
+  gap: 10px;
+}
+
+.route-sketch-map {
+  display: block;
+  width: 100%;
+  min-height: 360px;
+  border: 1px solid #cddce5;
+  border-radius: 8px;
+  background: #eef5f7;
+}
+
+.route-sketch-base {
+  fill: #eef5f7;
+}
+
+.route-sketch-context {
+  fill: none;
+  stroke: #d7e0e7;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.route-sketch-road {
+  fill: none;
+  stroke: #d0d8df;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1 4;
+}
+
+.route-sketch-line {
+  fill: none;
+  stroke: var(--route-stroke, #425466);
+  stroke-width: var(--route-stroke-width, 4px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: var(--route-opacity, 1);
+  stroke-dasharray: var(--route-dasharray, none);
+  cursor: pointer;
+}
+
+.route-sketch-line-background {
+  filter: none;
+}
+
+.route-sketch-line-prototype {
+  filter: drop-shadow(0 2px 3px rgba(23, 32, 42, 0.18));
+}
+
+.route-sketch-line:hover,
+.route-sketch-line:focus-visible,
+.route-sketch-line-selected {
+  outline: none;
+  stroke-opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(11, 92, 173, 0.55));
+}
+
+.route-sketch-label {
+  fill: #17202a;
+  font-size: 3px;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-linejoin: round;
+  stroke-width: 0.8px;
+}
+
+.route-sketch-note {
+  max-width: none;
+  margin: 0;
+  color: #425466;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 .route-layer {
   display: grid;
   gap: 10px;
