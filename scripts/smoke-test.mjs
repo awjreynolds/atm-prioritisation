@@ -43,6 +43,14 @@ assert.match(routeMap.innerHTML, /Why this route matters/i);
 assert.match(routeMap.innerHTML, /What needs review/i);
 assert.match(routeMap.innerHTML, /Evidence and provenance/i);
 
+const keyboardRouteMap = await renderAppWithHarness();
+keyboardRouteMap.dispatchKeyDown(
+  routeTarget("prototype-a367-utility-corridor-hypothesis"),
+  "Enter",
+);
+assert.match(keyboardRouteMap.innerHTML, /A367 utility-corridor hypothesis/i);
+assert.match(keyboardRouteMap.innerHTML, /Evidence and provenance/i);
+
 auditAccessibility(`${pageHtml}\n${routeMap.innerHTML}`);
 
 async function fetchBuiltAsset(resource) {
@@ -129,6 +137,15 @@ function createRouteMapElement() {
       const listener = listeners.get("click");
       assert.equal(typeof listener, "function");
       listener({ target });
+    },
+    dispatchKeyDown(target, key) {
+      const listener = listeners.get("keydown");
+      assert.equal(typeof listener, "function");
+      listener({
+        key,
+        preventDefault() {},
+        target,
+      });
     },
   };
 }

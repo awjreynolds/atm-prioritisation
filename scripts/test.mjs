@@ -496,6 +496,14 @@ const renderedSelectedSchoolRouteMap = renderRouteMap(pilotRoutes, {
 });
 assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
 assert.match(renderedRouteMap, /Simplified prototype layer/i);
+assert.match(renderedRouteMap, /class="route-sketch-map"/i);
+assert.match(renderedRouteMap, /viewBox="0 0 100 100"/i);
+assert.match(renderedRouteMap, /<path[^>]+class="route-sketch-line/i);
+assert.match(renderedRouteMap, /<path[^>]+data-route-id="prototype-a367-utility-corridor-hypothesis"/i);
+assert.match(renderedRouteMap, /Bath/i);
+assert.match(renderedRouteMap, /Peasedown St John/i);
+assert.match(renderedRouteMap, /Radstock/i);
+assert.match(renderedRouteMap, /Midsomer Norton/i);
 assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
 assert.match(renderedRouteMap, /data-route-layer="prototype-simplified"/i);
 assert.match(renderedRouteMap, /<button[^>]+data-route-id="/i);
@@ -686,5 +694,31 @@ assert.equal(existsSync(".github/workflows/pages.yml"), true);
 const workflow = await readFile(".github/workflows/pages.yml", "utf8");
 assert.match(workflow, /github-pages/i);
 assert.match(workflow, /npm run build/i);
+
+assert.equal(
+  existsSync("docs/product/first-review-ready-prototype-review.md"),
+  true,
+);
+const firstReviewNote = await readFile(
+  "docs/product/first-review-ready-prototype-review.md",
+  "utf8",
+);
+const firstReviewNoteText = firstReviewNote.replace(/\s+/g, " ");
+assert.match(firstReviewNoteText, /first review-ready prototype pass/i);
+assert.match(firstReviewNoteText, /pending maintainer re-review/i);
+assert.match(firstReviewNoteText, /independent personal proof-of-concept/i);
+assert.match(firstReviewNoteText, /not.*council.*endorsed/i);
+assert.match(firstReviewNoteText, /not.*WECA.*endorsed/i);
+assert.match(firstReviewNoteText, /A367 utility-corridor hypothesis/i);
+assert.match(firstReviewNoteText, /not.*settled preferred route/i);
+assert.match(firstReviewNoteText, /clickable indicative route sketch/i);
+assert.match(firstReviewNoteText, /route data provenance/i);
+assert.match(firstReviewNoteText, /uncertainty/i);
+assert.match(firstReviewNoteText, /non-specialist reviewer/i);
+assert.match(firstReviewNoteText, /unresolved/i);
+assert.doesNotMatch(
+  firstReviewNoteText,
+  /\d+\s*(%|percent|car-mile|car mile|school-run|school run|modal shift|funding eligibility)/i,
+);
 
 await rm("tmp-route-tests", { recursive: true, force: true });

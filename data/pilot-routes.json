@@ -5,9 +5,19 @@
     "corridor_name": "Bath to Somer Valley",
     "route_layer": "atm-background",
     "data_status": "source-context",
-    "route_geometry_status": "source-context-no-reusable-geometry",
-    "geometry_source": "official-map-context",
-    "route_geometry_notes": "No coordinate geometry is encoded in this seed record. Any later hand-curated geometry must be labelled prototype/indicative in the UI.",
+    "route_geometry_status": "source-context-indicative-sketch",
+    "geometry_source": "manual-prototype-sketch",
+    "route_geometry_notes": "This is an indicative sketch line derived from source context for visual comparison only. It is not reusable official ATM coordinate geometry.",
+    "map_geometry": {
+      "type": "indicative-sketch",
+      "points": [
+        [16, 31],
+        [30, 43],
+        [47, 52],
+        [66, 66],
+        [82, 78]
+      ]
+    },
     "source_ids": [
       "banes-active-travel-masterplan-overview",
       "banes-existing-greenway-context",
@@ -24,7 +34,7 @@
     "what_needs_review": "Review exact source geometry, current route quality, settlement access, and whether the greenway role is primarily strategic, leisure, utility, or mixed.",
     "evidence_notes": "Council context identifies existing greenway and NCN-related infrastructure around the pilot area, but this seed record does not treat it as automatically preferred.",
     "provenance_notes": "Uses the reviewed pilot source inventory entries for B&NES ATM context, closed consultation greenway context, and public NCN advisory context.",
-    "uncertainty_notes": "Source geometry, route condition, age-12 suitability, and everyday utility value remain unresolved for the MVP."
+    "uncertainty_notes": "Official source geometry, route condition, age-12 suitability, and everyday utility value remain unresolved for the MVP."
   },
   {
     "route_id": "atm-norton-radstock-greenway-background",
@@ -32,9 +42,18 @@
     "corridor_name": "Somer Valley local greenway context",
     "route_layer": "atm-background",
     "data_status": "source-context",
-    "route_geometry_status": "source-context-no-reusable-geometry",
-    "geometry_source": "official-map-context",
-    "route_geometry_notes": "No coordinate geometry is encoded in this seed record. Any later hand-curated geometry must be labelled prototype/indicative in the UI.",
+    "route_geometry_status": "source-context-indicative-sketch",
+    "geometry_source": "manual-prototype-sketch",
+    "route_geometry_notes": "This is an indicative sketch line derived from source context for visual comparison only. It is not reusable official ATM coordinate geometry.",
+    "map_geometry": {
+      "type": "indicative-sketch",
+      "points": [
+        [58, 70],
+        [67, 66],
+        [75, 73],
+        [84, 82]
+      ]
+    },
     "source_ids": [
       "banes-existing-greenway-context",
       "banes-public-rights-of-way-map"
@@ -61,6 +80,16 @@
     "route_geometry_status": "prototype-indicative",
     "geometry_source": "manual-prototype-sketch",
     "route_geometry_notes": "This is an indicative prototype corridor only, included to test everyday utility logic. It is not a final preferred alignment.",
+    "map_geometry": {
+      "type": "indicative-sketch",
+      "points": [
+        [18, 79],
+        [31, 62],
+        [46, 49],
+        [61, 38],
+        [79, 26]
+      ]
+    },
     "source_ids": [
       "a367-corridor-hypothesis-review",
       "os-open-names",
@@ -89,6 +118,15 @@
     "route_geometry_status": "prototype-indicative",
     "geometry_source": "manual-prototype-sketch",
     "route_geometry_notes": "This is an indicative prototype corridor for review, not a mapped design or delivery alignment.",
+    "map_geometry": {
+      "type": "indicative-sketch",
+      "points": [
+        [54, 77],
+        [65, 69],
+        [77, 72],
+        [86, 82]
+      ]
+    },
     "source_ids": [
       "dfe-get-information-about-schools",
       "os-open-names",
@@ -116,6 +154,16 @@
     "route_geometry_status": "prototype-indicative",
     "geometry_source": "manual-prototype-sketch",
     "route_geometry_notes": "This is an indicative comparison record only. It links source-context routes to the simplified review layer without encoding a final alignment.",
+    "map_geometry": {
+      "type": "indicative-sketch",
+      "points": [
+        [20, 75],
+        [35, 61],
+        [50, 51],
+        [67, 55],
+        [83, 78]
+      ]
+    },
     "source_ids": [
       "banes-active-travel-masterplan-documents",
       "banes-existing-greenway-context",

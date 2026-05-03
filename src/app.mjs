@@ -39,5 +39,20 @@ if (routeMap) {
     renderSelectedRouteMap();
   });
 
+  routeMap.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    const routeControl = event.target.closest("[data-route-id]");
+    if (!routeControl) {
+      return;
+    }
+
+    event.preventDefault();
+    selectedRouteId = routeControl.dataset.routeId;
+    renderSelectedRouteMap();
+  });
+
   renderSelectedRouteMap();
 }
