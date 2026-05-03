@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node scripts/test.mjs",
-    "validate:routes": "node scripts/validate-routes.mjs"
+    "validate:routes": "node scripts/validate-routes.mjs",
+    "validate:sources": "node scripts/validate-source-inventory.mjs"
   }
 }

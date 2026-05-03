@@ -36,6 +36,7 @@ evidence has been added.
 ```sh
 npm test
 npm run build
+npm run validate:sources
 ```
 
 The build output is written to `dist/`.
@@ -55,3 +56,40 @@ npm run validate:routes -- path/to/routes.json
 Use `unknown`, `needs-review`, and review notes where the MVP brief identifies
 unresolved evidence questions. Do not encode final route conclusions unless the
 supporting evidence has been added.
+
+## Pilot Route Dataset
+
+The first checked-in Bath to Somer Valley seed dataset lives in
+`data/pilot-routes.json`. It is intentionally small enough for manual review and
+contains both original ATM-style background records and simplified prototype
+review records.
+
+Validate it locally with:
+
+```sh
+npm run validate:routes -- data/pilot-routes.json
+```
+
+Records include provenance, evidence, uncertainty, source IDs, data status, and
+geometry-labelling fields. Prototype or hand-curated geometry must remain marked
+as indicative, and the A367 utility-corridor record must remain a hypothesis for
+review rather than a preferred alignment.
+
+## Pilot Source Inventory
+
+The reviewed pilot source inventory lives in
+`data/pilot-source-inventory.json`. It records candidate evidence sources for
+the Bath to Somer Valley pilot, including ATM route evidence, greenway context,
+the A367 utility-corridor hypothesis, schools and destinations, NCN context, bus
+context, transport connectivity data, design guidance, advisory map context, and
+sources that are unavailable or unsuitable for MVP use.
+
+Validate the inventory locally with:
+
+```sh
+npm run validate:sources
+```
+
+The inventory must distinguish official source evidence from advisory context,
+keep hypotheses marked as hypotheses, and identify which sources are safe enough
+for the first prototype dataset.
