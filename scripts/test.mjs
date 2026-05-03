@@ -11,6 +11,7 @@ const sourceInventory = JSON.parse(
 );
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 const { styleRouteForMap } = await import("../src/route-styles.mjs");
+const { formatRouteDetail } = await import("../src/route-details.mjs");
 
 assert.deepEqual(routeContract.requiredFields, [
   "route_id",
@@ -146,6 +147,77 @@ const completeRouteRecord = {
   provenance_notes: "Prototype fixture for route contract validation.",
   uncertainty_notes: "Open MVP evidence questions remain unresolved.",
 };
+
+const supportingRouteDetail = formatRouteDetail({
+  ...completeRouteRecord,
+  route_name: "Two Tunnels and Colliers Way source corridor",
+  corridor_name: "Bath to Somer Valley",
+  network_status: "supporting",
+  network_role: "greenway-strategic-link",
+  modal_shift_potential: "medium",
+  age12_standard_target: "partial-after-intervention",
+  school_access_relevance: "low",
+  broad_intervention_need: "existing-route-may-be-sufficient",
+  why_this_route_matters:
+    "This route keeps strategic greenway context visible for review.",
+  what_needs_review:
+    "Review whether its role is leisure, utility, strategic, or mixed.",
+  evidence_notes: "Greenway evidence is useful context, not a final decision.",
+  provenance_notes: "Uses reviewed public source inventory entries.",
+});
+
+assert.deepEqual(supportingRouteDetail.summary, {
+  title: "Two Tunnels and Colliers Way source corridor",
+  corridor: "Bath to Somer Valley",
+  networkStatus: "Supporting route",
+  networkRole: "Greenway strategic link",
+  modalShiftPotential: "Medium modal shift potential",
+  age12Target: "Partial after intervention",
+  schoolAccessRelevance: "Low school access relevance",
+  broadInterventionNeed: "Existing route may be sufficient",
+});
+assert.equal(
+  supportingRouteDetail.whyThisRouteMatters,
+  "This route keeps strategic greenway context visible for review.",
+);
+assert.equal(
+  supportingRouteDetail.whatNeedsReview,
+  "Review whether its role is leisure, utility, strategic, or mixed.",
+);
+assert.deepEqual(supportingRouteDetail.notes, [
+  "Greenway evidence is useful context, not a final decision.",
+  "Uses reviewed public source inventory entries.",
+  "Open MVP evidence questions remain unresolved.",
+]);
+
+const routeStatusCaveats = routeContract.allowedValues.network_status.map(
+  (network_status) => [
+    network_status,
+    formatRouteDetail({
+      ...completeRouteRecord,
+      network_status,
+    }).statusCaveat,
+  ],
+);
+
+assert.deepEqual(routeStatusCaveats, [
+  [
+    "preferred",
+    "Preferred in this simplified layer means a candidate investment priority for review; it does not mean the route is already safe or usable today.",
+  ],
+  [
+    "supporting",
+    "Supporting route means useful network context or connection; it is separate from a preferred investment status.",
+  ],
+  [
+    "not-preferred",
+    "Not preferred in this simplified layer means the prototype is not prioritising this route; it does not delete source evidence or make a final route decision.",
+  ],
+  [
+    "needs-review",
+    "Needs review means the available evidence is not enough to assign a stronger prototype status.",
+  ],
+]);
 
 const atmBackgroundStyle = styleRouteForMap({
   ...completeRouteRecord,
@@ -291,10 +363,15 @@ for (const route of pilotRoutes.filter(
 }
 const { renderRouteMap } = await import("../src/route-map.mjs");
 const renderedRouteMap = renderRouteMap(pilotRoutes);
+const renderedSelectedRouteMap = renderRouteMap(pilotRoutes, {
+  selectedRouteId: "prototype-a367-utility-corridor-hypothesis",
+});
 assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
 assert.match(renderedRouteMap, /Simplified prototype layer/i);
 assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
 assert.match(renderedRouteMap, /data-route-layer="prototype-simplified"/i);
+assert.match(renderedRouteMap, /<button[^>]+data-route-id="/i);
+assert.match(renderedRouteMap, /aria-controls="route-detail"/i);
 assert.match(renderedRouteMap, /--route-stroke:#b8c2cc/i);
 assert.match(renderedRouteMap, /--route-opacity:0\.45/i);
 assert.match(renderedRouteMap, /data-route-status-label="Needs review"/i);
@@ -312,6 +389,23 @@ assert.match(renderedRouteMap, /not a final preferred alignment/i);
 assert.match(renderedRouteMap, /Route data:/i);
 assert.match(renderedRouteMap, /checked-in pilot dataset/i);
 assert.match(renderedRouteMap, /B&amp;NES Active Travel Masterplan source context/i);
+
+assert.match(renderedSelectedRouteMap, /id="route-detail"/i);
+assert.match(renderedSelectedRouteMap, /A367 utility-corridor hypothesis/i);
+assert.match(renderedSelectedRouteMap, /Needs review/i);
+assert.match(renderedSelectedRouteMap, /Utility spine/i);
+assert.match(renderedSelectedRouteMap, /Unknown modal shift potential/i);
+assert.match(
+  renderedSelectedRouteMap,
+  /Unknown age-12 independent travel target/i,
+);
+assert.match(renderedSelectedRouteMap, /Unknown school access relevance/i);
+assert.match(renderedSelectedRouteMap, /Officer review needed/i);
+assert.match(renderedSelectedRouteMap, /Why this route matters/i);
+assert.match(renderedSelectedRouteMap, /What needs review/i);
+assert.match(renderedSelectedRouteMap, /Evidence and provenance/i);
+assert.match(renderedSelectedRouteMap, /not a final preferred alignment/i);
+assert.doesNotMatch(renderedSelectedRouteMap, /final route decision/i);
 
 const pilotRoutesText = JSON.stringify(pilotRoutes);
 assert.doesNotMatch(
@@ -376,6 +470,7 @@ execFileSync("npm", ["run", "build"], { stdio: "pipe" });
 assert.equal(existsSync("dist/index.html"), true);
 assert.equal(existsSync("dist/styles.css"), true);
 assert.equal(existsSync("dist/route-styles.mjs"), true);
+assert.equal(existsSync("dist/route-details.mjs"), true);
 assert.equal(existsSync("dist/app.mjs"), true);
 assert.equal(existsSync("dist/route-map.mjs"), true);
 assert.equal(existsSync("dist/data/pilot-routes.json"), true);
@@ -390,6 +485,9 @@ const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ renderRouteMap \}/i);
 assert.match(clientScript, /pilot-routes\.json/i);
 assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
+assert.match(clientScript, /addEventListener\("click"/i);
+assert.match(clientScript, /closest\("\[data-route-id\]"\)/i);
+assert.match(clientScript, /selectedRouteId/i);
 
 assert.match(
   visibleText,
@@ -412,6 +510,8 @@ assert.match(visibleText, /wider lines indicate stronger potential/i);
 const styles = await readFile("dist/styles.css", "utf8");
 assert.match(styles, /route-layer-background[\s\S]*opacity:\s*0\.[0-9]+/i);
 assert.match(styles, /route-layer-prototype[\s\S]*border-left:\s*[4-9]px/i);
+assert.match(styles, /route-line[\s\S]*cursor:\s*pointer/i);
+assert.match(styles, /route-detail-panel/i);
 assert.match(styles, /map-attribution/i);
 
 assert.equal(existsSync("README.md"), true);

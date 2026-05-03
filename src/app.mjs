@@ -6,5 +6,21 @@ const routeMap = document.querySelector("#route-map");
 if (routeMap) {
   const response = await fetch(routeDatasetUrl);
   const routes = await response.json();
-  routeMap.innerHTML = renderRouteMap(routes);
+  let selectedRouteId = null;
+
+  function renderSelectedRouteMap() {
+    routeMap.innerHTML = renderRouteMap(routes, { selectedRouteId });
+  }
+
+  routeMap.addEventListener("click", (event) => {
+    const routeControl = event.target.closest("[data-route-id]");
+    if (!routeControl) {
+      return;
+    }
+
+    selectedRouteId = routeControl.dataset.routeId;
+    renderSelectedRouteMap();
+  });
+
+  renderSelectedRouteMap();
 }
