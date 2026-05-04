@@ -1034,6 +1034,35 @@ assert.doesNotMatch(
   /\d+\s*(%|percent|car-mile|car mile|school-run|school run|modal shift|funding eligibility)/i,
 );
 
+assert.equal(existsSync("CONTEXT.md"), true);
+const domainContext = await readFile("CONTEXT.md", "utf8");
+const domainContextText = domainContext.replace(/\s+/g, " ");
+assert.match(domainContextText, /ATM Source Layer/i);
+assert.match(domainContextText, /Review Corridor Layer/i);
+assert.match(domainContextText, /Destination Context Layer/i);
+assert.match(domainContextText, /Uncertainty Layer/i);
+assert.match(domainContextText, /ATM Dataset Manifest/i);
+assert.match(domainContextText, /Extraction Batch/i);
+assert.match(domainContextText, /B&NES-Wide Full Product Pass/i);
+assert.doesNotMatch(domainContextText, /combined dataset/i);
+assert.doesNotMatch(domainContextText, /before deepening every Review Corridor/i);
+
+const requiredAdrFiles = [
+  "docs/adr/0001-separate-atm-source-layer-from-prototype-prioritisation.md",
+  "docs/adr/0002-use-review-corridors-as-the-product-unit.md",
+  "docs/adr/0003-use-atm-dataset-manifest-instead-of-source-mega-file.md",
+  "docs/adr/0004-require-evidence-backed-review-corridors.md",
+  "docs/adr/0005-build-agent-led-extraction-pipeline.md",
+  "docs/adr/0006-start-with-banes-wide-full-product-pass.md",
+  "docs/adr/0007-use-explicit-unknowns-in-banes-wide-product.md",
+  "docs/adr/0008-require-four-map-layer-families.md",
+  "docs/adr/0009-make-source-prototype-conflicts-explicit.md",
+  "docs/adr/0010-keep-review-workflow-read-only-in-the-app.md",
+];
+for (const adrFile of requiredAdrFiles) {
+  assert.equal(existsSync(adrFile), true, `${adrFile} should exist`);
+}
+
 function hydrateRouteMapWithFakeLeaflet(options) {
   const originalWindow = globalThis.window;
   const tileUrls = [];
