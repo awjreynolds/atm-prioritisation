@@ -3,9 +3,13 @@
   "name": "Bath to Somer Valley extracted ATM source geometry",
   "metadata": {
     "batch_id": "bath-somer-valley",
+    "batch_name": "Bath to Somer Valley pilot batch",
+    "batch_area": "Bath to Somer Valley",
+    "extraction_status": "pilot-batch",
     "geometry_precision": "review-map",
     "geometry_status": "best-fit-extracted-from-public-atm-map",
     "official_geometry": false,
+    "source_summary": "Public B&NES Active Travel Masterplan route-map context and related document text.",
     "notes": "Best-fit indicative source/context geometry extracted from public ATM map and document context for prototype review. This is not official reusable council GeoJSON or engineering/legal alignment."
   },
   "features": [

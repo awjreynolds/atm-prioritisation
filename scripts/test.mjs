@@ -9,6 +9,9 @@ const routeContract = JSON.parse(
 const sourceInventory = JSON.parse(
   await readFile("data/pilot-source-inventory.json", "utf8"),
 );
+const atmRouteExtractionSchema = JSON.parse(
+  await readFile("data/atm-route-extraction-schema.json", "utf8"),
+);
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 const { styleRouteForMap } = await import("../src/route-styles.mjs");
 const { formatRouteDetail } = await import("../src/route-details.mjs");
@@ -87,6 +90,38 @@ assert.equal(
   "node scripts/validate-atm-routes.mjs",
 );
 
+assert.deepEqual(atmRouteExtractionSchema.required_collection_metadata, [
+  "batch_id",
+  "batch_name",
+  "batch_area",
+  "extraction_status",
+  "geometry_precision",
+  "geometry_status",
+  "official_geometry",
+  "source_summary",
+  "notes",
+]);
+
+assert.deepEqual(atmRouteExtractionSchema.required_feature_properties, [
+  "atm_route_id",
+  "route_name",
+  "source_layer",
+  "source_atm_classification",
+  "geometry_status",
+  "geometry_confidence",
+  "needs_human_spot_check",
+  "source_ids",
+  "provenance_notes",
+  "uncertainty_notes",
+]);
+
+assert.equal(
+  atmRouteExtractionSchema.allowed_feature_values.geometry_status.includes(
+    "ambiguous-or-unextractable",
+  ),
+  true,
+);
+
 execFileSync("npm", ["run", "validate:sources"], { stdio: "pipe" });
 execFileSync("npm", ["run", "validate:destinations"], { stdio: "pipe" });
 
@@ -160,6 +195,21 @@ assert.match(bathSomerValleyExtractionNoteText, /best-fit/i);
 assert.match(bathSomerValleyExtractionNoteText, /ambigu/i);
 assert.match(bathSomerValleyExtractionNoteText, /not official reusable council GeoJSON/i);
 
+assert.equal(
+  existsSync("docs/product/full-banes-atm-extraction-plan.md"),
+  true,
+);
+const fullBanesExtractionPlan = await readFile(
+  "docs/product/full-banes-atm-extraction-plan.md",
+  "utf8",
+);
+const fullBanesExtractionPlanText = fullBanesExtractionPlan.replace(/\s+/g, " ");
+assert.match(fullBanesExtractionPlanText, /full B&NES ATM route extraction/i);
+assert.match(fullBanesExtractionPlanText, /data\/atm-route-extraction-schema\.json/i);
+assert.match(fullBanesExtractionPlanText, /geographic batch/i);
+assert.match(fullBanesExtractionPlanText, /ambiguous or unextractable/i);
+assert.match(fullBanesExtractionPlanText, /not official reusable council GeoJSON/i);
+
 assert.equal(sourceInventory.pilot_area, "Bath to Somer Valley");
 assert.equal(sourceInventory.review_status, "reviewed-for-mvp");
 assert.equal(
@@ -225,6 +275,114 @@ assert.match(
     "tmp-route-tests/atm-feature-missing-properties.geojson",
   ),
   /atm_route_id/,
+);
+
+await writeFile(
+  "tmp-route-tests/atm-routes-unextractable-feature.geojson",
+  `${JSON.stringify(
+    {
+      type: "FeatureCollection",
+      metadata: {
+        batch_id: "future-batch",
+        batch_name: "Future batch",
+        batch_area: "B&NES future batch",
+        extraction_status: "planned-batch",
+        geometry_precision: "unextractable",
+        geometry_status: "ambiguous-or-unextractable",
+        official_geometry: false,
+        source_summary: "Public ATM map context requires review.",
+        notes: "Planning fixture. This is not official reusable council GeoJSON.",
+      },
+      features: [
+        {
+          type: "Feature",
+          geometry: null,
+          properties: {
+            atm_route_id: "atm-future-ambiguous-route",
+            route_name: "Future ambiguous route",
+            source_layer: "atm-route",
+            source_atm_classification: "strategic",
+            geometry_status: "ambiguous-or-unextractable",
+            geometry_confidence: "unextractable",
+            needs_human_spot_check: true,
+            source_ids: ["banes-active-travel-masterplan-route-map"],
+            provenance_notes:
+              "The public ATM map identifies a route in this area.",
+            uncertainty_notes:
+              "The public map is too ambiguous to draw a best-fit geometry.",
+          },
+        },
+      ],
+    },
+    null,
+    2,
+  )}\n`,
+);
+validateAtmRoutes("tmp-route-tests/atm-routes-unextractable-feature.geojson");
+
+await writeFile(
+  "tmp-route-tests/atm-routes-unknown-source.geojson",
+  `${JSON.stringify(
+    {
+      type: "FeatureCollection",
+      metadata: {
+        batch_id: "future-batch",
+        batch_name: "Future batch",
+        batch_area: "B&NES future batch",
+        extraction_status: "planned-batch",
+        geometry_precision: "unextractable",
+        geometry_status: "ambiguous-or-unextractable",
+        official_geometry: false,
+        source_summary: "Public ATM map context requires review.",
+        notes: "Planning fixture. This is not official reusable council GeoJSON.",
+      },
+      features: [
+        {
+          type: "Feature",
+          geometry: null,
+          properties: {
+            atm_route_id: "atm-future-unknown-source",
+            route_name: "Future unknown source route",
+            source_layer: "atm-route",
+            source_atm_classification: "strategic",
+            geometry_status: "ambiguous-or-unextractable",
+            geometry_confidence: "unextractable",
+            needs_human_spot_check: true,
+            source_ids: ["unknown-source"],
+            provenance_notes:
+              "The public ATM map identifies a route in this area.",
+            uncertainty_notes:
+              "The public map is too ambiguous to draw a best-fit geometry.",
+          },
+        },
+      ],
+    },
+    null,
+    2,
+  )}\n`,
+);
+assert.match(
+  atmRoutesValidationFailure("tmp-route-tests/atm-routes-unknown-source.geojson"),
+  /unknown-source/,
+);
+
+await writeFile(
+  "tmp-route-tests/atm-routes-missing-batch-metadata.geojson",
+  `${JSON.stringify(
+    {
+      type: "FeatureCollection",
+      metadata: {},
+      features: [],
+    },
+    null,
+    2,
+  )}\n`,
+);
+assert.match(
+  atmRoutesValidationFailure(
+    "tmp-route-tests/atm-routes-missing-batch-metadata.geojson",
+  ),
+  /metadata\.batch_id/,
 );
 
 function validateRoutes(routeFile) {
@@ -591,30 +749,34 @@ for (const route of pilotRoutes.filter(
   assert.equal(route.route_geometry_status, "prototype-indicative");
   assert.match(route.route_geometry_notes, /prototype|indicative/i);
 }
-const { renderRouteMap } = await import("../src/route-map.mjs");
-const renderedRouteMap = renderRouteMap(pilotRoutes);
+const { hydrateLeafletRouteMap, renderRouteMap } = await import("../src/route-map.mjs");
+const renderedRouteMap = renderRouteMap(pilotRoutes, {
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+});
 const renderedRouteMapWithDestinations = renderRouteMap(pilotRoutes, {
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   destinations: pilotDestinations,
   showDestinations: true,
 });
 const renderedSelectedRouteMap = renderRouteMap(pilotRoutes, {
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   selectedRouteId: "prototype-a367-utility-corridor-hypothesis",
 });
 const renderedSelectedSchoolRouteMap = renderRouteMap(pilotRoutes, {
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   destinations: pilotDestinations,
   selectedRouteId: "prototype-somer-valley-school-access-review",
   showDestinations: true,
 });
 assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
 assert.match(renderedRouteMap, /Simplified prototype layer/i);
-assert.match(renderedRouteMap, /class="route-sketch-map"/i);
-assert.match(renderedRouteMap, /viewBox="0 0 100 100"/i);
-assert.match(renderedRouteMap, /<path[^>]+class="route-sketch-line/i);
-assert.match(renderedRouteMap, /<path[^>]+data-route-id="prototype-a367-utility-corridor-hypothesis"/i);
-assert.match(renderedRouteMap, /Bath/i);
-assert.match(renderedRouteMap, /Peasedown St John/i);
-assert.match(renderedRouteMap, /Radstock/i);
-assert.match(renderedRouteMap, /Midsomer Norton/i);
+assert.match(renderedRouteMap, /data-leaflet-route-map/i);
+assert.match(renderedRouteMap, /OpenStreetMap contributors/i);
+assert.match(renderedRouteMap, /Source ATM\/context geometry/i);
+assert.match(renderedRouteMap, /7 checked-in best-fit lon\/lat features/i);
+assert.match(renderedRouteMap, /data-map-layer="source-context"/i);
+assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
+assert.match(renderedRouteMap, /not official alignments/i);
 assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
 assert.match(renderedRouteMap, /data-route-layer="prototype-simplified"/i);
 assert.match(renderedRouteMap, /<button[^>]+data-route-id="/i);
@@ -632,6 +794,41 @@ assert.equal(
 assert.match(renderedRouteMap, /prototype-indicative/i);
 assert.match(renderedRouteMap, /manual-prototype-sketch/i);
 assert.match(renderedRouteMap, /not a final preferred alignment/i);
+
+const hydratedMap = hydrateRouteMapWithFakeLeaflet({
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  routes: pilotRoutes,
+});
+assert.equal(hydratedMap.tileUrls[0], "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+assert.equal(hydratedMap.geoJsonFeatureCounts[0], 7);
+assert.equal(hydratedMap.geoJsonFeatureCounts[1], 3);
+const somerValleyPrototypeFeature = hydratedMap.prototypeFeatures.find(
+  (feature) =>
+    feature.properties?.route_id ===
+    "prototype-somer-valley-school-access-review",
+);
+assert.deepEqual(
+  somerValleyPrototypeFeature.geometry.coordinates.slice(0, 2),
+  [
+    [-2.485, 51.285],
+    [-2.471, 51.287],
+  ],
+);
+assert.equal(
+  containsSegment(somerValleyPrototypeFeature.geometry.coordinates, [
+    -2.529,
+    51.298,
+  ], [
+    -2.448,
+    51.293,
+  ]),
+  false,
+);
+hydratedMap.prototypeRouteClickHandlers[0]();
+assert.equal(
+  hydratedMap.selectedRouteIds[0],
+  "prototype-a367-utility-corridor-hypothesis",
+);
 
 assert.match(renderedRouteMapWithDestinations, /School and key destination context/i);
 assert.match(renderedRouteMapWithDestinations, /data-destination-layer="pilot-destinations"/i);
@@ -738,6 +935,7 @@ assert.equal(existsSync("dist/app.mjs"), true);
 assert.equal(existsSync("dist/route-map.mjs"), true);
 assert.equal(existsSync("dist/data/pilot-routes.json"), true);
 assert.equal(existsSync("dist/data/pilot-destinations.json"), true);
+assert.equal(existsSync("dist/data/atm-routes-bath-somer-valley.geojson"), true);
 
 const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
@@ -746,10 +944,13 @@ assert.match(page, /href="styles\.css"/i);
 assert.match(page, /type="module" src="app\.mjs"/i);
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
-assert.match(clientScript, /import \{ renderRouteMap \}/i);
+assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);
 assert.match(clientScript, /pilot-routes\.json/i);
 assert.match(clientScript, /pilot-destinations\.json/i);
+assert.match(clientScript, /atm-routes-bath-somer-valley\.geojson/i);
+assert.match(clientScript, /leaflet@1\.9\.4/i);
 assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
+assert.match(clientScript, /hydrateLeafletRouteMap/i);
 assert.match(clientScript, /addEventListener\("click"/i);
 assert.match(clientScript, /closest\("\[data-route-id\]"\)/i);
 assert.match(clientScript, /closest\("\[data-destination-toggle\]"\)/i);
@@ -832,5 +1033,107 @@ assert.doesNotMatch(
   firstReviewNoteText,
   /\d+\s*(%|percent|car-mile|car mile|school-run|school run|modal shift|funding eligibility)/i,
 );
+
+function hydrateRouteMapWithFakeLeaflet(options) {
+  const originalWindow = globalThis.window;
+  const tileUrls = [];
+  const geoJsonFeatureCounts = [];
+  const prototypeFeatures = [];
+  const prototypeRouteClickHandlers = [];
+  const selectedRouteIds = [];
+  const root = {
+    querySelector(selector) {
+      assert.equal(selector, "[data-leaflet-route-map]");
+      return {};
+    },
+  };
+
+  globalThis.window = {
+    L: {
+      map() {
+        return {
+          fitBounds(bounds, fitOptions) {
+            assert.deepEqual(bounds, [["bounds"]]);
+            assert.deepEqual(fitOptions, { padding: [18, 18] });
+          },
+        };
+      },
+      tileLayer(url, tileOptions) {
+        tileUrls.push(url);
+        assert.match(tileOptions.attribution, /OpenStreetMap contributors/i);
+        return {
+          addTo() {
+            return {};
+          },
+        };
+      },
+      geoJSON(featureCollection, geoJsonOptions = {}) {
+        geoJsonFeatureCounts.push(featureCollection.features.length);
+        if (
+          featureCollection.features.some(
+            (feature) =>
+              feature.properties?.source_layer === "prototype-prioritisation",
+          )
+        ) {
+          prototypeFeatures.push(...featureCollection.features);
+        }
+        for (const feature of featureCollection.features) {
+          const layer = {
+            on(eventName, handler) {
+              assert.equal(eventName, "click");
+              prototypeRouteClickHandlers.push(handler);
+            },
+          };
+          geoJsonOptions.onEachFeature?.(feature, layer);
+          geoJsonOptions.style?.(feature);
+        }
+        return {
+          addTo() {
+            return {};
+          },
+        };
+      },
+      featureGroup() {
+        return {
+          getBounds() {
+            return [["bounds"]];
+          },
+        };
+      },
+    },
+  };
+
+  try {
+    hydrateLeafletRouteMap(root, {
+      ...options,
+      onRouteSelect(routeId) {
+        selectedRouteIds.push(routeId);
+      },
+    });
+  } finally {
+    globalThis.window = originalWindow;
+  }
+
+  return {
+    geoJsonFeatureCounts,
+    prototypeFeatures,
+    prototypeRouteClickHandlers,
+    selectedRouteIds,
+    tileUrls,
+  };
+}
+
+function containsSegment(coordinates, start, end) {
+  return coordinates.some((coordinate, index) => {
+    const previous = coordinates[index - 1];
+    return (
+      previous &&
+      previous[0] === start[0] &&
+      previous[1] === start[1] &&
+      coordinate[0] === end[0] &&
+      coordinate[1] === end[1]
+    );
+  });
+}
 
 await rm("tmp-route-tests", { recursive: true, force: true });

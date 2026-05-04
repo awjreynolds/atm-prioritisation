@@ -7,27 +7,39 @@ if (!geoJsonFile) {
   process.exit(1);
 }
 
+const schema = JSON.parse(
+  await readFile(
+    new URL("../data/atm-route-extraction-schema.json", import.meta.url),
+    "utf8",
+  ),
+);
+const sourceInventory = JSON.parse(
+  await readFile(
+    new URL("../data/pilot-source-inventory.json", import.meta.url),
+    "utf8",
+  ),
+);
 const geoJson = JSON.parse(await readFile(geoJsonFile, "utf8"));
 const errors = [];
+const knownSourceIds = new Set(
+  sourceInventory.sources.map((source) => source.id),
+);
 const allowedGeometryTypes = new Set(["LineString", "MultiLineString"]);
-const allowedSourceLayers = new Set([
-  "atm-route",
-  "context-greenway",
-  "context-route",
-]);
-const allowedGeometryConfidence = new Set(["high", "medium", "low"]);
-const requiredProperties = [
-  "atm_route_id",
-  "route_name",
-  "source_layer",
-  "source_atm_classification",
-  "geometry_status",
-  "geometry_confidence",
-  "needs_human_spot_check",
-  "source_ids",
-  "provenance_notes",
-  "uncertainty_notes",
-];
+const allowedSourceLayers = new Set(schema.allowed_feature_values.source_layer);
+const allowedGeometryConfidence = new Set(
+  schema.allowed_feature_values.geometry_confidence,
+);
+const allowedFeatureGeometryStatuses = new Set(
+  schema.allowed_feature_values.geometry_status,
+);
+const allowedCollectionValues = Object.fromEntries(
+  Object.entries(schema.allowed_collection_values).map(([property, values]) => [
+    property,
+    new Set(values),
+  ]),
+);
+const requiredProperties = schema.required_feature_properties;
+const requiredMetadataProperties = schema.required_collection_metadata;
 const officialGeometryPattern =
   /\bofficial\s+(reusable\s+)?(council\s+)?(geojson|geometry)\b/i;
 const bounds = {
@@ -45,6 +57,44 @@ if (!Array.isArray(geoJson.features)) {
   errors.push("ATM route dataset must include a features array.");
 }
 
+const metadata = geoJson.metadata;
+if (
+  metadata === null ||
+  typeof metadata !== "object" ||
+  Array.isArray(metadata)
+) {
+  errors.push("ATM route dataset must include metadata object.");
+} else {
+  for (const property of requiredMetadataProperties) {
+    if (!(property in metadata)) {
+      errors.push(`metadata.${property} is required.`);
+    } else if (
+      typeof metadata[property] === "string" &&
+      metadata[property].trim() === ""
+    ) {
+      errors.push(`metadata.${property} cannot be blank.`);
+    }
+  }
+
+  for (const [property, allowedValues] of Object.entries(
+    allowedCollectionValues,
+  )) {
+    if (property in metadata && !allowedValues.has(metadata[property])) {
+      errors.push(
+        `metadata.${property} has unsupported value "${metadata[property]}".`,
+      );
+    }
+  }
+
+  if (metadata.official_geometry !== false) {
+    errors.push("metadata.official_geometry must be false.");
+  }
+
+  if (impliesOfficialGeometry(metadata.notes ?? "")) {
+    errors.push("metadata.notes must not imply official reusable geometry.");
+  }
+}
+
 if (Array.isArray(geoJson.features)) {
   geoJson.features.forEach((feature, featureIndex) => {
     const featureLabel =
@@ -55,7 +105,9 @@ if (Array.isArray(geoJson.features)) {
       return;
     }
 
-    if (!allowedGeometryTypes.has(feature.geometry?.type)) {
+    if (feature.geometry === null) {
+      // Null geometry is valid GeoJSON for routes that are recorded but unsafe to draw.
+    } else if (!allowedGeometryTypes.has(feature.geometry?.type)) {
       errors.push(
         `${featureLabel}: geometry must be LineString or MultiLineString`,
       );
@@ -93,7 +145,9 @@ if (Array.isArray(geoJson.features)) {
         typeof properties[property] === "string" &&
         properties[property].trim() === ""
       ) {
-        errors.push(`${featureLabel}: required property "${property}" cannot be blank`);
+        errors.push(
+          `${featureLabel}: required property "${property}" cannot be blank`,
+        );
       }
     }
 
@@ -108,10 +162,10 @@ if (Array.isArray(geoJson.features)) {
 
     if (
       "geometry_status" in properties &&
-      properties.geometry_status !== "best-fit-extracted-from-public-atm-map"
+      !allowedFeatureGeometryStatuses.has(properties.geometry_status)
     ) {
       errors.push(
-        `${featureLabel}: geometry_status must be "best-fit-extracted-from-public-atm-map"`,
+        `${featureLabel}: unsupported geometry_status "${properties.geometry_status}"`,
       );
     }
 
@@ -133,8 +187,44 @@ if (Array.isArray(geoJson.features)) {
       );
     }
 
-    if (!Array.isArray(properties.source_ids) || properties.source_ids.length === 0) {
+    if (
+      properties.geometry_confidence === "unextractable" &&
+      properties.needs_human_spot_check !== true
+    ) {
+      errors.push(
+        `${featureLabel}: unextractable features must set needs_human_spot_check true`,
+      );
+    }
+
+    if (
+      feature.geometry === null &&
+      properties.geometry_status !== "ambiguous-or-unextractable"
+    ) {
+      errors.push(
+        `${featureLabel}: null geometry must use geometry_status "ambiguous-or-unextractable"`,
+      );
+    }
+
+    if (
+      feature.geometry === null &&
+      properties.geometry_confidence !== "unextractable"
+    ) {
+      errors.push(
+        `${featureLabel}: null geometry must use geometry_confidence "unextractable"`,
+      );
+    }
+
+    if (
+      !Array.isArray(properties.source_ids) ||
+      properties.source_ids.length === 0
+    ) {
       errors.push(`${featureLabel}: source_ids must be a non-empty array`);
+    } else {
+      for (const sourceId of properties.source_ids) {
+        if (!knownSourceIds.has(sourceId)) {
+          errors.push(`${featureLabel}: unknown source_id "${sourceId}"`);
+        }
+      }
     }
 
     if (

@@ -29,10 +29,23 @@ const css = await cssResponse.text();
 assert.match(css, /@media\s*\(max-width:\s*780px\)/i);
 assert.match(css, /grid-template-columns:\s*1fr/i);
 
+const atmGeoJsonResponse = await fetchBuiltAsset(
+  "data/atm-routes-bath-somer-valley.geojson",
+);
+assert.equal(atmGeoJsonResponse.status, 200);
+const atmGeoJson = await atmGeoJsonResponse.json();
+assert.equal(atmGeoJson.type, "FeatureCollection");
+
 const routeMap = await renderAppWithHarness();
 assert.match(routeMap.innerHTML, /data-route-id="/i);
 assert.match(routeMap.innerHTML, /Original ATM-style source evidence/i);
 assert.match(routeMap.innerHTML, /Simplified prototype layer/i);
+assert.match(routeMap.innerHTML, /data-leaflet-route-map/i);
+assert.match(routeMap.innerHTML, /data-map-layer="source-context"/i);
+assert.match(routeMap.innerHTML, /data-map-layer="prototype-prioritisation"/i);
+assert.match(routeMap.innerHTML, /OpenStreetMap/i);
+assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);
+assert.match(routeMap.innerHTML, /not official alignments/i);
 
 const selectedRouteId = firstRouteId(routeMap.innerHTML);
 routeMap.dispatchClick(routeTarget(selectedRouteId));
