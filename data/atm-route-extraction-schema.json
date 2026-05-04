@@ -1,0 +1,75 @@
+{
+  "schema_name": "B&NES ATM route extraction schema",
+  "schema_version": "0.1.0",
+  "dataset_type": "GeoJSON FeatureCollection",
+  "required_collection_metadata": [
+    "batch_id",
+    "batch_name",
+    "batch_area",
+    "extraction_status",
+    "geometry_precision",
+    "geometry_status",
+    "official_geometry",
+    "source_summary",
+    "notes"
+  ],
+  "allowed_collection_values": {
+    "extraction_status": [
+      "pilot-batch",
+      "planned-batch",
+      "in-progress",
+      "complete",
+      "blocked"
+    ],
+    "geometry_precision": [
+      "review-map",
+      "batch-plan",
+      "unextractable"
+    ],
+    "geometry_status": [
+      "best-fit-extracted-from-public-atm-map",
+      "not-yet-extracted",
+      "ambiguous-or-unextractable"
+    ]
+  },
+  "required_feature_properties": [
+    "atm_route_id",
+    "route_name",
+    "source_layer",
+    "source_atm_classification",
+    "geometry_status",
+    "geometry_confidence",
+    "needs_human_spot_check",
+    "source_ids",
+    "provenance_notes",
+    "uncertainty_notes"
+  ],
+  "allowed_feature_values": {
+    "source_layer": [
+      "atm-route",
+      "context-greenway",
+      "context-route"
+    ],
+    "geometry_confidence": [
+      "high",
+      "medium",
+      "low",
+      "unextractable"
+    ],
+    "geometry_status": [
+      "best-fit-extracted-from-public-atm-map",
+      "ambiguous-or-unextractable"
+    ]
+  },
+  "batching_expectations": {
+    "unit": "geographic batch",
+    "future_batches": [
+      "bath-core",
+      "bath-north-east",
+      "keynsham-and-saltford",
+      "somer-valley",
+      "rural-connections"
+    ],
+    "rule": "Extract future B&NES areas in reviewable geographic batches; record ambiguous or unextractable features rather than guessing alignments."
+  }
+}

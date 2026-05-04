@@ -197,6 +197,10 @@ h3 {
     min-height: 420px;
   }
 
+  .leaflet-layer-summary {
+    grid-template-columns: 1fr;
+  }
+
   h1 {
     font-size: 2.25rem;
   }
@@ -207,6 +211,38 @@ h3 {
   width: min(100%, 960px);
   gap: 18px;
   text-align: left;
+}
+
+.leaflet-map-shell {
+  display: grid;
+  gap: 10px;
+}
+
+.leaflet-route-map {
+  width: 100%;
+  min-height: 420px;
+  overflow: hidden;
+  border: 1px solid #cddce5;
+  border-radius: 8px;
+  background: #dce8ee;
+}
+
+.leaflet-layer-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.leaflet-layer-summary p {
+  min-height: 100%;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #d7e0e7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #425466;
+  font-size: 0.88rem;
+  line-height: 1.45;
 }
 
 .route-sketch {

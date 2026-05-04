@@ -2,6 +2,7 @@ import { formatRouteDetail } from "./route-details.mjs";
 import { styleRouteForMap } from "./route-styles.mjs";
 
 export function renderRouteMap(routes, options = {}) {
+  const atmRoutesGeoJson = options.atmRoutesGeoJson;
   const destinations = Array.isArray(options.destinations)
     ? options.destinations
     : [];
@@ -18,7 +19,7 @@ export function renderRouteMap(routes, options = {}) {
 
   return [
     "<section class=\"route-map\" aria-label=\"Pilot route map\">",
-    renderSketchMap(routes, selectedRoute),
+    renderLeafletMap(atmRoutesGeoJson),
     "<div class=\"route-layer route-layer-background\" data-route-layer=\"atm-background\">",
     "<h2>Original ATM-style source evidence</h2>",
     ...backgroundRoutes.map((route) => renderRoute(route, selectedRoute)),
@@ -34,86 +35,236 @@ export function renderRouteMap(routes, options = {}) {
   ].join("");
 }
 
-function renderSketchMap(routes, selectedRoute) {
-  const routesWithGeometry = routes.filter((route) =>
-    Array.isArray(route.map_geometry?.points),
-  );
+export function hydrateLeafletRouteMap(root, options = {}) {
+  const mapElement = root?.querySelector?.("[data-leaflet-route-map]");
+  const leaflet = globalThis.window?.L;
 
-  if (routesWithGeometry.length === 0) {
-    return "";
+  if (!mapElement || !leaflet) {
+    return;
   }
 
+  const atmRoutesGeoJson = options.atmRoutesGeoJson;
+  const sourceFeatures = sourceContextFeatures(atmRoutesGeoJson);
+  const prototypeFeatures = prototypePrioritisationFeatures(
+    options.routes ?? [],
+    atmRoutesGeoJson,
+  );
+
+  if (sourceFeatures.length === 0 && prototypeFeatures.length === 0) {
+    return;
+  }
+
+  const map = leaflet.map(mapElement, {
+    scrollWheelZoom: false,
+  });
+
+  leaflet
+    .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+      maxZoom: 19,
+    })
+    .addTo(map);
+
+  const sourceLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: sourceFeatures,
+      },
+      {
+        style(feature) {
+          return styleSourceFeature(feature);
+        },
+      },
+    )
+    .addTo(map);
+
+  const prototypeLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: prototypeFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const routeId = feature.properties?.route_id;
+          if (!routeId) {
+            return;
+          }
+
+          layer.on("click", () => {
+            options.onRouteSelect?.(routeId);
+          });
+        },
+        style(feature) {
+          return stylePrototypeFeature(
+            feature,
+            feature.properties?.route_id === options.selectedRouteId,
+          );
+        },
+      },
+    )
+    .addTo(map);
+
+  const featureGroup = leaflet.featureGroup([sourceLayer, prototypeLayer]);
+  map.fitBounds(featureGroup.getBounds(), {
+    padding: [18, 18],
+  });
+}
+
+function renderLeafletMap(atmRoutesGeoJson) {
+  const sourceFeatureCount = sourceContextFeatures(atmRoutesGeoJson).length;
+
   return [
-    "<div class=\"route-sketch\" aria-label=\"Indicative route map sketch\">",
-    "<svg class=\"route-sketch-map\" viewBox=\"0 0 100 100\" role=\"img\" aria-labelledby=\"route-sketch-title route-sketch-description\">",
-    "<title id=\"route-sketch-title\">Bath to Somer Valley indicative route sketch</title>",
-    "<desc id=\"route-sketch-description\">Clickable indicative route lines showing original ATM-style source evidence and simplified prototype corridors. Lines are sketch geometry, not official route alignments.</desc>",
-    renderSketchBackground(),
-    ...routesWithGeometry.map((route) =>
-      renderSketchRoute(route, selectedRoute),
-    ),
-    renderSketchLabel("Bath", 12, 86),
-    renderSketchLabel("Odd Down", 29, 64),
-    renderSketchLabel("Peasedown St John", 45, 45),
-    renderSketchLabel("Radstock", 67, 62),
-    renderSketchLabel("Midsomer Norton", 73, 88),
-    "</svg>",
-    "<p class=\"route-sketch-note\">Indicative sketch only: original ATM-style source evidence is shown as pale background context and prototype routes are shown above it. These lines are not official alignments.</p>",
+    "<div class=\"leaflet-map-shell\" aria-label=\"Bath to Somer Valley interactive map\">",
+    "<div class=\"leaflet-route-map\" data-leaflet-route-map role=\"application\" aria-label=\"Leaflet map with OpenStreetMap streets basemap\"></div>",
+    "<div class=\"leaflet-layer-summary\" aria-label=\"Map layer summary\">",
+    "<p data-map-layer=\"source-context\"><strong>Source ATM/context geometry:</strong> ",
+    sourceFeatureCount,
+    " checked-in best-fit lon/lat features from the Bath to Somer Valley ATM extraction.</p>",
+    "<p data-map-layer=\"prototype-prioritisation\"><strong>Prototype hypothesis/prioritisation layers:</strong> selectable review corridors drawn separately above the source/context evidence.</p>",
+    "</div>",
+    "<p class=\"route-sketch-note\">Leaflet/OpenStreetMap map. Basemap attribution: OpenStreetMap contributors. Geometry is indicative review-map evidence and prototype hypothesis only; lines are not official alignments.</p>",
     "</div>",
   ].join("");
 }
 
-function renderSketchBackground() {
-  return [
-    "<rect class=\"route-sketch-base\" x=\"0\" y=\"0\" width=\"100\" height=\"100\"></rect>",
-    "<path class=\"route-sketch-context route-sketch-context-a\" d=\"M8 30 C22 24 33 24 45 33 S68 44 91 36\"></path>",
-    "<path class=\"route-sketch-context route-sketch-context-b\" d=\"M11 82 C25 75 36 70 49 73 S72 86 90 79\"></path>",
-    "<path class=\"route-sketch-road\" d=\"M17 80 C31 62 47 49 62 38 S78 28 87 22\"></path>",
-  ].join("");
+function sourceContextFeatures(atmRoutesGeoJson) {
+  return featureCollectionFeatures(atmRoutesGeoJson).filter((feature) =>
+    ["atm-route", "context-greenway"].includes(feature.properties?.source_layer),
+  );
 }
 
-function renderSketchRoute(route, selectedRoute) {
+function featureCollectionFeatures(geoJson) {
+  return geoJson?.type === "FeatureCollection" && Array.isArray(geoJson.features)
+    ? geoJson.features
+    : [];
+}
+
+function prototypePrioritisationFeatures(routes, atmRoutesGeoJson) {
+  const sourceFeatures = featureCollectionFeatures(atmRoutesGeoJson);
+  const sourceById = new Map(
+    sourceFeatures.map((feature) => [
+      feature.properties?.atm_route_id,
+      feature,
+    ]),
+  );
+
+  return routes
+    .filter((route) => route.route_layer === "prototype-simplified")
+    .map((route) => prototypeFeature(route, sourceById))
+    .filter(Boolean);
+}
+
+function prototypeFeature(route, sourceById) {
+  const coordinates = prototypeCoordinatesByRouteId(route.route_id, sourceById);
+
+  if (coordinates.length < 2) {
+    return null;
+  }
+
+  return {
+    type: "Feature",
+    geometry: {
+      type: "LineString",
+      coordinates,
+    },
+    properties: {
+      route_id: route.route_id,
+      route_name: route.route_name,
+      source_layer: "prototype-prioritisation",
+    },
+  };
+}
+
+function prototypeCoordinatesByRouteId(routeId, sourceById) {
+  if (routeId === "prototype-a367-utility-corridor-hypothesis") {
+    return compactLineCoordinates([
+      ...reverseCoordinates(
+        sourceById.get("atm-6-8A-peasedown-bath-strategic"),
+      ),
+      ...coordinatesWithoutFirst(
+        reverseCoordinates(
+          sourceById.get("atm-5-6A-a367-bristol-road-strategic"),
+        ),
+      ),
+      ...coordinatesWithoutFirst(
+        sourceById.get("atm-5-3A-a362-radstock-midsomer-farrington"),
+      ),
+    ]);
+  }
+
+  if (routeId === "prototype-somer-valley-school-access-review") {
+    return compactLineCoordinates([
+      ...sourceById.get("context-norton-radstock-greenway-five-arches")?.geometry
+        ?.coordinates ?? [],
+      ...coordinatesWithoutFirst(
+        sourceById.get("atm-5-3A-a362-radstock-midsomer-farrington"),
+      ),
+    ]);
+  }
+
+  if (routeId === "prototype-greenway-utility-comparison") {
+    return compactLineCoordinates(
+      sourceById.get("context-ncn24-two-tunnels-colliers-way")?.geometry
+        ?.coordinates ?? [],
+    );
+  }
+
+  return [];
+}
+
+function reverseCoordinates(feature) {
+  return [...(feature?.geometry?.coordinates ?? [])].reverse();
+}
+
+function coordinatesWithoutFirst(featureOrCoordinates) {
+  const coordinates = Array.isArray(featureOrCoordinates)
+    ? featureOrCoordinates
+    : featureOrCoordinates?.geometry?.coordinates;
+
+  return coordinates?.slice(1) ?? [];
+}
+
+function compactLineCoordinates(coordinates) {
+  return coordinates.filter((coordinate, index) => {
+    const previous = coordinates[index - 1];
+    return (
+      Array.isArray(coordinate) &&
+      coordinate.length >= 2 &&
+      (!previous ||
+        previous[0] !== coordinate[0] ||
+        previous[1] !== coordinate[1])
+    );
+  });
+}
+
+function styleSourceFeature(feature) {
+  const isGreenway = feature.properties?.source_layer === "context-greenway";
+
+  return {
+    color: isGreenway ? "#4f7f52" : "#667788",
+    dashArray: isGreenway ? "4 6" : "2 4",
+    opacity: 0.68,
+    weight: isGreenway ? 4 : 5,
+  };
+}
+
+function stylePrototypeFeature(feature, isSelected) {
+  const route = {
+    route_layer: "prototype-simplified",
+    network_status: isSelected ? "preferred" : "needs-review",
+    modal_shift_potential: "unknown",
+    route_id: feature.properties?.route_id,
+  };
   const style = styleRouteForMap(route);
-  const isSelected = selectedRoute?.route_id === route.route_id;
 
-  return [
-    "<path class=\"route-sketch-line",
-    route.route_layer === "atm-background"
-      ? " route-sketch-line-background"
-      : " route-sketch-line-prototype",
-    isSelected ? " route-sketch-line-selected" : "",
-    "\" d=\"",
-    renderSketchPath(route.map_geometry.points),
-    "\" style=\"",
-    renderRouteStyle(style),
-    "\" data-route-id=\"",
-    escapeHtml(route.route_id),
-    "\" data-route-layer=\"",
-    escapeHtml(route.route_layer),
-    "\" tabindex=\"0\" role=\"button\" aria-controls=\"route-detail\" aria-pressed=\"",
-    isSelected ? "true" : "false",
-    "\" aria-label=\"Review ",
-    escapeHtml(route.route_name),
-    "\"></path>",
-  ].join("");
-}
-
-function renderSketchPath(points) {
-  return points
-    .map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
-    .join(" ");
-}
-
-function renderSketchLabel(label, x, y) {
-  return [
-    "<text class=\"route-sketch-label\" x=\"",
-    x,
-    "\" y=\"",
-    y,
-    "\">",
-    escapeHtml(label),
-    "</text>",
-  ].join("");
+  return {
+    color: style.stroke,
+    dashArray: style.strokeDasharray === "none" ? undefined : style.strokeDasharray,
+    opacity: isSelected ? 1 : style.strokeOpacity,
+    weight: isSelected ? style.strokeWidth + 2 : style.strokeWidth,
+  };
 }
 
 function renderRoute(route, selectedRoute) {
