@@ -127,10 +127,10 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     options.showQuietLaneOpportunitiesLayer === false
       ? []
       : quietLaneOpportunityFeaturesForMap(options.wecaStrategicNetworkGeoJson);
-  const deprecatedNcnOpportunityFeatures =
+  const ncnReviewFeatures =
     options.showDeprecatedNcnOpportunitiesLayer === false
       ? []
-      : deprecatedNcnOpportunityFeaturesForMap(options.nationalCycleNetworkGeoJson);
+      : ncnReviewFeaturesForMap(options.nationalCycleNetworkGeoJson);
   const prototypeFeatures = options.selectedRouteId
     ? prototypePrioritisationFeatures(options.routes ?? [], atmRoutesGeoJson).filter(
         (feature) => feature.properties?.route_id === options.selectedRouteId,
@@ -144,7 +144,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     nationalCycleNetworkFeatures.length === 0 &&
     strategicNetworkFeatures.length === 0 &&
     quietLaneOpportunityFeatures.length === 0 &&
-    deprecatedNcnOpportunityFeatures.length === 0 &&
+    ncnReviewFeatures.length === 0 &&
     prototypeFeatures.length === 0
   ) {
     return;
@@ -335,11 +335,11 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     )
     .addTo(map);
 
-  const deprecatedNcnOpportunityLayer = leaflet
+  const ncnReviewLayer = leaflet
     .geoJSON(
       {
         type: "FeatureCollection",
-        features: deprecatedNcnOpportunityFeatures,
+        features: ncnReviewFeatures,
       },
       {
         onEachFeature(feature, layer) {
@@ -347,7 +347,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
           layer.bindPopup?.(
             [
               "<strong>",
-              escapeHtml(properties.corridor_name ?? "Deprecated NCN review"),
+              escapeHtml(properties.corridor_name ?? "NCN review"),
               "</strong>",
               properties.treatment_intent
                 ? `<br>${escapeHtml(formatKebabLabel(properties.treatment_intent))}`
@@ -420,7 +420,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     lcwipUrbanAreasLayer,
     strategicNetworkLayer,
     quietLaneOpportunityLayer,
-    deprecatedNcnOpportunityLayer,
+    ncnReviewLayer,
     nationalCycleNetworkLayer,
     satnCentroidLayer,
     sourceLayer,
@@ -458,7 +458,7 @@ function renderLeafletMap(options) {
   const quietLaneOpportunityCount = quietLaneOpportunityFeaturesForMap(
     wecaStrategicNetworkGeoJson,
   ).length;
-  const deprecatedNcnOpportunityCount = deprecatedNcnOpportunityFeaturesForMap(
+  const ncnReviewCount = ncnReviewFeaturesForMap(
     nationalCycleNetworkGeoJson,
   ).length;
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
@@ -502,7 +502,7 @@ function renderLeafletMap(options) {
     ),
     renderMapLayerToggle(
       "deprecated-ncn-opportunities",
-      "Phase 4: deprecated NCN review",
+      "Phase 4: NCN current/deprecated review",
       options.showDeprecatedNcnOpportunitiesLayer,
     ),
     ...atmLayerDefinitions.map((definition) =>
@@ -529,7 +529,7 @@ function renderLeafletMap(options) {
       satnFeatureCount,
       coreInterUrbanNetworkCount: coreInterUrbanNetworkFeatures.length,
       quietLaneOpportunityCount,
-      deprecatedNcnOpportunityCount,
+      ncnReviewCount,
       ncnCurrentCount,
       ncnReclassifiedCount,
       showUrbanEvidenceLayer: options.showUrbanEvidenceLayer,
@@ -554,7 +554,7 @@ function activeLayerSummaryItems({
   satnFeatureCount,
   coreInterUrbanNetworkCount,
   quietLaneOpportunityCount,
-  deprecatedNcnOpportunityCount,
+  ncnReviewCount,
   ncnCurrentCount,
   ncnReclassifiedCount,
   showUrbanEvidenceLayer,
@@ -618,9 +618,9 @@ function activeLayerSummaryItems({
   if (showDeprecatedNcnOpportunitiesLayer !== false) {
     items.push(
       [
-        "<p data-map-layer=\"deprecated-ncn-opportunities\"><strong>Deprecated NCN review:</strong> ",
-        deprecatedNcnOpportunityCount,
-        " reclassified/former NCN features flagged for quiet-lane or greenway review.</p>",
+        "<p data-map-layer=\"deprecated-ncn-opportunities\"><strong>NCN current/deprecated review:</strong> ",
+        ncnReviewCount,
+        " current and reclassified/former NCN features available for backbone, quiet-lane, or greenway review.</p>",
       ].join(""),
     );
   }
@@ -760,24 +760,29 @@ function quietLaneOpportunityFeaturesForMap(strategicNetworkGeoJson) {
     );
 }
 
-function deprecatedNcnOpportunityFeaturesForMap(nationalCycleNetworkGeoJson) {
-  const deprecatedNcnOpportunities = nationalCycleNetworkFeaturesForMap(
-    nationalCycleNetworkGeoJson,
-  )
-    .filter((feature) => feature.properties?.ncn_status === "reclassified")
-    .map((feature) => ({
-      ...feature,
-      properties: {
-        ...feature.properties,
-        strategic_network_feature_type: "deprecated-ncn-quiet-lane-opportunity",
-        corridor_name: feature.properties?.Desc_ ?? "Deprecated NCN opportunity",
-        treatment_intent: "20mph-quiet-lane-or-greenway-review",
-        geometry_basis: "reclassified NCN",
-        source_layer: "weca-strategic-network-synthesis",
-      },
-    }));
-
-  return deprecatedNcnOpportunities;
+function ncnReviewFeaturesForMap(nationalCycleNetworkGeoJson) {
+  return nationalCycleNetworkFeaturesForMap(nationalCycleNetworkGeoJson).map(
+    (feature) => {
+      const reclassified = feature.properties?.ncn_status === "reclassified";
+      return {
+        ...feature,
+        properties: {
+          ...feature.properties,
+          strategic_network_feature_type: reclassified
+            ? "deprecated-ncn-quiet-lane-opportunity"
+            : "current-ncn-review",
+          corridor_name:
+            feature.properties?.Desc_ ??
+            (reclassified ? "Deprecated NCN opportunity" : "Existing NCN route"),
+          treatment_intent: reclassified
+            ? "20mph-quiet-lane-or-greenway-review"
+            : "protect-upgrade-existing-ncn",
+          geometry_basis: reclassified ? "reclassified NCN" : "current NCN",
+          source_layer: "weca-strategic-network-synthesis",
+        },
+      };
+    },
+  );
 }
 
 function featureCollectionFeatures(geoJson) {
@@ -978,6 +983,15 @@ function styleQuietLaneOpportunityFeature(feature) {
       color: "#6f72af",
       dashArray: "2 7",
       opacity: 0.86,
+      weight: 4,
+    };
+  }
+
+  if (feature.properties?.strategic_network_feature_type === "current-ncn-review") {
+    return {
+      color: "#00703c",
+      dashArray: "10 4",
+      opacity: 0.78,
       weight: 4,
     };
   }

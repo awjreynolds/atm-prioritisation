@@ -940,7 +940,7 @@ assert.match(renderedRouteMap, /18 prioritised corridor links/i);
 assert.match(renderedRouteMap, /data-map-layer="quiet-lane-opportunities"/i);
 assert.match(renderedRouteMap, /9 supporting reach or greenway opportunity features/i);
 assert.match(renderedRouteMap, /data-map-layer="deprecated-ncn-opportunities"/i);
-assert.match(renderedRouteMap, /67 reclassified\/former NCN features flagged/i);
+assert.match(renderedRouteMap, /855 current and reclassified\/former NCN features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /not official alignments/i);
@@ -1122,13 +1122,13 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-clean-default-20260521b"/i,
+  /type="module" src="app\.mjs\?v=ncn-review-current-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /hydrateLeafletRouteMap/i);
 assert.match(clientScript, /renderRouteMap/i);
-assert.match(clientScript, /route-map\.mjs\?v=weca-clean-default-20260521/i);
+assert.match(clientScript, /route-map\.mjs\?v=ncn-review-current-20260521/i);
 assert.match(clientScript, /pilot-routes\.json/i);
 assert.match(clientScript, /pilot-destinations\.json/i);
 assert.match(clientScript, /atm-routes-bath-somer-valley\.geojson/i);
@@ -1172,8 +1172,8 @@ assert.match(visibleText, /wider lines indicate stronger potential/i);
 assert.match(visibleText, /Core inter-urban network/i);
 assert.match(visibleText, /Core WECA inter-urban A-road corridor/i);
 assert.match(visibleText, /Phase 3 quiet-lane and greenway reach/i);
-assert.match(visibleText, /Phase 4 deprecated NCN opportunity/i);
-assert.match(visibleText, /Deprecated NCN opportunity/i);
+assert.match(visibleText, /Phase 4 NCN review/i);
+assert.match(visibleText, /current routes to protect\/upgrade/i);
 
 const styles = await readFile("dist/styles.css", "utf8");
 assert.match(styles, /route-layer-background[\s\S]*opacity:\s*0\.[0-9]+/i);
