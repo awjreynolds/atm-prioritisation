@@ -918,11 +918,11 @@ assert.match(renderedRouteMap, /Original ATM-style source evidence/i);
 assert.match(renderedRouteMap, /Simplified prototype layer/i);
 assert.match(renderedRouteMap, /data-leaflet-route-map/i);
 assert.match(renderedRouteMap, /OpenStreetMap contributors/i);
-assert.match(renderedRouteMap, /Source ATM\/context geometry/i);
+assert.match(renderedRouteMap, /Visible ATM\/context geometry/i);
 assert.match(renderedRouteMap, /7 checked-in best-fit lon\/lat features/i);
 assert.match(renderedRouteMap, /data-map-layer="source-context"/i);
-assert.match(renderedRouteMap, /data-map-layer="lcwip-urban-areas"/i);
-assert.match(renderedRouteMap, /14 bounded urban areas/i);
+assert.match(renderedRouteMap, /data-map-layer="urban-evidence"/i);
+assert.match(renderedRouteMap, /14 bounded LCWIP urban areas/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-strategic"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-quiet"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-community-connections"/i);
@@ -934,8 +934,7 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="weca-strategic-network"/i
 assert.match(renderedRouteMap, /data-map-layer-toggle="quiet-lane-opportunities"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="deprecated-ncn-opportunities"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
-assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
-assert.match(renderedRouteMap, /221 centroid\/connector features/i);
+assert.match(renderedRouteMap, /221 community centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="weca-strategic-network"/i);
 assert.match(renderedRouteMap, /18 prioritised corridor links/i);
 assert.match(renderedRouteMap, /data-map-layer="quiet-lane-opportunities"/i);
@@ -944,7 +943,6 @@ assert.match(renderedRouteMap, /data-map-layer="deprecated-ncn-opportunities"/i)
 assert.match(renderedRouteMap, /67 reclassified\/former NCN features flagged/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
-assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
 assert.match(renderedRouteMap, /not official alignments/i);
 assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
 assert.match(renderedRouteMap, /data-route-layer="prototype-simplified"/i);
@@ -970,8 +968,16 @@ const hydratedMap = hydrateRouteMapWithFakeLeaflet({
 });
 assert.equal(hydratedMap.tileUrls[0], "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 assert.equal(hydratedMap.geoJsonFeatureCounts.includes(7), true);
-assert.equal(hydratedMap.geoJsonFeatureCounts.includes(3), true);
-const somerValleyPrototypeFeature = hydratedMap.prototypeFeatures.find(
+assert.equal(hydratedMap.prototypeFeatures.length, 0);
+assert.equal(hydratedMap.prototypeRouteClickHandlers.length, 0);
+
+const hydratedSelectedPrototypeMap = hydrateRouteMapWithFakeLeaflet({
+  atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  routes: pilotRoutes,
+  selectedRouteId: "prototype-somer-valley-school-access-review",
+});
+assert.equal(hydratedSelectedPrototypeMap.geoJsonFeatureCounts.includes(1), true);
+const somerValleyPrototypeFeature = hydratedSelectedPrototypeMap.prototypeFeatures.find(
   (feature) =>
     feature.properties?.route_id ===
     "prototype-somer-valley-school-access-review",
@@ -993,10 +999,10 @@ assert.equal(
   ]),
   false,
 );
-hydratedMap.prototypeRouteClickHandlers[0]();
+hydratedSelectedPrototypeMap.prototypeRouteClickHandlers[0]();
 assert.equal(
-  hydratedMap.selectedRouteIds[0],
-  "prototype-a367-utility-corridor-hypothesis",
+  hydratedSelectedPrototypeMap.selectedRouteIds[0],
+  "prototype-somer-valley-school-access-review",
 );
 
 assert.match(renderedRouteMapWithDestinations, /School and key destination context/i);
@@ -1116,7 +1122,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-core-default-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-clean-default-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");

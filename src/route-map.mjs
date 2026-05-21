@@ -131,10 +131,11 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     options.showDeprecatedNcnOpportunitiesLayer === false
       ? []
       : deprecatedNcnOpportunityFeaturesForMap(options.nationalCycleNetworkGeoJson);
-  const prototypeFeatures = prototypePrioritisationFeatures(
-    options.routes ?? [],
-    atmRoutesGeoJson,
-  );
+  const prototypeFeatures = options.selectedRouteId
+    ? prototypePrioritisationFeatures(options.routes ?? [], atmRoutesGeoJson).filter(
+        (feature) => feature.properties?.route_id === options.selectedRouteId,
+      )
+    : [];
 
   if (
     sourceFeatures.length === 0 &&
@@ -463,6 +464,19 @@ function renderLeafletMap(options) {
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
     ? " full B&amp;NES portal features from the public Active Travel Masterplan layer."
     : " checked-in best-fit lon/lat features from the Bath to Somer Valley ATM extraction.";
+  const visibleAtmDefinitions = atmLayerDefinitions.filter(
+    (definition) => options[definition.visibleOption] !== false,
+  );
+  const visibleAtmClassificationKeys = new Set(
+    visibleAtmDefinitions.map((definition) =>
+      classificationKey(definition.classification),
+    ),
+  );
+  const visibleAtmFeatureCount = sourceContextFeatures(atmRoutesGeoJson).filter(
+    (feature) =>
+      !isBanesAtmPortalGeoJson(atmRoutesGeoJson) ||
+      visibleAtmClassificationKeys.has(atmClassificationKey(feature)),
+  ).length;
 
   return [
     "<div class=\"leaflet-map-shell\" aria-label=\"Bath to Somer Valley interactive map\">",
@@ -506,35 +520,130 @@ function renderLeafletMap(options) {
     "</div>",
     "<div class=\"leaflet-route-map\" data-leaflet-route-map role=\"application\" aria-label=\"Leaflet map with OpenStreetMap streets basemap\"></div>",
     "<div class=\"leaflet-layer-summary\" aria-label=\"Map layer summary\">",
-    "<p data-map-layer=\"source-context\"><strong>Source ATM/context geometry:</strong> ",
-    sourceFeatureCount,
-    sourceSummary,
-    "</p>",
-    "<p data-map-layer=\"lcwip-urban-areas\"><strong>WECA LCWIP urban areas:</strong> ",
-    lcwipUrbanAreaCount,
-    " bounded urban areas from ONS built-up-area polygons, grouped for LCWIP/SATN context.</p>",
-    "<p data-map-layer=\"satn-centroid-connections\"><strong>SATN centroids and connections:</strong> ",
-    satnFeatureCount,
-    " centroid/connector features, with non-crossing connector lines.</p>",
-    "<p data-map-layer=\"weca-strategic-network\"><strong>Core WECA inter-urban network:</strong> ",
-    coreInterUrbanNetworkFeatures.length,
-    " prioritised corridor links between urban areas and strategic gateways.</p>",
-    "<p data-map-layer=\"quiet-lane-opportunities\"><strong>Quiet-lane and greenway opportunities:</strong> ",
-    quietLaneOpportunityCount,
-    " supporting reach or greenway opportunity features.</p>",
-    "<p data-map-layer=\"deprecated-ncn-opportunities\"><strong>Deprecated NCN review:</strong> ",
-    deprecatedNcnOpportunityCount,
-    " reclassified/former NCN features flagged for quiet-lane or greenway review.</p>",
-    "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
-    ncnCurrentCount,
-    " current features and ",
-    ncnReclassifiedCount,
-    " reclassified/former features.</p>",
-    "<p data-map-layer=\"prototype-prioritisation\"><strong>Prototype hypothesis/prioritisation layers:</strong> selectable review corridors drawn separately above the source/context evidence.</p>",
+    ...activeLayerSummaryItems({
+      visibleAtmDefinitions,
+      visibleAtmFeatureCount,
+      sourceFeatureCount,
+      sourceSummary,
+      lcwipUrbanAreaCount,
+      satnFeatureCount,
+      coreInterUrbanNetworkCount: coreInterUrbanNetworkFeatures.length,
+      quietLaneOpportunityCount,
+      deprecatedNcnOpportunityCount,
+      ncnCurrentCount,
+      ncnReclassifiedCount,
+      showUrbanEvidenceLayer: options.showUrbanEvidenceLayer,
+      showWecaStrategicNetworkLayer: options.showWecaStrategicNetworkLayer,
+      showQuietLaneOpportunitiesLayer: options.showQuietLaneOpportunitiesLayer,
+      showDeprecatedNcnOpportunitiesLayer:
+        options.showDeprecatedNcnOpportunitiesLayer,
+      showNationalCycleNetworkLayer: options.showNationalCycleNetworkLayer,
+    }),
     "</div>",
     "<p class=\"route-sketch-note\">Leaflet/OpenStreetMap map. Basemap attribution: OpenStreetMap contributors. Geometry is indicative review-map evidence and prototype hypothesis only; lines are not official alignments.</p>",
     "</div>",
   ].join("");
+}
+
+function activeLayerSummaryItems({
+  visibleAtmDefinitions,
+  visibleAtmFeatureCount,
+  sourceFeatureCount,
+  sourceSummary,
+  lcwipUrbanAreaCount,
+  satnFeatureCount,
+  coreInterUrbanNetworkCount,
+  quietLaneOpportunityCount,
+  deprecatedNcnOpportunityCount,
+  ncnCurrentCount,
+  ncnReclassifiedCount,
+  showUrbanEvidenceLayer,
+  showWecaStrategicNetworkLayer,
+  showQuietLaneOpportunitiesLayer,
+  showDeprecatedNcnOpportunitiesLayer,
+  showNationalCycleNetworkLayer,
+}) {
+  const items = [];
+
+  if (visibleAtmDefinitions.length > 0) {
+    const layerNames = visibleAtmDefinitions
+      .map((definition) => definition.classification)
+      .join(", ");
+    items.push(
+      [
+        "<p data-map-layer=\"source-context\"><strong>Visible ATM/context geometry:</strong> ",
+        visibleAtmFeatureCount,
+        " of ",
+        sourceFeatureCount,
+        sourceSummary,
+        " Active ATM classes: ",
+        escapeHtml(layerNames),
+        ".</p>",
+      ].join(""),
+    );
+  }
+
+  if (showUrbanEvidenceLayer !== false) {
+    items.push(
+      [
+        "<p data-map-layer=\"urban-evidence\"><strong>Urban areas and centroids:</strong> ",
+        lcwipUrbanAreaCount,
+        " bounded LCWIP urban areas plus ",
+        satnFeatureCount,
+        " community centroid/connector features.</p>",
+      ].join(""),
+    );
+  }
+
+  if (showWecaStrategicNetworkLayer !== false) {
+    items.push(
+      [
+        "<p data-map-layer=\"weca-strategic-network\"><strong>Core WECA inter-urban network:</strong> ",
+        coreInterUrbanNetworkCount,
+        " prioritised corridor links between urban areas and strategic gateways.</p>",
+      ].join(""),
+    );
+  }
+
+  if (showQuietLaneOpportunitiesLayer !== false) {
+    items.push(
+      [
+        "<p data-map-layer=\"quiet-lane-opportunities\"><strong>Quiet-lane and greenway opportunities:</strong> ",
+        quietLaneOpportunityCount,
+        " supporting reach or greenway opportunity features.</p>",
+      ].join(""),
+    );
+  }
+
+  if (showDeprecatedNcnOpportunitiesLayer !== false) {
+    items.push(
+      [
+        "<p data-map-layer=\"deprecated-ncn-opportunities\"><strong>Deprecated NCN review:</strong> ",
+        deprecatedNcnOpportunityCount,
+        " reclassified/former NCN features flagged for quiet-lane or greenway review.</p>",
+      ].join(""),
+    );
+  }
+
+  if (showNationalCycleNetworkLayer !== false) {
+    items.push(
+      [
+        "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
+        ncnCurrentCount,
+        " current features and ",
+        ncnReclassifiedCount,
+        " reclassified/former features.</p>",
+      ].join(""),
+    );
+  }
+
+  if (items.length === 0) {
+    items.push(
+      "<p data-map-layer=\"none\"><strong>No map layers selected:</strong> use the layer controls to add WECA phases or source evidence.</p>",
+    );
+  }
+
+  return items;
 }
 
 function renderMapLayerToggle(layerId, label, checked) {

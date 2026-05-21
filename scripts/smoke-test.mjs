@@ -88,10 +88,10 @@ assert.match(routeMap.innerHTML, /data-route-id="/i);
 assert.match(routeMap.innerHTML, /Original ATM-style source evidence/i);
 assert.match(routeMap.innerHTML, /Simplified prototype layer/i);
 assert.match(routeMap.innerHTML, /data-leaflet-route-map/i);
-assert.match(routeMap.innerHTML, /data-map-layer="source-context"/i);
-assert.match(routeMap.innerHTML, /data-map-layer="lcwip-urban-areas"/i);
-assert.match(routeMap.innerHTML, /data-map-layer="prototype-prioritisation"/i);
-assert.match(routeMap.innerHTML, /WECA LCWIP urban areas/i);
+assert.match(routeMap.innerHTML, /data-map-layer="weca-strategic-network"/i);
+assert.doesNotMatch(routeMap.innerHTML, /data-map-layer="source-context"/i);
+assert.doesNotMatch(routeMap.innerHTML, /data-map-layer="urban-evidence"/i);
+assert.match(routeMap.innerHTML, /Core WECA inter-urban network/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-strategic"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-quiet"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-community-connections"/i);
@@ -103,13 +103,10 @@ assert.match(routeMap.innerHTML, /data-map-layer-toggle="weca-strategic-network"
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="quiet-lane-opportunities"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="deprecated-ncn-opportunities"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="national-cycle-network"/i);
-assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
-assert.match(routeMap.innerHTML, /14 bounded urban areas/i);
-assert.match(routeMap.innerHTML, /221 centroid\/connector features/i);
 assert.match(routeMap.innerHTML, /18 prioritised corridor links/i);
-assert.match(routeMap.innerHTML, /9 supporting reach or greenway opportunity features/i);
-assert.match(routeMap.innerHTML, /67 reclassified\/former NCN features flagged/i);
-assert.match(routeMap.innerHTML, /reclassified\/former features/i);
+assert.doesNotMatch(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
+assert.doesNotMatch(routeMap.innerHTML, /14 bounded urban areas/i);
+assert.doesNotMatch(routeMap.innerHTML, /221 community centroid\/connector features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);
 assert.match(routeMap.innerHTML, /not official alignments/i);
@@ -291,8 +288,8 @@ function auditAccessibility(html) {
   assert.ok(labelledCheckboxes.some((label) => /School and key destination context/i.test(label)));
   assert.ok(labelledCheckboxes.some((label) => /ATM Strategic routes/i.test(label)));
   assert.ok(labelledCheckboxes.some((label) => /ATM Quiet routes/i.test(label)));
-  assert.ok(labelledCheckboxes.some((label) => /WECA LCWIP urban areas/i.test(label)));
-  assert.ok(labelledCheckboxes.some((label) => /SATN centroids and connections/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /Phase 1: urban areas and centroids/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /Phase 2: core WECA inter-urban network/i.test(label)));
   assert.ok(labelledCheckboxes.some((label) => /National Cycle Network/i.test(label)));
 }
 
