@@ -15,3 +15,15 @@ await copyFile(
   "dist/data/atm-routes-bath-somer-valley.geojson",
 );
 await copyFile("data/banes-atm-full.geojson", "dist/data/banes-atm-full.geojson");
+await copyFile(
+  "data/weca-lcwip-urban-areas.geojson",
+  "dist/data/weca-lcwip-urban-areas.geojson",
+);
+await copyFile(
+  "data/weca-satn-centroids.geojson",
+  "dist/data/weca-satn-centroids.geojson",
+);
+await copyFile(
+  "data/national-cycle-network.geojson",
+  "dist/data/national-cycle-network.geojson",
+);

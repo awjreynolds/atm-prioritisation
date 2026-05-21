@@ -6,6 +6,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "extract:banes-atm": "node scripts/extract-banes-atm-geojson.mjs",
+    "extract:weca-lcwip-areas": "node scripts/extract-weca-lcwip-urban-areas.mjs",
+    "extract:ncn": "node scripts/extract-national-cycle-network.mjs",
     "test": "node scripts/test.mjs && node scripts/smoke-test.mjs",
     "test:smoke": "node scripts/smoke-test.mjs",
     "validate:routes": "node scripts/validate-routes.mjs",

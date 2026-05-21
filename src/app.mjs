@@ -4,6 +4,9 @@ const routeDatasetUrl = "data/pilot-routes.json";
 const destinationDatasetUrl = "data/pilot-destinations.json";
 const atmRoutesGeoJsonUrl = "data/atm-routes-bath-somer-valley.geojson";
 const banesAtmGeoJsonUrl = "data/banes-atm-full.geojson";
+const wecaLcwipUrbanAreasGeoJsonUrl = "data/weca-lcwip-urban-areas.geojson";
+const wecaSatnCentroidsGeoJsonUrl = "data/weca-satn-centroids.geojson";
+const nationalCycleNetworkGeoJsonUrl = "data/national-cycle-network.geojson";
 const leafletCssUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
 const leafletScriptUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
 const routeMap = document.querySelector("#route-map");
@@ -14,35 +17,73 @@ if (routeMap) {
     destinationResponse,
     atmRoutesGeoJsonResponse,
     banesAtmGeoJsonResponse,
+    wecaLcwipUrbanAreasGeoJsonResponse,
+    wecaSatnCentroidsGeoJsonResponse,
+    nationalCycleNetworkGeoJsonResponse,
   ] = await Promise.all([
     fetch(routeDatasetUrl),
     fetch(destinationDatasetUrl),
     fetch(atmRoutesGeoJsonUrl),
     fetch(banesAtmGeoJsonUrl),
+    fetch(wecaLcwipUrbanAreasGeoJsonUrl),
+    fetch(wecaSatnCentroidsGeoJsonUrl),
+    fetch(nationalCycleNetworkGeoJsonUrl),
   ]);
   const routes = await routeResponse.json();
   const destinations = await destinationResponse.json();
   const atmRoutesGeoJson = await atmRoutesGeoJsonResponse.json();
   const banesAtmGeoJson = await banesAtmGeoJsonResponse.json();
+  const wecaLcwipUrbanAreasGeoJson =
+    await wecaLcwipUrbanAreasGeoJsonResponse.json();
+  const wecaSatnCentroidsGeoJson = await wecaSatnCentroidsGeoJsonResponse.json();
+  const nationalCycleNetworkGeoJson =
+    await nationalCycleNetworkGeoJsonResponse.json();
   const leafletReady = loadLeaflet();
   let selectedRouteId = null;
   let showDestinations = true;
+  let showAtmStrategicLayer = true;
+  let showAtmQuietLayer = true;
+  let showAtmCommunityConnectionsLayer = true;
+  let showAtmMissingPavementLayer = true;
+  let showLcwipUrbanAreasLayer = true;
+  let showSatnCentroidConnectionsLayer = true;
+  let showNationalCycleNetworkLayer = true;
 
   function renderSelectedRouteMap() {
     routeMap.innerHTML = renderRouteMap(routes, {
       atmRoutesGeoJson,
       banesAtmGeoJson,
+      wecaLcwipUrbanAreasGeoJson,
+      wecaSatnCentroidsGeoJson,
+      nationalCycleNetworkGeoJson,
       destinations,
       selectedRouteId,
       showDestinations,
+      showAtmStrategicLayer,
+      showAtmQuietLayer,
+      showAtmCommunityConnectionsLayer,
+      showAtmMissingPavementLayer,
+      showLcwipUrbanAreasLayer,
+      showSatnCentroidConnectionsLayer,
+      showNationalCycleNetworkLayer,
     });
     leafletReady
       .then(() => {
         hydrateLeafletRouteMap(routeMap, {
           atmRoutesGeoJson,
           banesAtmGeoJson,
+          wecaLcwipUrbanAreasGeoJson,
+          wecaSatnCentroidsGeoJson,
+          nationalCycleNetworkGeoJson,
           routes,
           selectedRouteId,
+          showAtmStrategicLayer,
+          showAtmQuietLayer,
+          showAtmCommunityConnectionsLayer,
+          showAtmMissingPavementLayer,
+          showLcwipUrbanAreasLayer,
+          showSatnCentroidConnectionsLayer,
+          showNationalCycleNetworkLayer,
           onRouteSelect(routeId) {
             selectedRouteId = routeId;
             renderSelectedRouteMap();
@@ -56,6 +97,36 @@ if (routeMap) {
     const destinationToggle = event.target.closest("[data-destination-toggle]");
     if (destinationToggle) {
       showDestinations = destinationToggle.checked;
+      renderSelectedRouteMap();
+      return;
+    }
+
+    const layerToggle = event.target.closest("[data-map-layer-toggle]");
+    if (layerToggle) {
+      switch (layerToggle.dataset.mapLayerToggle) {
+        case "atm-strategic":
+          showAtmStrategicLayer = layerToggle.checked;
+          break;
+        case "atm-quiet":
+          showAtmQuietLayer = layerToggle.checked;
+          break;
+        case "atm-community-connections":
+          showAtmCommunityConnectionsLayer = layerToggle.checked;
+          break;
+        case "atm-missing-pavement":
+          showAtmMissingPavementLayer = layerToggle.checked;
+          break;
+        case "lcwip-urban-areas":
+          showLcwipUrbanAreasLayer = layerToggle.checked;
+          break;
+        case "satn-centroid-connections":
+          showSatnCentroidConnectionsLayer = layerToggle.checked;
+          break;
+        case "national-cycle-network":
+          showNationalCycleNetworkLayer = layerToggle.checked;
+          break;
+      }
+
       renderSelectedRouteMap();
       return;
     }

@@ -1,13 +1,46 @@
 import { formatRouteDetail } from "./route-details.mjs";
 import { styleRouteForMap } from "./route-styles.mjs";
 
+const atmLayerDefinitions = [
+  {
+    id: "atm-strategic",
+    label: "ATM Strategic routes",
+    classification: "Strategic",
+    visibleOption: "showAtmStrategicLayer",
+  },
+  {
+    id: "atm-quiet",
+    label: "ATM Quiet routes",
+    classification: "Quiet",
+    visibleOption: "showAtmQuietLayer",
+  },
+  {
+    id: "atm-community-connections",
+    label: "ATM Community Connections",
+    classification: "Community Connections",
+    visibleOption: "showAtmCommunityConnectionsLayer",
+  },
+  {
+    id: "atm-missing-pavement",
+    label: "ATM Missing Pavement",
+    classification: "Missing Pavement",
+    visibleOption: "showAtmMissingPavementLayer",
+  },
+];
+
 export function renderRouteMap(routes, options = {}) {
   const atmRoutesGeoJson = options.atmRoutesGeoJson;
   const banesAtmGeoJson = options.banesAtmGeoJson;
+  const wecaLcwipUrbanAreasGeoJson = options.wecaLcwipUrbanAreasGeoJson;
+  const wecaSatnCentroidsGeoJson = options.wecaSatnCentroidsGeoJson;
+  const nationalCycleNetworkGeoJson = options.nationalCycleNetworkGeoJson;
   const destinations = Array.isArray(options.destinations)
     ? options.destinations
     : [];
   const showDestinations = options.showDestinations !== false;
+  const showLcwipUrbanAreasLayer = options.showLcwipUrbanAreasLayer !== false;
+  const showSatnCentroidConnectionsLayer =
+    options.showSatnCentroidConnectionsLayer !== false;
   const backgroundRoutes = routes.filter(
     (route) => route.route_layer === "atm-background",
   );
@@ -20,7 +53,17 @@ export function renderRouteMap(routes, options = {}) {
 
   return [
     "<section class=\"route-map\" aria-label=\"Pilot route map\">",
-    renderLeafletMap(banesAtmGeoJson ?? atmRoutesGeoJson),
+    renderLeafletMap({
+      atmRoutesGeoJson: banesAtmGeoJson ?? atmRoutesGeoJson,
+      wecaLcwipUrbanAreasGeoJson,
+      wecaSatnCentroidsGeoJson,
+      nationalCycleNetworkGeoJson,
+      showLcwipUrbanAreasLayer,
+      showSatnCentroidConnectionsLayer,
+      showNationalCycleNetworkLayer:
+        options.showNationalCycleNetworkLayer !== false,
+      ...atmVisibilityOptions(options),
+    }),
     "<div class=\"route-layer route-layer-background\" data-route-layer=\"atm-background\">",
     "<h2>Original ATM-style source evidence</h2>",
     ...backgroundRoutes.map((route) => renderRoute(route, selectedRoute)),
@@ -46,13 +89,40 @@ export function hydrateLeafletRouteMap(root, options = {}) {
 
   const atmRoutesGeoJson = options.atmRoutesGeoJson;
   const banesAtmGeoJson = options.banesAtmGeoJson;
-  const sourceFeatures = sourceContextFeatures(banesAtmGeoJson ?? atmRoutesGeoJson);
+  const sourceGeoJson = banesAtmGeoJson ?? atmRoutesGeoJson;
+  const visibleAtmClassifications = visibleAtmClassificationsForOptions(options);
+  const sourceFeatures =
+    visibleAtmClassifications.size === 0
+      ? []
+      : sourceContextFeatures(sourceGeoJson).filter(
+          (feature) =>
+            !isBanesAtmPortalGeoJson(sourceGeoJson) ||
+            visibleAtmClassifications.has(atmClassificationKey(feature)),
+        );
+  const lcwipUrbanAreaFeatures =
+    options.showLcwipUrbanAreasLayer === false
+      ? []
+      : lcwipUrbanAreaFeaturesForMap(options.wecaLcwipUrbanAreasGeoJson);
+  const satnCentroidFeatures =
+    options.showSatnCentroidConnectionsLayer === false
+      ? []
+      : satnCentroidFeaturesForMap(options.wecaSatnCentroidsGeoJson);
+  const nationalCycleNetworkFeatures =
+    options.showNationalCycleNetworkLayer === false
+      ? []
+      : nationalCycleNetworkFeaturesForMap(options.nationalCycleNetworkGeoJson);
   const prototypeFeatures = prototypePrioritisationFeatures(
     options.routes ?? [],
     atmRoutesGeoJson,
   );
 
-  if (sourceFeatures.length === 0 && prototypeFeatures.length === 0) {
+  if (
+    sourceFeatures.length === 0 &&
+    lcwipUrbanAreaFeatures.length === 0 &&
+    satnCentroidFeatures.length === 0 &&
+    nationalCycleNetworkFeatures.length === 0 &&
+    prototypeFeatures.length === 0
+  ) {
     return;
   }
 
@@ -65,6 +135,115 @@ export function hydrateLeafletRouteMap(root, options = {}) {
       attribution: "&copy; OpenStreetMap contributors",
       maxZoom: 19,
     })
+    .addTo(map);
+
+  const lcwipUrbanAreasLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: lcwipUrbanAreaFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              escapeHtml(properties.area_name ?? "LCWIP urban area"),
+              "</strong>",
+              "<br>",
+              escapeHtml(
+                (properties.component_built_up_areas ?? []).join(", "),
+              ),
+            ].join(""),
+          );
+        },
+        style() {
+          return {
+            color: "#f47738",
+            fillColor: "#f47738",
+            fillOpacity: 0.14,
+            opacity: 0.85,
+            weight: 2,
+          };
+        },
+      },
+    )
+    .addTo(map);
+
+  const nationalCycleNetworkLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: nationalCycleNetworkFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              properties.ncn_status === "reclassified"
+                ? "Reclassified NCN route"
+                : "National Cycle Network",
+              "</strong>",
+              properties.RouteNo ? `<br>Route ${escapeHtml(properties.RouteNo)}` : "",
+              properties.RouteCat ? `<br>${escapeHtml(properties.RouteCat)}` : "",
+              properties.Desc_ ? `<br>${escapeHtml(properties.Desc_)}` : "",
+            ].join(""),
+          );
+        },
+        style(feature) {
+          const reclassified = feature.properties?.ncn_status === "reclassified";
+          return {
+            color: reclassified ? "#505a5f" : "#00703c",
+            dashArray: reclassified ? "3 6" : "8 4",
+            opacity: reclassified ? 0.65 : 0.78,
+            weight: reclassified ? 3 : 4,
+          };
+        },
+      },
+    )
+    .addTo(map);
+
+  const satnCentroidLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: satnCentroidFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          const label =
+            properties.satn_feature_type === "centroid-connection"
+              ? `${properties.from_area_name} to ${properties.to_area_name}`
+              : properties.area_name;
+          layer.bindPopup?.(`<strong>${escapeHtml(label ?? "SATN feature")}</strong>`);
+        },
+        pointToLayer(feature, latLng) {
+          return leaflet.circleMarker(latLng, {
+            color: "#0b0c0c",
+            fillColor: "#ffdd00",
+            fillOpacity: 1,
+            radius: 5,
+            weight: 2,
+          });
+        },
+        style(feature) {
+          if (feature.geometry?.type === "Point") {
+            return undefined;
+          }
+
+          return {
+            color: "#0b0c0c",
+            dashArray: "6 4",
+            opacity: 0.85,
+            weight: 2,
+          };
+        },
+      },
+    )
     .addTo(map);
 
   const sourceLayer = leaflet
@@ -121,31 +300,122 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     )
     .addTo(map);
 
-  const featureGroup = leaflet.featureGroup([sourceLayer, prototypeLayer]);
+  const fitLayers = [
+    lcwipUrbanAreasLayer,
+    nationalCycleNetworkLayer,
+    satnCentroidLayer,
+    sourceLayer,
+    prototypeLayer,
+  ].filter((layer) => layer.getLayers?.().length > 0);
+  const featureGroup = leaflet.featureGroup(fitLayers);
   map.fitBounds(featureGroup.getBounds(), {
     padding: [18, 18],
   });
 }
 
-function renderLeafletMap(atmRoutesGeoJson) {
+function renderLeafletMap(options) {
+  const atmRoutesGeoJson = options.atmRoutesGeoJson;
+  const wecaLcwipUrbanAreasGeoJson = options.wecaLcwipUrbanAreasGeoJson;
+  const nationalCycleNetworkGeoJson = options.nationalCycleNetworkGeoJson;
+  const satnCentroidsGeoJson = options.wecaSatnCentroidsGeoJson;
   const sourceFeatureCount = sourceContextFeatures(atmRoutesGeoJson).length;
+  const lcwipUrbanAreaCount = lcwipUrbanAreaFeaturesForMap(
+    wecaLcwipUrbanAreasGeoJson,
+  ).length;
+  const satnFeatureCount = satnCentroidFeaturesForMap(satnCentroidsGeoJson).length;
+  const ncnFeatures = nationalCycleNetworkFeaturesForMap(
+    nationalCycleNetworkGeoJson,
+  );
+  const ncnCurrentCount = ncnFeatures.filter(
+    (feature) => feature.properties?.ncn_status === "current",
+  ).length;
+  const ncnReclassifiedCount = ncnFeatures.filter(
+    (feature) => feature.properties?.ncn_status === "reclassified",
+  ).length;
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
     ? " full B&amp;NES portal features from the public Active Travel Masterplan layer."
     : " checked-in best-fit lon/lat features from the Bath to Somer Valley ATM extraction.";
 
   return [
     "<div class=\"leaflet-map-shell\" aria-label=\"Bath to Somer Valley interactive map\">",
+    "<div class=\"map-layer-controls\" aria-label=\"Map layer controls\">",
+    ...atmLayerDefinitions.map((definition) =>
+      renderMapLayerToggle(
+        definition.id,
+        definition.label,
+        options[definition.visibleOption] !== false,
+      ),
+    ),
+    renderMapLayerToggle(
+      "lcwip-urban-areas",
+      "WECA LCWIP urban areas",
+      options.showLcwipUrbanAreasLayer,
+    ),
+    renderMapLayerToggle(
+      "satn-centroid-connections",
+      "SATN centroids and connections",
+      options.showSatnCentroidConnectionsLayer,
+    ),
+    renderMapLayerToggle(
+      "national-cycle-network",
+      "National Cycle Network",
+      options.showNationalCycleNetworkLayer,
+    ),
+    "</div>",
     "<div class=\"leaflet-route-map\" data-leaflet-route-map role=\"application\" aria-label=\"Leaflet map with OpenStreetMap streets basemap\"></div>",
     "<div class=\"leaflet-layer-summary\" aria-label=\"Map layer summary\">",
     "<p data-map-layer=\"source-context\"><strong>Source ATM/context geometry:</strong> ",
     sourceFeatureCount,
     sourceSummary,
     "</p>",
+    "<p data-map-layer=\"lcwip-urban-areas\"><strong>WECA LCWIP urban areas:</strong> ",
+    lcwipUrbanAreaCount,
+    " bounded urban areas from ONS built-up-area polygons, grouped for LCWIP/SATN context.</p>",
+    "<p data-map-layer=\"satn-centroid-connections\"><strong>SATN centroids and connections:</strong> ",
+    satnFeatureCount,
+    " centroid/connector features, with non-crossing connector lines.</p>",
+    "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
+    ncnCurrentCount,
+    " current features and ",
+    ncnReclassifiedCount,
+    " reclassified/former features.</p>",
     "<p data-map-layer=\"prototype-prioritisation\"><strong>Prototype hypothesis/prioritisation layers:</strong> selectable review corridors drawn separately above the source/context evidence.</p>",
     "</div>",
     "<p class=\"route-sketch-note\">Leaflet/OpenStreetMap map. Basemap attribution: OpenStreetMap contributors. Geometry is indicative review-map evidence and prototype hypothesis only; lines are not official alignments.</p>",
     "</div>",
   ].join("");
+}
+
+function renderMapLayerToggle(layerId, label, checked) {
+  return [
+    "<label class=\"map-layer-toggle\">",
+    "<input type=\"checkbox\" data-map-layer-toggle=\"",
+    escapeHtml(layerId),
+    "\"",
+    checked ? " checked" : "",
+    ">",
+    "<span>",
+    escapeHtml(label),
+    "</span>",
+    "</label>",
+  ].join("");
+}
+
+function atmVisibilityOptions(options) {
+  return Object.fromEntries(
+    atmLayerDefinitions.map((definition) => [
+      definition.visibleOption,
+      options[definition.visibleOption] !== false,
+    ]),
+  );
+}
+
+function visibleAtmClassificationsForOptions(options) {
+  return new Set(
+    atmLayerDefinitions
+      .filter((definition) => options[definition.visibleOption] !== false)
+      .map((definition) => classificationKey(definition.classification)),
+  );
 }
 
 function isBanesAtmPortalGeoJson(geoJson) {
@@ -163,6 +433,44 @@ function sourceContextFeatures(atmRoutesGeoJson) {
     ["atm-route", "context-greenway", "banes-atm-portal"].includes(
       feature.properties?.source_layer,
     ),
+  );
+}
+
+function atmClassificationKey(feature) {
+  return classificationKey(feature.properties?.source_atm_classification);
+}
+
+function classificationKey(value) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replaceAll("&", "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function lcwipUrbanAreaFeaturesForMap(geoJson) {
+  return featureCollectionFeatures(geoJson).filter(
+    (feature) =>
+      feature.geometry &&
+      feature.properties?.area_type === "lcwip-urban-area",
+  );
+}
+
+function satnCentroidFeaturesForMap(geoJson) {
+  return featureCollectionFeatures(geoJson).filter(
+    (feature) =>
+      feature.geometry &&
+      ["community-centroid", "centroid-connection"].includes(
+        feature.properties?.satn_feature_type,
+      ),
+  );
+}
+
+function nationalCycleNetworkFeaturesForMap(geoJson) {
+  return featureCollectionFeatures(geoJson).filter(
+    (feature) =>
+      feature.geometry &&
+      feature.properties?.source_layer === "national-cycle-network",
   );
 }
 

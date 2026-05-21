@@ -1,0 +1,199 @@
+{
+  "type": "FeatureCollection",
+  "name": "WECA SATN community centroids and connections",
+  "metadata": {
+    "source_boundary_dataset": "ONS Built Up Areas (December 2022) Boundaries GB BGG",
+    "source_boundary_url": "https://geoportal.statistics.gov.uk/datasets/ons::built-up-areas-december-2022-boundaries-gb-bgg",
+    "source_lcwip_url": "https://www.westofengland-ca.gov.uk/wp-content/uploads/2022/04/Full-LCWIP-Jan-2021.pdf",
+    "extracted_at": "2026-05-21T10:31:09.435Z",
+    "notes": "SATN-style community centroids derived from grouped ONS built-up-area centroids. Connector lines are a simple non-crossing network between the requested LCWIP urban areas."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-bristol-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5897605,
+          51.4518373
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-bristol",
+        "area_name": "Bristol",
+        "component_built_up_areas": [
+          "Bristol"
+        ],
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-bath-batheaston-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3627724,
+          51.3832655
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-bath-batheaston",
+        "area_name": "Bath and Batheaston",
+        "component_built_up_areas": [
+          "Bath",
+          "Batheaston"
+        ],
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-keynsham-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4977351,
+          51.4108735
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-keynsham",
+        "area_name": "Keynsham",
+        "component_built_up_areas": [
+          "Keynsham"
+        ],
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-somer-valley-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4696619,
+          51.2880242
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-somer-valley",
+        "area_name": "Somer Valley",
+        "component_built_up_areas": [
+          "Radstock",
+          "Midsomer Norton"
+        ],
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-bristol-keynsham",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5897605,
+            51.4518373
+          ],
+          [
+            -2.4977351,
+            51.4108735
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "lcwip-urban-bristol",
+        "to_area_id": "lcwip-urban-keynsham",
+        "from_area_name": "Bristol",
+        "to_area_name": "Keynsham",
+        "connection_rule": "non-crossing-centroid-connector",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is intentionally non-crossing."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-keynsham-bath-batheaston",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4977351,
+            51.4108735
+          ],
+          [
+            -2.3627724,
+            51.3832655
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "lcwip-urban-keynsham",
+        "to_area_id": "lcwip-urban-bath-batheaston",
+        "from_area_name": "Keynsham",
+        "to_area_name": "Bath and Batheaston",
+        "connection_rule": "non-crossing-centroid-connector",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is intentionally non-crossing."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-keynsham-somer-valley",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4977351,
+            51.4108735
+          ],
+          [
+            -2.4696619,
+            51.2880242
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "lcwip-urban-keynsham",
+        "to_area_id": "lcwip-urban-somer-valley",
+        "from_area_name": "Keynsham",
+        "to_area_name": "Somer Valley",
+        "connection_rule": "non-crossing-centroid-connector",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is intentionally non-crossing."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-bath-batheaston-somer-valley",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3627724,
+            51.3832655
+          ],
+          [
+            -2.4696619,
+            51.2880242
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "lcwip-urban-bath-batheaston",
+        "to_area_id": "lcwip-urban-somer-valley",
+        "from_area_name": "Bath and Batheaston",
+        "to_area_name": "Somer Valley",
+        "connection_rule": "non-crossing-centroid-connector",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is intentionally non-crossing."
+      }
+    }
+  ]
+}

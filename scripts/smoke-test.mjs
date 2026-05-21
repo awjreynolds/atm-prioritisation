@@ -46,14 +46,55 @@ assert.equal(
   776,
 );
 
+const wecaLcwipUrbanAreasResponse = await fetchBuiltAsset(
+  "data/weca-lcwip-urban-areas.geojson",
+);
+assert.equal(wecaLcwipUrbanAreasResponse.status, 200);
+const wecaLcwipUrbanAreas = await wecaLcwipUrbanAreasResponse.json();
+assert.equal(wecaLcwipUrbanAreas.type, "FeatureCollection");
+assert.equal(wecaLcwipUrbanAreas.features.length, 4);
+
+const wecaSatnCentroidsResponse = await fetchBuiltAsset(
+  "data/weca-satn-centroids.geojson",
+);
+assert.equal(wecaSatnCentroidsResponse.status, 200);
+const wecaSatnCentroids = await wecaSatnCentroidsResponse.json();
+assert.equal(wecaSatnCentroids.type, "FeatureCollection");
+assert.equal(wecaSatnCentroids.features.length, 8);
+
+const nationalCycleNetworkResponse = await fetchBuiltAsset(
+  "data/national-cycle-network.geojson",
+);
+assert.equal(nationalCycleNetworkResponse.status, 200);
+const nationalCycleNetwork = await nationalCycleNetworkResponse.json();
+assert.equal(nationalCycleNetwork.type, "FeatureCollection");
+assert.equal(
+  nationalCycleNetwork.features.some(
+    (feature) => feature.properties.ncn_status === "reclassified",
+  ),
+  true,
+);
+
 const routeMap = await renderAppWithHarness();
 assert.match(routeMap.innerHTML, /data-route-id="/i);
 assert.match(routeMap.innerHTML, /Original ATM-style source evidence/i);
 assert.match(routeMap.innerHTML, /Simplified prototype layer/i);
 assert.match(routeMap.innerHTML, /data-leaflet-route-map/i);
 assert.match(routeMap.innerHTML, /data-map-layer="source-context"/i);
+assert.match(routeMap.innerHTML, /data-map-layer="lcwip-urban-areas"/i);
 assert.match(routeMap.innerHTML, /data-map-layer="prototype-prioritisation"/i);
+assert.match(routeMap.innerHTML, /WECA LCWIP urban areas/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-strategic"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-quiet"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-community-connections"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-missing-pavement"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="lcwip-urban-areas"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="satn-centroid-connections"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
+assert.match(routeMap.innerHTML, /4 bounded urban areas/i);
+assert.match(routeMap.innerHTML, /8 centroid\/connector features/i);
+assert.match(routeMap.innerHTML, /reclassified\/former features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);
 assert.match(routeMap.innerHTML, /not official alignments/i);
@@ -233,6 +274,11 @@ function auditAccessibility(html) {
   );
   assert.ok((labelledCheckboxes?.length ?? 0) >= 1);
   assert.ok(labelledCheckboxes.some((label) => /School and key destination context/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /ATM Strategic routes/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /ATM Quiet routes/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /WECA LCWIP urban areas/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /SATN centroids and connections/i.test(label)));
+  assert.ok(labelledCheckboxes.some((label) => /National Cycle Network/i.test(label)));
 }
 
 function visibleText(html) {

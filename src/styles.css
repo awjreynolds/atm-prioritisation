@@ -227,9 +227,35 @@ h3 {
   background: #dce8ee;
 }
 
+.map-layer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.map-layer-toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid #d7e0e7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #24384a;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.map-layer-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #0b5cad;
+}
+
 .leaflet-layer-summary {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 

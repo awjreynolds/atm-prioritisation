@@ -148,6 +148,15 @@ validateAtmRoutes("data/atm-routes-bath-somer-valley.geojson");
 const bathSomerValleyAtmRoutes = JSON.parse(
   await readFile("data/atm-routes-bath-somer-valley.geojson", "utf8"),
 );
+const wecaLcwipUrbanAreas = JSON.parse(
+  await readFile("data/weca-lcwip-urban-areas.geojson", "utf8"),
+);
+const wecaSatnCentroids = JSON.parse(
+  await readFile("data/weca-satn-centroids.geojson", "utf8"),
+);
+const nationalCycleNetwork = JSON.parse(
+  await readFile("data/national-cycle-network.geojson", "utf8"),
+);
 assert.equal(bathSomerValleyAtmRoutes.type, "FeatureCollection");
 assert.equal(bathSomerValleyAtmRoutes.features.length >= 5, true);
 assert.equal(
@@ -167,6 +176,33 @@ assert.equal(
     (feature) => feature.properties?.source_layer === "prototype-hypothesis",
   ),
   false,
+);
+assert.equal(wecaLcwipUrbanAreas.type, "FeatureCollection");
+assert.equal(wecaLcwipUrbanAreas.features.length, 4);
+assert.deepEqual(
+  wecaLcwipUrbanAreas.features.map((feature) => feature.properties.area_name),
+  ["Bristol", "Bath and Batheaston", "Keynsham", "Somer Valley"],
+);
+assert.equal(wecaSatnCentroids.type, "FeatureCollection");
+assert.equal(wecaSatnCentroids.features.length, 8);
+assert.equal(
+  wecaSatnCentroids.features.filter(
+    (feature) => feature.properties.satn_feature_type === "centroid-connection",
+  ).length,
+  4,
+);
+assert.equal(nationalCycleNetwork.type, "FeatureCollection");
+assert.equal(
+  nationalCycleNetwork.features.some(
+    (feature) => feature.properties.ncn_status === "current",
+  ),
+  true,
+);
+assert.equal(
+  nationalCycleNetwork.features.some(
+    (feature) => feature.properties.ncn_status === "reclassified",
+  ),
+  true,
 );
 const knownSourceIds = new Set(
   sourceInventory.sources.map((source) => source.id),
@@ -752,18 +788,30 @@ for (const route of pilotRoutes.filter(
 const { hydrateLeafletRouteMap, renderRouteMap } = await import("../src/route-map.mjs");
 const renderedRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
+  wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  nationalCycleNetworkGeoJson: nationalCycleNetwork,
 });
 const renderedRouteMapWithDestinations = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
+  wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  nationalCycleNetworkGeoJson: nationalCycleNetwork,
   destinations: pilotDestinations,
   showDestinations: true,
 });
 const renderedSelectedRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
+  wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  nationalCycleNetworkGeoJson: nationalCycleNetwork,
   selectedRouteId: "prototype-a367-utility-corridor-hypothesis",
 });
 const renderedSelectedSchoolRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
+  wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
+  wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  nationalCycleNetworkGeoJson: nationalCycleNetwork,
   destinations: pilotDestinations,
   selectedRouteId: "prototype-somer-valley-school-access-review",
   showDestinations: true,
@@ -775,6 +823,19 @@ assert.match(renderedRouteMap, /OpenStreetMap contributors/i);
 assert.match(renderedRouteMap, /Source ATM\/context geometry/i);
 assert.match(renderedRouteMap, /7 checked-in best-fit lon\/lat features/i);
 assert.match(renderedRouteMap, /data-map-layer="source-context"/i);
+assert.match(renderedRouteMap, /data-map-layer="lcwip-urban-areas"/i);
+assert.match(renderedRouteMap, /4 bounded urban areas/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="atm-strategic"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="atm-quiet"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="atm-community-connections"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="atm-missing-pavement"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
+assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
+assert.match(renderedRouteMap, /8 centroid\/connector features/i);
+assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
+assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
 assert.match(renderedRouteMap, /not official alignments/i);
 assert.match(renderedRouteMap, /data-route-layer="atm-background"/i);
@@ -800,8 +861,8 @@ const hydratedMap = hydrateRouteMapWithFakeLeaflet({
   routes: pilotRoutes,
 });
 assert.equal(hydratedMap.tileUrls[0], "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
-assert.equal(hydratedMap.geoJsonFeatureCounts[0], 7);
-assert.equal(hydratedMap.geoJsonFeatureCounts[1], 3);
+assert.equal(hydratedMap.geoJsonFeatureCounts.includes(7), true);
+assert.equal(hydratedMap.geoJsonFeatureCounts.includes(3), true);
 const somerValleyPrototypeFeature = hydratedMap.prototypeFeatures.find(
   (feature) =>
     feature.properties?.route_id ===
@@ -936,24 +997,31 @@ assert.equal(existsSync("dist/route-map.mjs"), true);
 assert.equal(existsSync("dist/data/pilot-routes.json"), true);
 assert.equal(existsSync("dist/data/pilot-destinations.json"), true);
 assert.equal(existsSync("dist/data/atm-routes-bath-somer-valley.geojson"), true);
+assert.equal(existsSync("dist/data/weca-lcwip-urban-areas.geojson"), true);
+assert.equal(existsSync("dist/data/weca-satn-centroids.geojson"), true);
+assert.equal(existsSync("dist/data/national-cycle-network.geojson"), true);
 
 const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
 
 assert.match(page, /href="styles\.css"/i);
-assert.match(page, /type="module" src="app\.mjs\?v=banes-atm-full-20260521"/i);
+assert.match(page, /type="module" src="app\.mjs\?v=satn-ncn-layers-20260521"/i);
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);
 assert.match(clientScript, /pilot-routes\.json/i);
 assert.match(clientScript, /pilot-destinations\.json/i);
 assert.match(clientScript, /atm-routes-bath-somer-valley\.geojson/i);
+assert.match(clientScript, /weca-lcwip-urban-areas\.geojson/i);
+assert.match(clientScript, /weca-satn-centroids\.geojson/i);
+assert.match(clientScript, /national-cycle-network\.geojson/i);
 assert.match(clientScript, /leaflet@1\.9\.4/i);
 assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
 assert.match(clientScript, /hydrateLeafletRouteMap/i);
 assert.match(clientScript, /addEventListener\("click"/i);
 assert.match(clientScript, /closest\("\[data-route-id\]"\)/i);
 assert.match(clientScript, /closest\("\[data-destination-toggle\]"\)/i);
+assert.match(clientScript, /closest\("\[data-map-layer-toggle\]"\)/i);
 assert.match(clientScript, /selectedRouteId/i);
 assert.match(clientScript, /showDestinations/i);
 
