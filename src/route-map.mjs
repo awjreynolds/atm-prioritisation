@@ -33,6 +33,7 @@ export function renderRouteMap(routes, options = {}) {
   const banesAtmGeoJson = options.banesAtmGeoJson;
   const wecaLcwipUrbanAreasGeoJson = options.wecaLcwipUrbanAreasGeoJson;
   const wecaSatnCentroidsGeoJson = options.wecaSatnCentroidsGeoJson;
+  const wecaStrategicNetworkGeoJson = options.wecaStrategicNetworkGeoJson;
   const nationalCycleNetworkGeoJson = options.nationalCycleNetworkGeoJson;
   const destinations = Array.isArray(options.destinations)
     ? options.destinations
@@ -57,9 +58,12 @@ export function renderRouteMap(routes, options = {}) {
       atmRoutesGeoJson: banesAtmGeoJson ?? atmRoutesGeoJson,
       wecaLcwipUrbanAreasGeoJson,
       wecaSatnCentroidsGeoJson,
+      wecaStrategicNetworkGeoJson,
       nationalCycleNetworkGeoJson,
       showLcwipUrbanAreasLayer,
       showSatnCentroidConnectionsLayer,
+      showWecaStrategicNetworkLayer:
+        options.showWecaStrategicNetworkLayer !== false,
       showNationalCycleNetworkLayer:
         options.showNationalCycleNetworkLayer !== false,
       ...atmVisibilityOptions(options),
@@ -111,6 +115,13 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     options.showNationalCycleNetworkLayer === false
       ? []
       : nationalCycleNetworkFeaturesForMap(options.nationalCycleNetworkGeoJson);
+  const strategicNetworkFeatures =
+    options.showWecaStrategicNetworkLayer === false
+      ? []
+      : strategicNetworkFeaturesForMap(
+          options.wecaStrategicNetworkGeoJson,
+          options.nationalCycleNetworkGeoJson,
+        );
   const prototypeFeatures = prototypePrioritisationFeatures(
     options.routes ?? [],
     atmRoutesGeoJson,
@@ -121,6 +132,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     lcwipUrbanAreaFeatures.length === 0 &&
     satnCentroidFeatures.length === 0 &&
     nationalCycleNetworkFeatures.length === 0 &&
+    strategicNetworkFeatures.length === 0 &&
     prototypeFeatures.length === 0
   ) {
     return;
@@ -246,6 +258,40 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     )
     .addTo(map);
 
+  const strategicNetworkLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: strategicNetworkFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              escapeHtml(
+                properties.corridor_name ??
+                  properties.Desc_ ??
+                  "WECA strategic network feature",
+              ),
+              "</strong>",
+              properties.geometry_basis
+                ? `<br>${escapeHtml(properties.geometry_basis)}`
+                : "",
+              properties.treatment_intent
+                ? `<br>${escapeHtml(formatKebabLabel(properties.treatment_intent))}`
+                : "",
+            ].join(""),
+          );
+        },
+        style(feature) {
+          return styleStrategicNetworkFeature(feature);
+        },
+      },
+    )
+    .addTo(map);
+
   const sourceLayer = leaflet
     .geoJSON(
       {
@@ -302,6 +348,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
 
   const fitLayers = [
     lcwipUrbanAreasLayer,
+    strategicNetworkLayer,
     nationalCycleNetworkLayer,
     satnCentroidLayer,
     sourceLayer,
@@ -317,6 +364,7 @@ function renderLeafletMap(options) {
   const atmRoutesGeoJson = options.atmRoutesGeoJson;
   const wecaLcwipUrbanAreasGeoJson = options.wecaLcwipUrbanAreasGeoJson;
   const nationalCycleNetworkGeoJson = options.nationalCycleNetworkGeoJson;
+  const wecaStrategicNetworkGeoJson = options.wecaStrategicNetworkGeoJson;
   const satnCentroidsGeoJson = options.wecaSatnCentroidsGeoJson;
   const sourceFeatureCount = sourceContextFeatures(atmRoutesGeoJson).length;
   const lcwipUrbanAreaCount = lcwipUrbanAreaFeaturesForMap(
@@ -331,6 +379,24 @@ function renderLeafletMap(options) {
   ).length;
   const ncnReclassifiedCount = ncnFeatures.filter(
     (feature) => feature.properties?.ncn_status === "reclassified",
+  ).length;
+  const strategicNetworkFeatures = strategicNetworkFeaturesForMap(
+    wecaStrategicNetworkGeoJson,
+    nationalCycleNetworkGeoJson,
+  );
+  const strategicBackboneCount = strategicNetworkFeatures.filter(
+    (feature) =>
+      feature.properties?.strategic_network_feature_type ===
+        "primary-a-road-backbone" ||
+      feature.properties?.strategic_network_feature_type ===
+        "external-gateway-backbone",
+  ).length;
+  const quietLaneOpportunityCount = strategicNetworkFeatures.filter((feature) =>
+    [
+      "quiet-lane-rural-reach",
+      "strategic-quiet-route-opportunity",
+      "deprecated-ncn-quiet-lane-opportunity",
+    ].includes(feature.properties?.strategic_network_feature_type),
   ).length;
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
     ? " full B&amp;NES portal features from the public Active Travel Masterplan layer."
@@ -357,6 +423,11 @@ function renderLeafletMap(options) {
       options.showSatnCentroidConnectionsLayer,
     ),
     renderMapLayerToggle(
+      "weca-strategic-network",
+      "WECA strategic network",
+      options.showWecaStrategicNetworkLayer,
+    ),
+    renderMapLayerToggle(
       "national-cycle-network",
       "National Cycle Network",
       options.showNationalCycleNetworkLayer,
@@ -374,6 +445,11 @@ function renderLeafletMap(options) {
     "<p data-map-layer=\"satn-centroid-connections\"><strong>SATN centroids and connections:</strong> ",
     satnFeatureCount,
     " centroid/connector features, with non-crossing connector lines.</p>",
+    "<p data-map-layer=\"weca-strategic-network\"><strong>WECA strategic network:</strong> ",
+    strategicBackboneCount,
+    " A-road backbone/gateway corridors and ",
+    quietLaneOpportunityCount,
+    " quiet-lane or deprecated-NCN opportunity features.</p>",
     "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
     ncnCurrentCount,
     " current features and ",
@@ -472,6 +548,31 @@ function nationalCycleNetworkFeaturesForMap(geoJson) {
       feature.geometry &&
       feature.properties?.source_layer === "national-cycle-network",
   );
+}
+
+function strategicNetworkFeaturesForMap(strategicNetworkGeoJson, nationalCycleNetworkGeoJson) {
+  const plannedCorridors = featureCollectionFeatures(strategicNetworkGeoJson).filter(
+    (feature) =>
+      feature.geometry &&
+      feature.properties?.source_layer === "weca-strategic-network-synthesis",
+  );
+  const deprecatedNcnOpportunities = nationalCycleNetworkFeaturesForMap(
+    nationalCycleNetworkGeoJson,
+  )
+    .filter((feature) => feature.properties?.ncn_status === "reclassified")
+    .map((feature) => ({
+      ...feature,
+      properties: {
+        ...feature.properties,
+        strategic_network_feature_type: "deprecated-ncn-quiet-lane-opportunity",
+        corridor_name: feature.properties?.Desc_ ?? "Deprecated NCN opportunity",
+        treatment_intent: "20mph-quiet-lane-or-greenway-review",
+        geometry_basis: "reclassified NCN",
+        source_layer: "weca-strategic-network-synthesis",
+      },
+    }));
+
+  return [...plannedCorridors, ...deprecatedNcnOpportunities];
 }
 
 function featureCollectionFeatures(geoJson) {
@@ -643,6 +744,59 @@ function stylePrototypeFeature(feature, isSelected) {
     opacity: isSelected ? 1 : style.strokeOpacity,
     weight: isSelected ? style.strokeWidth + 2 : style.strokeWidth,
   };
+}
+
+function styleStrategicNetworkFeature(feature) {
+  const featureType = feature.properties?.strategic_network_feature_type;
+
+  if (featureType === "deprecated-ncn-quiet-lane-opportunity") {
+    return {
+      color: "#6f72af",
+      dashArray: "2 7",
+      opacity: 0.86,
+      weight: 4,
+    };
+  }
+
+  if (featureType === "quiet-lane-rural-reach") {
+    return {
+      color: "#00703c",
+      dashArray: "4 7",
+      opacity: 0.9,
+      weight: 4,
+    };
+  }
+
+  if (featureType === "strategic-quiet-route-opportunity") {
+    return {
+      color: "#1d7f5d",
+      dashArray: "8 5",
+      opacity: 0.9,
+      weight: 5,
+    };
+  }
+
+  if (featureType === "external-gateway-backbone") {
+    return {
+      color: "#d4351c",
+      dashArray: "10 5",
+      opacity: 0.92,
+      weight: 6,
+    };
+  }
+
+  return {
+    color: "#f47738",
+    dashArray: undefined,
+    opacity: 0.94,
+    weight: 7,
+  };
+}
+
+function formatKebabLabel(value) {
+  return String(value ?? "")
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function renderRoute(route, selectedRoute) {

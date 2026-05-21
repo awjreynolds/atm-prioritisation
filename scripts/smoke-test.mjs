@@ -52,7 +52,7 @@ const wecaLcwipUrbanAreasResponse = await fetchBuiltAsset(
 assert.equal(wecaLcwipUrbanAreasResponse.status, 200);
 const wecaLcwipUrbanAreas = await wecaLcwipUrbanAreasResponse.json();
 assert.equal(wecaLcwipUrbanAreas.type, "FeatureCollection");
-assert.equal(wecaLcwipUrbanAreas.features.length, 4);
+assert.equal(wecaLcwipUrbanAreas.features.length, 14);
 
 const wecaSatnCentroidsResponse = await fetchBuiltAsset(
   "data/weca-satn-centroids.geojson",
@@ -61,6 +61,14 @@ assert.equal(wecaSatnCentroidsResponse.status, 200);
 const wecaSatnCentroids = await wecaSatnCentroidsResponse.json();
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
 assert.equal(wecaSatnCentroids.features.length, 221);
+
+const wecaStrategicNetworkResponse = await fetchBuiltAsset(
+  "data/weca-strategic-network.geojson",
+);
+assert.equal(wecaStrategicNetworkResponse.status, 200);
+const wecaStrategicNetwork = await wecaStrategicNetworkResponse.json();
+assert.equal(wecaStrategicNetwork.type, "FeatureCollection");
+assert.equal(wecaStrategicNetwork.features.length, 23);
 
 const nationalCycleNetworkResponse = await fetchBuiltAsset(
   "data/national-cycle-network.geojson",
@@ -90,10 +98,13 @@ assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-community-connectio
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-missing-pavement"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="satn-centroid-connections"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="weca-strategic-network"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
-assert.match(routeMap.innerHTML, /4 bounded urban areas/i);
+assert.match(routeMap.innerHTML, /14 bounded urban areas/i);
 assert.match(routeMap.innerHTML, /221 centroid\/connector features/i);
+assert.match(routeMap.innerHTML, /13 A-road backbone\/gateway corridors/i);
+assert.match(routeMap.innerHTML, /quiet-lane or deprecated-NCN opportunity features/i);
 assert.match(routeMap.innerHTML, /reclassified\/former features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);

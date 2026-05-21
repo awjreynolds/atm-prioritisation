@@ -5,7 +5,7 @@
     "source_boundary_dataset": "ONS Built Up Areas (December 2022) Boundaries GB BGG",
     "source_boundary_url": "https://geoportal.statistics.gov.uk/datasets/ons::built-up-areas-december-2022-boundaries-gb-bgg",
     "source_lcwip_url": "https://www.westofengland-ca.gov.uk/wp-content/uploads/2022/04/Full-LCWIP-Jan-2021.pdf",
-    "extracted_at": "2026-05-21T11:05:52.441Z",
+    "extracted_at": "2026-05-21T11:26:01.754Z",
     "notes": "SATN-style community centroids derived from ONS built-up-area centroids plus explicit city-village centroids. Connector lines are generated as a non-crossing minimum spanning tree."
   },
   "features": [
@@ -75,7 +75,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-centroid-radstock",
+      "id": "lcwip-urban-radstock-centroid",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -85,7 +85,7 @@
       },
       "properties": {
         "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-radstock",
+        "lcwip_area_id": "lcwip-urban-radstock",
         "area_name": "Radstock",
         "component_built_up_areas": [
           "Radstock"
@@ -96,7 +96,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-centroid-midsomer-norton",
+      "id": "lcwip-urban-midsomer-norton-centroid",
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -106,10 +106,199 @@
       },
       "properties": {
         "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-midsomer-norton",
+        "lcwip_area_id": "lcwip-urban-midsomer-norton",
         "area_name": "Midsomer Norton",
         "component_built_up_areas": [
           "Midsomer Norton"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-peasedown-st-john-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4296203,
+          51.3167989
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-peasedown-st-john",
+        "area_name": "Peasedown St John",
+        "component_built_up_areas": [
+          "Peasedown St John"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-paulton-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5003171,
+          51.3063436
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-paulton",
+        "area_name": "Paulton",
+        "component_built_up_areas": [
+          "Paulton"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-yate-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4245715,
+          51.5445532
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-yate",
+        "area_name": "Yate",
+        "component_built_up_areas": [
+          "Yate"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-chipping-sodbury-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3915729,
+          51.5371664
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-chipping-sodbury",
+        "area_name": "Chipping Sodbury",
+        "component_built_up_areas": [
+          "Chipping Sodbury"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-thornbury-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5157357,
+          51.6090252
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-thornbury",
+        "area_name": "Thornbury",
+        "component_built_up_areas": [
+          "Thornbury"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-weston-super-mare-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.958049,
+          51.3442998
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-weston-super-mare",
+        "area_name": "Weston-super-Mare",
+        "component_built_up_areas": [
+          "Weston-super-Mare"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-clevedon-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8570061,
+          51.431404
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-clevedon",
+        "area_name": "Clevedon",
+        "component_built_up_areas": [
+          "Clevedon"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-nailsea-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7630373,
+          51.430003
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-nailsea",
+        "area_name": "Nailsea",
+        "component_built_up_areas": [
+          "Nailsea"
+        ],
+        "centroid_source": "ons-built-up-area-centroid",
+        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lcwip-urban-portishead-centroid",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7701459,
+          51.4826244
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "lcwip-urban-portishead",
+        "area_name": "Portishead",
+        "component_built_up_areas": [
+          "Portishead"
         ],
         "centroid_source": "ons-built-up-area-centroid",
         "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
@@ -131,195 +320,6 @@
         "area_name": "Saltford",
         "component_built_up_areas": [
           "Saltford"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-peasedown-st-john",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.4296203,
-          51.3167989
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-peasedown-st-john",
-        "area_name": "Peasedown St John",
-        "component_built_up_areas": [
-          "Peasedown St John"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-paulton",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.5003171,
-          51.3063436
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-paulton",
-        "area_name": "Paulton",
-        "component_built_up_areas": [
-          "Paulton"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-yate",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.4245715,
-          51.5445532
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-yate",
-        "area_name": "Yate",
-        "component_built_up_areas": [
-          "Yate"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-chipping-sodbury",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.3915729,
-          51.5371664
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-chipping-sodbury",
-        "area_name": "Chipping Sodbury",
-        "component_built_up_areas": [
-          "Chipping Sodbury"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-thornbury",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.5157357,
-          51.6090252
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-thornbury",
-        "area_name": "Thornbury",
-        "component_built_up_areas": [
-          "Thornbury"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-clevedon",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.8570061,
-          51.431404
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-clevedon",
-        "area_name": "Clevedon",
-        "component_built_up_areas": [
-          "Clevedon"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-nailsea",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.7630373,
-          51.430003
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-nailsea",
-        "area_name": "Nailsea",
-        "component_built_up_areas": [
-          "Nailsea"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-portishead",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.7701459,
-          51.4826244
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-portishead",
-        "area_name": "Portishead",
-        "component_built_up_areas": [
-          "Portishead"
-        ],
-        "centroid_source": "ons-built-up-area-centroid",
-        "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-centroid-weston-super-mare",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.958049,
-          51.3442998
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "community-centroid",
-        "lcwip_area_id": "satn-centroid-weston-super-mare",
-        "area_name": "Weston-super-Mare",
-        "component_built_up_areas": [
-          "Weston-super-Mare"
         ],
         "centroid_source": "ons-built-up-area-centroid",
         "provenance_notes": "Community centroid derived from ONS 2022 built-up-area centroid coordinates."
@@ -2645,7 +2645,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-westerleigh-yate",
+      "id": "satn-connection-westerleigh-yate-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -2662,7 +2662,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-westerleigh",
-        "to_area_id": "satn-centroid-yate",
+        "to_area_id": "lcwip-urban-yate-centroid",
         "from_area_name": "Westerleigh",
         "to_area_name": "Yate",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -2957,7 +2957,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-yate-chipping-sodbury",
+      "id": "satn-connection-yate-centroid-chipping-sodbury-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -2973,8 +2973,8 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-yate",
-        "to_area_id": "satn-centroid-chipping-sodbury",
+        "from_area_id": "lcwip-urban-yate-centroid",
+        "to_area_id": "lcwip-urban-chipping-sodbury-centroid",
         "from_area_name": "Yate",
         "to_area_name": "Chipping Sodbury",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -3087,7 +3087,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-camerton-peasedown-st-john",
+      "id": "satn-connection-camerton-peasedown-st-john-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3104,7 +3104,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-camerton",
-        "to_area_id": "satn-centroid-peasedown-st-john",
+        "to_area_id": "lcwip-urban-peasedown-st-john-centroid",
         "from_area_name": "Camerton",
         "to_area_name": "Peasedown St John",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -3113,7 +3113,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-peasedown-st-john-dunkerton",
+      "id": "satn-connection-peasedown-st-john-centroid-dunkerton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3129,7 +3129,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-peasedown-st-john",
+        "from_area_id": "lcwip-urban-peasedown-st-john-centroid",
         "to_area_id": "satn-centroid-dunkerton",
         "from_area_name": "Peasedown St John",
         "to_area_name": "Dunkerton",
@@ -3191,7 +3191,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-peasedown-st-john-shoscombe",
+      "id": "satn-connection-peasedown-st-john-centroid-shoscombe",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3207,7 +3207,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-peasedown-st-john",
+        "from_area_id": "lcwip-urban-peasedown-st-john-centroid",
         "to_area_id": "satn-centroid-shoscombe",
         "from_area_name": "Peasedown St John",
         "to_area_name": "Shoscombe",
@@ -3841,7 +3841,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-camerton-radstock",
+      "id": "satn-connection-camerton-radstock-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3858,7 +3858,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-camerton",
-        "to_area_id": "satn-centroid-radstock",
+        "to_area_id": "lcwip-urban-radstock-centroid",
         "from_area_name": "Camerton",
         "to_area_name": "Radstock",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -3867,7 +3867,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-radstock-kilmersdon",
+      "id": "satn-connection-radstock-centroid-kilmersdon",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3883,7 +3883,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-radstock",
+        "from_area_id": "lcwip-urban-radstock-centroid",
         "to_area_id": "satn-centroid-kilmersdon",
         "from_area_name": "Radstock",
         "to_area_name": "Kilmersdon",
@@ -3893,7 +3893,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-radstock-westfield",
+      "id": "satn-connection-radstock-centroid-westfield",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3909,7 +3909,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-radstock",
+        "from_area_id": "lcwip-urban-radstock-centroid",
         "to_area_id": "satn-centroid-westfield",
         "from_area_name": "Radstock",
         "to_area_name": "Westfield",
@@ -3919,7 +3919,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-westfield-midsomer-norton",
+      "id": "satn-connection-westfield-midsomer-norton-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3936,7 +3936,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-westfield",
-        "to_area_id": "satn-centroid-midsomer-norton",
+        "to_area_id": "lcwip-urban-midsomer-norton-centroid",
         "from_area_name": "Westfield",
         "to_area_name": "Midsomer Norton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -3945,7 +3945,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-midsomer-norton-paulton",
+      "id": "satn-connection-midsomer-norton-centroid-paulton-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3961,8 +3961,8 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-midsomer-norton",
-        "to_area_id": "satn-centroid-paulton",
+        "from_area_id": "lcwip-urban-midsomer-norton-centroid",
+        "to_area_id": "lcwip-urban-paulton-centroid",
         "from_area_name": "Midsomer Norton",
         "to_area_name": "Paulton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -3971,7 +3971,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-paulton-high-littleton",
+      "id": "satn-connection-paulton-centroid-high-littleton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -3987,7 +3987,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-paulton",
+        "from_area_id": "lcwip-urban-paulton-centroid",
         "to_area_id": "satn-centroid-high-littleton",
         "from_area_name": "Paulton",
         "to_area_name": "High Littleton",
@@ -4153,7 +4153,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-midsomer-norton-chilcompton",
+      "id": "satn-connection-midsomer-norton-centroid-chilcompton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4169,7 +4169,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-midsomer-norton",
+        "from_area_id": "lcwip-urban-midsomer-norton-centroid",
         "to_area_id": "satn-centroid-chilcompton",
         "from_area_name": "Midsomer Norton",
         "to_area_name": "Chilcompton",
@@ -4595,7 +4595,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-backwell-nailsea",
+      "id": "satn-connection-backwell-nailsea-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4612,7 +4612,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-backwell",
-        "to_area_id": "satn-centroid-nailsea",
+        "to_area_id": "lcwip-urban-nailsea-centroid",
         "from_area_name": "Backwell",
         "to_area_name": "Nailsea",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -4621,7 +4621,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-nailsea-tickenham",
+      "id": "satn-connection-nailsea-centroid-tickenham",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4637,7 +4637,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-nailsea",
+        "from_area_id": "lcwip-urban-nailsea-centroid",
         "to_area_id": "satn-centroid-tickenham",
         "from_area_name": "Nailsea",
         "to_area_name": "Tickenham",
@@ -4647,7 +4647,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-nailsea-cleeve",
+      "id": "satn-connection-nailsea-centroid-cleeve",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4663,7 +4663,7 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-nailsea",
+        "from_area_id": "lcwip-urban-nailsea-centroid",
         "to_area_id": "satn-centroid-cleeve",
         "from_area_name": "Nailsea",
         "to_area_name": "Cleeve",
@@ -4855,7 +4855,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-tickenham-portishead",
+      "id": "satn-connection-tickenham-portishead-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4872,7 +4872,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-tickenham",
-        "to_area_id": "satn-centroid-portishead",
+        "to_area_id": "lcwip-urban-portishead-centroid",
         "from_area_name": "Tickenham",
         "to_area_name": "Portishead",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -4881,7 +4881,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-yatton-clevedon",
+      "id": "satn-connection-yatton-clevedon-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4898,7 +4898,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-yatton",
-        "to_area_id": "satn-centroid-clevedon",
+        "to_area_id": "lcwip-urban-clevedon-centroid",
         "from_area_name": "Yatton",
         "to_area_name": "Clevedon",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -4959,7 +4959,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-almondsbury-thornbury",
+      "id": "satn-connection-almondsbury-thornbury-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -4976,7 +4976,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-almondsbury",
-        "to_area_id": "satn-centroid-thornbury",
+        "to_area_id": "lcwip-urban-thornbury-centroid",
         "from_area_name": "Almondsbury",
         "to_area_name": "Thornbury",
         "connection_rule": "non-crossing-minimum-spanning-tree",
@@ -4985,7 +4985,7 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-banwell-weston-super-mare",
+      "id": "satn-connection-banwell-weston-super-mare-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -5002,7 +5002,7 @@
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-banwell",
-        "to_area_id": "satn-centroid-weston-super-mare",
+        "to_area_id": "lcwip-urban-weston-super-mare-centroid",
         "from_area_name": "Banwell",
         "to_area_name": "Weston-super-Mare",
         "connection_rule": "non-crossing-minimum-spanning-tree",

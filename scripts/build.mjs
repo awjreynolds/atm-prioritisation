@@ -24,6 +24,10 @@ await copyFile(
   "dist/data/weca-satn-centroids.geojson",
 );
 await copyFile(
+  "data/weca-strategic-network.geojson",
+  "dist/data/weca-strategic-network.geojson",
+);
+await copyFile(
   "data/national-cycle-network.geojson",
   "dist/data/national-cycle-network.geojson",
 );

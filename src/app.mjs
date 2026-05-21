@@ -7,6 +7,8 @@ const banesAtmGeoJsonUrl = "data/banes-atm-full.geojson";
 const wecaLcwipUrbanAreasGeoJsonUrl = "data/weca-lcwip-urban-areas.geojson";
 const wecaSatnCentroidsGeoJsonUrl =
   "data/weca-satn-centroids.geojson?v=bath-centre-centroids-20260521";
+const wecaStrategicNetworkGeoJsonUrl =
+  "data/weca-strategic-network.geojson?v=weca-backbone-20260521";
 const nationalCycleNetworkGeoJsonUrl = "data/national-cycle-network.geojson";
 const leafletCssUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
 const leafletScriptUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
@@ -20,6 +22,7 @@ if (routeMap) {
     banesAtmGeoJsonResponse,
     wecaLcwipUrbanAreasGeoJsonResponse,
     wecaSatnCentroidsGeoJsonResponse,
+    wecaStrategicNetworkGeoJsonResponse,
     nationalCycleNetworkGeoJsonResponse,
   ] = await Promise.all([
     fetch(routeDatasetUrl),
@@ -28,6 +31,7 @@ if (routeMap) {
     fetch(banesAtmGeoJsonUrl),
     fetch(wecaLcwipUrbanAreasGeoJsonUrl),
     fetch(wecaSatnCentroidsGeoJsonUrl),
+    fetch(wecaStrategicNetworkGeoJsonUrl),
     fetch(nationalCycleNetworkGeoJsonUrl),
   ]);
   const routes = await routeResponse.json();
@@ -37,6 +41,8 @@ if (routeMap) {
   const wecaLcwipUrbanAreasGeoJson =
     await wecaLcwipUrbanAreasGeoJsonResponse.json();
   const wecaSatnCentroidsGeoJson = await wecaSatnCentroidsGeoJsonResponse.json();
+  const wecaStrategicNetworkGeoJson =
+    await wecaStrategicNetworkGeoJsonResponse.json();
   const nationalCycleNetworkGeoJson =
     await nationalCycleNetworkGeoJsonResponse.json();
   const leafletReady = loadLeaflet();
@@ -48,6 +54,7 @@ if (routeMap) {
   let showAtmMissingPavementLayer = true;
   let showLcwipUrbanAreasLayer = true;
   let showSatnCentroidConnectionsLayer = true;
+  let showWecaStrategicNetworkLayer = true;
   let showNationalCycleNetworkLayer = true;
 
   function renderSelectedRouteMap() {
@@ -56,6 +63,7 @@ if (routeMap) {
       banesAtmGeoJson,
       wecaLcwipUrbanAreasGeoJson,
       wecaSatnCentroidsGeoJson,
+      wecaStrategicNetworkGeoJson,
       nationalCycleNetworkGeoJson,
       destinations,
       selectedRouteId,
@@ -66,6 +74,7 @@ if (routeMap) {
       showAtmMissingPavementLayer,
       showLcwipUrbanAreasLayer,
       showSatnCentroidConnectionsLayer,
+      showWecaStrategicNetworkLayer,
       showNationalCycleNetworkLayer,
     });
     leafletReady
@@ -75,6 +84,7 @@ if (routeMap) {
           banesAtmGeoJson,
           wecaLcwipUrbanAreasGeoJson,
           wecaSatnCentroidsGeoJson,
+          wecaStrategicNetworkGeoJson,
           nationalCycleNetworkGeoJson,
           routes,
           selectedRouteId,
@@ -84,6 +94,7 @@ if (routeMap) {
           showAtmMissingPavementLayer,
           showLcwipUrbanAreasLayer,
           showSatnCentroidConnectionsLayer,
+          showWecaStrategicNetworkLayer,
           showNationalCycleNetworkLayer,
           onRouteSelect(routeId) {
             selectedRouteId = routeId;
@@ -122,6 +133,9 @@ if (routeMap) {
           break;
         case "satn-centroid-connections":
           showSatnCentroidConnectionsLayer = layerToggle.checked;
+          break;
+        case "weca-strategic-network":
+          showWecaStrategicNetworkLayer = layerToggle.checked;
           break;
         case "national-cycle-network":
           showNationalCycleNetworkLayer = layerToggle.checked;

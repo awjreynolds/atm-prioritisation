@@ -33,48 +33,77 @@ const areaDefinitions = [
     lcwipEvidence: "WECA LCWIP Keynsham urban area context.",
   },
   {
-    id: "lcwip-urban-somer-valley",
-    name: "Somer Valley",
-    componentNames: ["Radstock", "Midsomer Norton"],
-    lcwipEvidence: "WECA LCWIP Somer Valley urban area context.",
+    id: "lcwip-urban-radstock",
+    name: "Radstock",
+    componentNames: ["Radstock"],
+    lcwipEvidence: "WECA LCWIP Somer Valley/Radstock urban area context.",
+  },
+  {
+    id: "lcwip-urban-midsomer-norton",
+    name: "Midsomer Norton",
+    componentNames: ["Midsomer Norton"],
+    lcwipEvidence: "WECA LCWIP Somer Valley/Midsomer Norton urban area context.",
+  },
+  {
+    id: "lcwip-urban-peasedown-st-john",
+    name: "Peasedown St John",
+    componentNames: ["Peasedown St John"],
+    lcwipEvidence: "WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-paulton",
+    name: "Paulton",
+    componentNames: ["Paulton"],
+    lcwipEvidence: "WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-yate",
+    name: "Yate",
+    componentNames: ["Yate"],
+    lcwipEvidence: "WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-chipping-sodbury",
+    name: "Chipping Sodbury",
+    componentNames: ["Chipping Sodbury"],
+    lcwipEvidence: "WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-thornbury",
+    name: "Thornbury",
+    componentNames: ["Thornbury"],
+    lcwipEvidence: "WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-weston-super-mare",
+    name: "Weston-super-Mare",
+    componentNames: ["Weston-super-Mare"],
+    lcwipEvidence: "North Somerset/WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-clevedon",
+    name: "Clevedon",
+    componentNames: ["Clevedon"],
+    lcwipEvidence: "North Somerset/WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-nailsea",
+    name: "Nailsea",
+    componentNames: ["Nailsea"],
+    lcwipEvidence: "North Somerset/WECA strategic urban-area context.",
+  },
+  {
+    id: "lcwip-urban-portishead",
+    name: "Portishead",
+    componentNames: ["Portishead"],
+    lcwipEvidence: "North Somerset/WECA strategic urban-area context.",
   },
 ];
 const satnUrbanCentroidDefinitions = [
-  ...areaDefinitions.filter((area) => area.id !== "lcwip-urban-somer-valley"),
-  {
-    id: "satn-centroid-radstock",
-    name: "Radstock",
-    componentNames: ["Radstock"],
-  },
-  {
-    id: "satn-centroid-midsomer-norton",
-    name: "Midsomer Norton",
-    componentNames: ["Midsomer Norton"],
-  },
+  ...areaDefinitions,
 ];
 const additionalBuiltUpAreaCentroids = [
   { id: "satn-centroid-saltford", name: "Saltford", componentNames: ["Saltford"] },
-  {
-    id: "satn-centroid-peasedown-st-john",
-    name: "Peasedown St John",
-    componentNames: ["Peasedown St John"],
-  },
-  { id: "satn-centroid-paulton", name: "Paulton", componentNames: ["Paulton"] },
-  { id: "satn-centroid-yate", name: "Yate", componentNames: ["Yate"] },
-  {
-    id: "satn-centroid-chipping-sodbury",
-    name: "Chipping Sodbury",
-    componentNames: ["Chipping Sodbury"],
-  },
-  { id: "satn-centroid-thornbury", name: "Thornbury", componentNames: ["Thornbury"] },
-  { id: "satn-centroid-clevedon", name: "Clevedon", componentNames: ["Clevedon"] },
-  { id: "satn-centroid-nailsea", name: "Nailsea", componentNames: ["Nailsea"] },
-  { id: "satn-centroid-portishead", name: "Portishead", componentNames: ["Portishead"] },
-  {
-    id: "satn-centroid-weston-super-mare",
-    name: "Weston-super-Mare",
-    componentNames: ["Weston-super-Mare"],
-  },
 ];
 const manualCentroids = [
   {

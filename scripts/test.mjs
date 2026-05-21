@@ -154,6 +154,9 @@ const wecaLcwipUrbanAreas = JSON.parse(
 const wecaSatnCentroids = JSON.parse(
   await readFile("data/weca-satn-centroids.geojson", "utf8"),
 );
+const wecaStrategicNetwork = JSON.parse(
+  await readFile("data/weca-strategic-network.geojson", "utf8"),
+);
 const nationalCycleNetwork = JSON.parse(
   await readFile("data/national-cycle-network.geojson", "utf8"),
 );
@@ -178,10 +181,25 @@ assert.equal(
   false,
 );
 assert.equal(wecaLcwipUrbanAreas.type, "FeatureCollection");
-assert.equal(wecaLcwipUrbanAreas.features.length, 4);
+assert.equal(wecaLcwipUrbanAreas.features.length, 14);
 assert.deepEqual(
   wecaLcwipUrbanAreas.features.map((feature) => feature.properties.area_name),
-  ["Bristol", "Bath and Batheaston", "Keynsham", "Somer Valley"],
+  [
+    "Bristol",
+    "Bath and Batheaston",
+    "Keynsham",
+    "Radstock",
+    "Midsomer Norton",
+    "Peasedown St John",
+    "Paulton",
+    "Yate",
+    "Chipping Sodbury",
+    "Thornbury",
+    "Weston-super-Mare",
+    "Clevedon",
+    "Nailsea",
+    "Portishead",
+  ],
 );
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
 assert.equal(wecaSatnCentroids.features.length, 221);
@@ -234,6 +252,37 @@ for (const bathCentroidName of [
     true,
   );
 }
+assert.equal(wecaStrategicNetwork.type, "FeatureCollection");
+assert.equal(wecaStrategicNetwork.features.length, 23);
+assert.equal(
+  wecaStrategicNetwork.features.filter(
+    (feature) =>
+      feature.properties.strategic_network_feature_type ===
+      "primary-a-road-backbone",
+  ).length,
+  8,
+);
+assert.equal(
+  wecaStrategicNetwork.features.filter(
+    (feature) =>
+      feature.properties.strategic_network_feature_type ===
+      "external-gateway-backbone",
+  ).length,
+  5,
+);
+assert.equal(
+  wecaStrategicNetwork.features.some(
+    (feature) => feature.properties.corridor_name === "A370 Bristol to Weston-super-Mare",
+  ),
+  true,
+);
+assert.equal(
+  wecaStrategicNetwork.features.some(
+    (feature) =>
+      feature.properties.treatment_intent === "20mph-quiet-lane-priority",
+  ),
+  true,
+);
 assert.equal(nationalCycleNetwork.type, "FeatureCollection");
 assert.equal(
   nationalCycleNetwork.features.some(
@@ -833,12 +882,14 @@ const renderedRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
   wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  wecaStrategicNetworkGeoJson: wecaStrategicNetwork,
   nationalCycleNetworkGeoJson: nationalCycleNetwork,
 });
 const renderedRouteMapWithDestinations = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
   wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  wecaStrategicNetworkGeoJson: wecaStrategicNetwork,
   nationalCycleNetworkGeoJson: nationalCycleNetwork,
   destinations: pilotDestinations,
   showDestinations: true,
@@ -847,6 +898,7 @@ const renderedSelectedRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
   wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  wecaStrategicNetworkGeoJson: wecaStrategicNetwork,
   nationalCycleNetworkGeoJson: nationalCycleNetwork,
   selectedRouteId: "prototype-a367-utility-corridor-hypothesis",
 });
@@ -854,6 +906,7 @@ const renderedSelectedSchoolRouteMap = renderRouteMap(pilotRoutes, {
   atmRoutesGeoJson: bathSomerValleyAtmRoutes,
   wecaLcwipUrbanAreasGeoJson: wecaLcwipUrbanAreas,
   wecaSatnCentroidsGeoJson: wecaSatnCentroids,
+  wecaStrategicNetworkGeoJson: wecaStrategicNetwork,
   nationalCycleNetworkGeoJson: nationalCycleNetwork,
   destinations: pilotDestinations,
   selectedRouteId: "prototype-somer-valley-school-access-review",
@@ -867,16 +920,20 @@ assert.match(renderedRouteMap, /Source ATM\/context geometry/i);
 assert.match(renderedRouteMap, /7 checked-in best-fit lon\/lat features/i);
 assert.match(renderedRouteMap, /data-map-layer="source-context"/i);
 assert.match(renderedRouteMap, /data-map-layer="lcwip-urban-areas"/i);
-assert.match(renderedRouteMap, /4 bounded urban areas/i);
+assert.match(renderedRouteMap, /14 bounded urban areas/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-strategic"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-quiet"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-community-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-missing-pavement"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="weca-strategic-network"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /221 centroid\/connector features/i);
+assert.match(renderedRouteMap, /data-map-layer="weca-strategic-network"/i);
+assert.match(renderedRouteMap, /13 A-road backbone\/gateway corridors/i);
+assert.match(renderedRouteMap, /77 quiet-lane or deprecated-NCN opportunity features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
@@ -1042,6 +1099,7 @@ assert.equal(existsSync("dist/data/pilot-destinations.json"), true);
 assert.equal(existsSync("dist/data/atm-routes-bath-somer-valley.geojson"), true);
 assert.equal(existsSync("dist/data/weca-lcwip-urban-areas.geojson"), true);
 assert.equal(existsSync("dist/data/weca-satn-centroids.geojson"), true);
+assert.equal(existsSync("dist/data/weca-strategic-network.geojson"), true);
 assert.equal(existsSync("dist/data/national-cycle-network.geojson"), true);
 
 const page = await readFile("dist/index.html", "utf8");
@@ -1050,7 +1108,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=bath-centre-centroids-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-backbone-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
@@ -1060,6 +1118,7 @@ assert.match(clientScript, /pilot-destinations\.json/i);
 assert.match(clientScript, /atm-routes-bath-somer-valley\.geojson/i);
 assert.match(clientScript, /weca-lcwip-urban-areas\.geojson/i);
 assert.match(clientScript, /weca-satn-centroids\.geojson/i);
+assert.match(clientScript, /weca-strategic-network\.geojson/i);
 assert.match(clientScript, /national-cycle-network\.geojson/i);
 assert.match(clientScript, /leaflet@1\.9\.4/i);
 assert.match(clientScript, /innerHTML\s*=\s*renderRouteMap/i);
@@ -1070,6 +1129,7 @@ assert.match(clientScript, /closest\("\[data-destination-toggle\]"\)/i);
 assert.match(clientScript, /closest\("\[data-map-layer-toggle\]"\)/i);
 assert.match(clientScript, /selectedRouteId/i);
 assert.match(clientScript, /showDestinations/i);
+assert.match(clientScript, /showWecaStrategicNetworkLayer/i);
 
 assert.match(
   visibleText,
@@ -1088,6 +1148,9 @@ assert.match(visibleText, /line pattern/i);
 assert.match(visibleText, /High modal shift potential/i);
 assert.match(visibleText, /Low modal shift potential/i);
 assert.match(visibleText, /wider lines indicate stronger potential/i);
+assert.match(visibleText, /WECA strategic network/i);
+assert.match(visibleText, /Primary A-road backbone/i);
+assert.match(visibleText, /Deprecated NCN opportunity/i);
 
 const styles = await readFile("dist/styles.css", "utf8");
 assert.match(styles, /route-layer-background[\s\S]*opacity:\s*0\.[0-9]+/i);
