@@ -36,6 +36,16 @@ assert.equal(atmGeoJsonResponse.status, 200);
 const atmGeoJson = await atmGeoJsonResponse.json();
 assert.equal(atmGeoJson.type, "FeatureCollection");
 
+const banesAtmGeoJsonResponse = await fetchBuiltAsset("data/banes-atm-full.geojson");
+assert.equal(banesAtmGeoJsonResponse.status, 200);
+const banesAtmGeoJson = await banesAtmGeoJsonResponse.json();
+assert.equal(banesAtmGeoJson.type, "FeatureCollection");
+assert.equal(banesAtmGeoJson.features.length, 784);
+assert.equal(
+  banesAtmGeoJson.features.filter((feature) => feature.geometry).length,
+  776,
+);
+
 const routeMap = await renderAppWithHarness();
 assert.match(routeMap.innerHTML, /data-route-id="/i);
 assert.match(routeMap.innerHTML, /Original ATM-style source evidence/i);
@@ -43,6 +53,7 @@ assert.match(routeMap.innerHTML, /Simplified prototype layer/i);
 assert.match(routeMap.innerHTML, /data-leaflet-route-map/i);
 assert.match(routeMap.innerHTML, /data-map-layer="source-context"/i);
 assert.match(routeMap.innerHTML, /data-map-layer="prototype-prioritisation"/i);
+assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);
 assert.match(routeMap.innerHTML, /not official alignments/i);
@@ -108,7 +119,9 @@ function contentType(filePath) {
   if (extension === ".mjs" || extension === ".js") {
     return "text/javascript; charset=utf-8";
   }
-  if (extension === ".json") return "application/json; charset=utf-8";
+  if (extension === ".json" || extension === ".geojson") {
+    return "application/json; charset=utf-8";
+  }
 
   return "application/octet-stream";
 }

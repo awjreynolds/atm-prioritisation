@@ -3,20 +3,27 @@ import { hydrateLeafletRouteMap, renderRouteMap } from "./route-map.mjs";
 const routeDatasetUrl = "data/pilot-routes.json";
 const destinationDatasetUrl = "data/pilot-destinations.json";
 const atmRoutesGeoJsonUrl = "data/atm-routes-bath-somer-valley.geojson";
+const banesAtmGeoJsonUrl = "data/banes-atm-full.geojson";
 const leafletCssUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
 const leafletScriptUrl = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
 const routeMap = document.querySelector("#route-map");
 
 if (routeMap) {
-  const [routeResponse, destinationResponse, atmRoutesGeoJsonResponse] =
-    await Promise.all([
-      fetch(routeDatasetUrl),
-      fetch(destinationDatasetUrl),
-      fetch(atmRoutesGeoJsonUrl),
-    ]);
+  const [
+    routeResponse,
+    destinationResponse,
+    atmRoutesGeoJsonResponse,
+    banesAtmGeoJsonResponse,
+  ] = await Promise.all([
+    fetch(routeDatasetUrl),
+    fetch(destinationDatasetUrl),
+    fetch(atmRoutesGeoJsonUrl),
+    fetch(banesAtmGeoJsonUrl),
+  ]);
   const routes = await routeResponse.json();
   const destinations = await destinationResponse.json();
   const atmRoutesGeoJson = await atmRoutesGeoJsonResponse.json();
+  const banesAtmGeoJson = await banesAtmGeoJsonResponse.json();
   const leafletReady = loadLeaflet();
   let selectedRouteId = null;
   let showDestinations = true;
@@ -24,6 +31,7 @@ if (routeMap) {
   function renderSelectedRouteMap() {
     routeMap.innerHTML = renderRouteMap(routes, {
       atmRoutesGeoJson,
+      banesAtmGeoJson,
       destinations,
       selectedRouteId,
       showDestinations,
@@ -32,6 +40,7 @@ if (routeMap) {
       .then(() => {
         hydrateLeafletRouteMap(routeMap, {
           atmRoutesGeoJson,
+          banesAtmGeoJson,
           routes,
           selectedRouteId,
           onRouteSelect(routeId) {

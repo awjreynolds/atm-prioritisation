@@ -14,3 +14,4 @@ await copyFile(
   "data/atm-routes-bath-somer-valley.geojson",
   "dist/data/atm-routes-bath-somer-valley.geojson",
 );
+await copyFile("data/banes-atm-full.geojson", "dist/data/banes-atm-full.geojson");

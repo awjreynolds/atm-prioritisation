@@ -3,6 +3,7 @@ import { styleRouteForMap } from "./route-styles.mjs";
 
 export function renderRouteMap(routes, options = {}) {
   const atmRoutesGeoJson = options.atmRoutesGeoJson;
+  const banesAtmGeoJson = options.banesAtmGeoJson;
   const destinations = Array.isArray(options.destinations)
     ? options.destinations
     : [];
@@ -19,7 +20,7 @@ export function renderRouteMap(routes, options = {}) {
 
   return [
     "<section class=\"route-map\" aria-label=\"Pilot route map\">",
-    renderLeafletMap(atmRoutesGeoJson),
+    renderLeafletMap(banesAtmGeoJson ?? atmRoutesGeoJson),
     "<div class=\"route-layer route-layer-background\" data-route-layer=\"atm-background\">",
     "<h2>Original ATM-style source evidence</h2>",
     ...backgroundRoutes.map((route) => renderRoute(route, selectedRoute)),
@@ -44,7 +45,8 @@ export function hydrateLeafletRouteMap(root, options = {}) {
   }
 
   const atmRoutesGeoJson = options.atmRoutesGeoJson;
-  const sourceFeatures = sourceContextFeatures(atmRoutesGeoJson);
+  const banesAtmGeoJson = options.banesAtmGeoJson;
+  const sourceFeatures = sourceContextFeatures(banesAtmGeoJson ?? atmRoutesGeoJson);
   const prototypeFeatures = prototypePrioritisationFeatures(
     options.routes ?? [],
     atmRoutesGeoJson,
@@ -72,6 +74,19 @@ export function hydrateLeafletRouteMap(root, options = {}) {
         features: sourceFeatures,
       },
       {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              escapeHtml(properties.source_atm_classification ?? "ATM route"),
+              "</strong>",
+              properties.portal_feature_id
+                ? `<br>${escapeHtml(properties.portal_feature_id)}`
+                : "",
+            ].join(""),
+          );
+        },
         style(feature) {
           return styleSourceFeature(feature);
         },
@@ -114,6 +129,9 @@ export function hydrateLeafletRouteMap(root, options = {}) {
 
 function renderLeafletMap(atmRoutesGeoJson) {
   const sourceFeatureCount = sourceContextFeatures(atmRoutesGeoJson).length;
+  const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
+    ? " full B&amp;NES portal features from the public Active Travel Masterplan layer."
+    : " checked-in best-fit lon/lat features from the Bath to Somer Valley ATM extraction.";
 
   return [
     "<div class=\"leaflet-map-shell\" aria-label=\"Bath to Somer Valley interactive map\">",
@@ -121,7 +139,8 @@ function renderLeafletMap(atmRoutesGeoJson) {
     "<div class=\"leaflet-layer-summary\" aria-label=\"Map layer summary\">",
     "<p data-map-layer=\"source-context\"><strong>Source ATM/context geometry:</strong> ",
     sourceFeatureCount,
-    " checked-in best-fit lon/lat features from the Bath to Somer Valley ATM extraction.</p>",
+    sourceSummary,
+    "</p>",
     "<p data-map-layer=\"prototype-prioritisation\"><strong>Prototype hypothesis/prioritisation layers:</strong> selectable review corridors drawn separately above the source/context evidence.</p>",
     "</div>",
     "<p class=\"route-sketch-note\">Leaflet/OpenStreetMap map. Basemap attribution: OpenStreetMap contributors. Geometry is indicative review-map evidence and prototype hypothesis only; lines are not official alignments.</p>",
@@ -129,9 +148,21 @@ function renderLeafletMap(atmRoutesGeoJson) {
   ].join("");
 }
 
+function isBanesAtmPortalGeoJson(geoJson) {
+  return (
+    geoJson?.metadata?.source_layer === "bathnes_public:final_february25" ||
+    featureCollectionFeatures(geoJson).some(
+      (feature) => feature.properties?.source_layer === "banes-atm-portal",
+    )
+  );
+}
+
 function sourceContextFeatures(atmRoutesGeoJson) {
   return featureCollectionFeatures(atmRoutesGeoJson).filter((feature) =>
-    ["atm-route", "context-greenway"].includes(feature.properties?.source_layer),
+    feature.geometry &&
+    ["atm-route", "context-greenway", "banes-atm-portal"].includes(
+      feature.properties?.source_layer,
+    ),
   );
 }
 
@@ -240,6 +271,10 @@ function compactLineCoordinates(coordinates) {
 }
 
 function styleSourceFeature(feature) {
+  if (feature.properties?.source_layer === "banes-atm-portal") {
+    return styleBanesAtmFeature(feature);
+  }
+
   const isGreenway = feature.properties?.source_layer === "context-greenway";
 
   return {
@@ -247,6 +282,41 @@ function styleSourceFeature(feature) {
     dashArray: isGreenway ? "4 6" : "2 4",
     opacity: 0.68,
     weight: isGreenway ? 4 : 5,
+  };
+}
+
+function styleBanesAtmFeature(feature) {
+  const classification = feature.properties?.source_atm_classification;
+  const styles = {
+    Strategic: {
+      color: "#005ea5",
+      dashArray: undefined,
+      weight: 4,
+    },
+    Quiet: {
+      color: "#00703c",
+      dashArray: "6 5",
+      weight: 3,
+    },
+    "Community Connections": {
+      color: "#6f72af",
+      dashArray: "2 5",
+      weight: 3,
+    },
+    "Missing Pavement": {
+      color: "#d4351c",
+      dashArray: "1 6",
+      weight: 4,
+    },
+  };
+
+  return {
+    ...(styles[classification] ?? {
+      color: "#505a5f",
+      dashArray: "4 4",
+      weight: 3,
+    }),
+    opacity: 0.78,
   };
 }
 
