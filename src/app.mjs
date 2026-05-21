@@ -1,4 +1,7 @@
-import { hydrateLeafletRouteMap, renderRouteMap } from "./route-map.mjs";
+import {
+  hydrateLeafletRouteMap,
+  renderRouteMap,
+} from "./route-map.mjs?v=weca-clean-default-20260521";
 
 const routeDatasetUrl = "data/pilot-routes.json";
 const destinationDatasetUrl = "data/pilot-destinations.json";

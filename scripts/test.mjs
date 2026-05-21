@@ -1126,7 +1126,9 @@ assert.match(
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
-assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);
+assert.match(clientScript, /hydrateLeafletRouteMap/i);
+assert.match(clientScript, /renderRouteMap/i);
+assert.match(clientScript, /route-map\.mjs\?v=weca-clean-default-20260521/i);
 assert.match(clientScript, /pilot-routes\.json/i);
 assert.match(clientScript, /pilot-destinations\.json/i);
 assert.match(clientScript, /atm-routes-bath-somer-valley\.geojson/i);
