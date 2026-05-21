@@ -184,18 +184,18 @@ assert.deepEqual(
   ["Bristol", "Bath and Batheaston", "Keynsham", "Somer Valley"],
 );
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
-assert.equal(wecaSatnCentroids.features.length, 59);
+assert.equal(wecaSatnCentroids.features.length, 199);
 assert.equal(
   wecaSatnCentroids.features.filter(
     (feature) => feature.properties.satn_feature_type === "community-centroid",
   ).length,
-  30,
+  100,
 );
 assert.equal(
   wecaSatnCentroids.features.filter(
     (feature) => feature.properties.satn_feature_type === "centroid-connection",
   ).length,
-  29,
+  99,
 );
 assert.equal(nationalCycleNetwork.type, "FeatureCollection");
 assert.equal(
@@ -839,7 +839,7 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
-assert.match(renderedRouteMap, /59 centroid\/connector features/i);
+assert.match(renderedRouteMap, /199 centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
@@ -1011,7 +1011,7 @@ const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
 
 assert.match(page, /href="styles\.css"/i);
-assert.match(page, /type="module" src="app\.mjs\?v=satn-ncn-layers-20260521"/i);
+assert.match(page, /type="module" src="app\.mjs\?v=village-centroids-20260521"/i);
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);

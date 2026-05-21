@@ -5,7 +5,7 @@
     "source_boundary_dataset": "ONS Built Up Areas (December 2022) Boundaries GB BGG",
     "source_boundary_url": "https://geoportal.statistics.gov.uk/datasets/ons::built-up-areas-december-2022-boundaries-gb-bgg",
     "source_lcwip_url": "https://www.westofengland-ca.gov.uk/wp-content/uploads/2022/04/Full-LCWIP-Jan-2021.pdf",
-    "extracted_at": "2026-05-21T10:47:57.974Z",
+    "extracted_at": "2026-05-21T10:57:16.265Z",
     "notes": "SATN-style community centroids derived from ONS built-up-area centroids plus explicit city-village centroids. Connector lines are generated as a non-crossing minimum spanning tree."
   },
   "features": [
@@ -611,6 +611,1336 @@
     },
     {
       "type": "Feature",
+      "id": "satn-centroid-bathford",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3009,
+          51.3976
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-bathford",
+        "area_name": "Bathford",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-freshford",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3034,
+          51.3427
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-freshford",
+        "area_name": "Freshford",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-limpley-stoke",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3148,
+          51.3477
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-limpley-stoke",
+        "area_name": "Limpley Stoke",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-monkton-combe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.327,
+          51.3565
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-monkton-combe",
+        "area_name": "Monkton Combe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-southstoke",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3604,
+          51.3518
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-southstoke",
+        "area_name": "South Stoke",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-combe-hay",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.402,
+          51.3385
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-combe-hay",
+        "area_name": "Combe Hay",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-tunley",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4322,
+          51.3408
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-tunley",
+        "area_name": "Tunley",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-dunkerton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4238,
+          51.3279
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-dunkerton",
+        "area_name": "Dunkerton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-wellow",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3747,
+          51.3232
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-wellow",
+        "area_name": "Wellow",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-shoscombe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4154,
+          51.3003
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-shoscombe",
+        "area_name": "Shoscombe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-camerton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4537,
+          51.316
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-camerton",
+        "area_name": "Camerton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-priston",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4395,
+          51.3428
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-priston",
+        "area_name": "Priston",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-englishcombe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4059,
+          51.3583
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-englishcombe",
+        "area_name": "Englishcombe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-corston",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4415,
+          51.3829
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-corston",
+        "area_name": "Corston",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-newton-st-loe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4496,
+          51.3792
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-newton-st-loe",
+        "area_name": "Newton St Loe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-kelston",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.435,
+          51.4018
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-kelston",
+        "area_name": "Kelston",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-marksbury",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4792,
+          51.3604
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-marksbury",
+        "area_name": "Marksbury",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-farmborough",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.487,
+          51.3436
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-farmborough",
+        "area_name": "Farmborough",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-timsbury",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4765,
+          51.3256
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-timsbury",
+        "area_name": "Timsbury",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-high-littleton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5098,
+          51.3245
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-high-littleton",
+        "area_name": "High Littleton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-hallatrow",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5265,
+          51.3185
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-hallatrow",
+        "area_name": "Hallatrow",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-farrington-gurney",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5307,
+          51.297
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-farrington-gurney",
+        "area_name": "Farrington Gurney",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-clutton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5427,
+          51.329
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-clutton",
+        "area_name": "Clutton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-temple-cloud",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.543,
+          51.3201
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-temple-cloud",
+        "area_name": "Temple Cloud",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-pensford",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5484,
+          51.3718
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-pensford",
+        "area_name": "Pensford",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-stanton-drew",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5753,
+          51.3676
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-stanton-drew",
+        "area_name": "Stanton Drew",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-chew-magna",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6108,
+          51.3676
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-chew-magna",
+        "area_name": "Chew Magna",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-chew-stoke",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6306,
+          51.3533
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-chew-stoke",
+        "area_name": "Chew Stoke",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-bishop-sutton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5945,
+          51.3355
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-bishop-sutton",
+        "area_name": "Bishop Sutton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-whitchurch-village",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5602,
+          51.4066
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-whitchurch-village",
+        "area_name": "Whitchurch Village",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-bitton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4616,
+          51.4235
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-bitton",
+        "area_name": "Bitton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-wick",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4247,
+          51.453
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-wick",
+        "area_name": "Wick",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-oldland-common",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4755,
+          51.4418
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-oldland-common",
+        "area_name": "Oldland Common",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-longwell-green",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4999,
+          51.4397
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-longwell-green",
+        "area_name": "Longwell Green",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-warmley",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4779,
+          51.46
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-warmley",
+        "area_name": "Warmley",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-emersons-green",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4774,
+          51.4932
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-emersons-green",
+        "area_name": "Emersons Green",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-mangotsfield",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.499,
+          51.4871
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-mangotsfield",
+        "area_name": "Mangotsfield",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-pucklechurch",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4346,
+          51.4853
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-pucklechurch",
+        "area_name": "Pucklechurch",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-winterbourne",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5045,
+          51.5232
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-winterbourne",
+        "area_name": "Winterbourne",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-frampton-cotterell",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4778,
+          51.5251
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-frampton-cotterell",
+        "area_name": "Frampton Cotterell",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-coalpit-heath",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4681,
+          51.5166
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-coalpit-heath",
+        "area_name": "Coalpit Heath",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-westerleigh",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4357,
+          51.5185
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-westerleigh",
+        "area_name": "Westerleigh",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-stoke-gifford",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5401,
+          51.516
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-stoke-gifford",
+        "area_name": "Stoke Gifford",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-bradley-stoke",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.547,
+          51.5352
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-bradley-stoke",
+        "area_name": "Bradley Stoke",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-patchway",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5847,
+          51.5314
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-patchway",
+        "area_name": "Patchway",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-filton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5761,
+          51.5107
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-filton",
+        "area_name": "Filton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-almondsbury",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5711,
+          51.5541
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-almondsbury",
+        "area_name": "Almondsbury",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-long-ashton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6608,
+          51.4298
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-long-ashton",
+        "area_name": "Long Ashton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-pill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6828,
+          51.481
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-pill",
+        "area_name": "Pill",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-abbots-leigh",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6678,
+          51.461
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-abbots-leigh",
+        "area_name": "Abbots Leigh",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-backwell",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7381,
+          51.4144
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-backwell",
+        "area_name": "Backwell",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-flax-bourton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.6998,
+          51.4213
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-flax-bourton",
+        "area_name": "Flax Bourton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-wrington",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7623,
+          51.3618
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-wrington",
+        "area_name": "Wrington",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-congresbury",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8106,
+          51.3715
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-congresbury",
+        "area_name": "Congresbury",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-yatton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8235,
+          51.3885
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-yatton",
+        "area_name": "Yatton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-cleeve",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7843,
+          51.3902
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-cleeve",
+        "area_name": "Cleeve",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-wraxall",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7265,
+          51.4425
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-wraxall",
+        "area_name": "Wraxall",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-tickenham",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8034,
+          51.4469
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-tickenham",
+        "area_name": "Tickenham",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-banwell",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8671,
+          51.3281
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-banwell",
+        "area_name": "Banwell",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-winscombe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8312,
+          51.3124
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-winscombe",
+        "area_name": "Winscombe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-sandford",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8354,
+          51.3317
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-sandford",
+        "area_name": "Sandford",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-churchill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.8029,
+          51.3333
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-churchill",
+        "area_name": "Churchill",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-blagdon",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7171,
+          51.3264
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-blagdon",
+        "area_name": "Blagdon",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-norton-st-philip",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.3238,
+          51.3028
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-norton-st-philip",
+        "area_name": "Norton St Philip",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-rode",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.2818,
+          51.2839
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-rode",
+        "area_name": "Rode",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-kilmersdon",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4381,
+          51.2698
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-kilmersdon",
+        "area_name": "Kilmersdon",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-holcombe",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.4664,
+          51.2491
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-holcombe",
+        "area_name": "Holcombe",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-chilcompton",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5068,
+          51.2603
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-chilcompton",
+        "area_name": "Chilcompton",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-oakhill",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5276,
+          51.2245
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-oakhill",
+        "area_name": "Oakhill",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-centroid-chewton-mendip",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5797,
+          51.2762
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "community-centroid",
+        "lcwip_area_id": "satn-centroid-chewton-mendip",
+        "area_name": "Chewton Mendip",
+        "component_built_up_areas": [],
+        "centroid_source": "manual-edge-village-centroid",
+        "provenance_notes": "Manual city-village centroid added for SATN-style local context where ONS built-up areas do not expose a separate internal neighbourhood polygon."
+      }
+    },
+    {
+      "type": "Feature",
       "id": "satn-connection-bristol-centroid-bedminster-southville",
       "geometry": {
         "type": "LineString",
@@ -767,33 +2097,33 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-knowle-totterdown-fishponds-church-road",
+      "id": "satn-connection-hartcliffe-hengrove-whitchurch-village",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.5744,
-            51.4388
+            -2.5939,
+            51.4086
           ],
           [
-            -2.5266,
-            51.4787
+            -2.5602,
+            51.4066
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-knowle-totterdown",
-        "to_area_id": "satn-centroid-fishponds-church-road",
-        "from_area_name": "Knowle and Totterdown",
-        "to_area_name": "Fishponds and Church Road",
+        "from_area_id": "satn-centroid-hartcliffe-hengrove",
+        "to_area_id": "satn-centroid-whitchurch-village",
+        "from_area_name": "Hartcliffe and Hengrove Park",
+        "to_area_name": "Whitchurch Village",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-westbury-henleaze-southmead-shirehampton",
+      "id": "satn-connection-westbury-henleaze-southmead-filton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -802,56 +2132,420 @@
             51.4936
           ],
           [
-            -2.6799,
-            51.4888
+            -2.5761,
+            51.5107
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-westbury-henleaze-southmead",
-        "to_area_id": "satn-centroid-shirehampton",
+        "to_area_id": "satn-centroid-filton",
         "from_area_name": "Westbury-on-Trym, Henleaze and Southmead",
-        "to_area_name": "Shirehampton",
+        "to_area_name": "Filton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-fishponds-church-road-keynsham-centroid",
+      "id": "satn-connection-filton-patchway",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.5266,
-            51.4787
+            -2.5761,
+            51.5107
           ],
           [
-            -2.4977351,
-            51.4108735
+            -2.5847,
+            51.5314
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-fishponds-church-road",
-        "to_area_id": "lcwip-urban-keynsham-centroid",
-        "from_area_name": "Fishponds and Church Road",
-        "to_area_name": "Keynsham",
+        "from_area_id": "satn-centroid-filton",
+        "to_area_id": "satn-centroid-patchway",
+        "from_area_name": "Filton",
+        "to_area_name": "Patchway",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-keynsham-centroid-saltford",
+      "id": "satn-connection-patchway-almondsbury",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.4977351,
-            51.4108735
+            -2.5847,
+            51.5314
+          ],
+          [
+            -2.5711,
+            51.5541
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-patchway",
+        "to_area_id": "satn-centroid-almondsbury",
+        "from_area_name": "Patchway",
+        "to_area_name": "Almondsbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-almondsbury-bradley-stoke",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5711,
+            51.5541
+          ],
+          [
+            -2.547,
+            51.5352
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-almondsbury",
+        "to_area_id": "satn-centroid-bradley-stoke",
+        "from_area_name": "Almondsbury",
+        "to_area_name": "Bradley Stoke",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-bradley-stoke-stoke-gifford",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.547,
+            51.5352
+          ],
+          [
+            -2.5401,
+            51.516
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-bradley-stoke",
+        "to_area_id": "satn-centroid-stoke-gifford",
+        "from_area_name": "Bradley Stoke",
+        "to_area_name": "Stoke Gifford",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-stoke-gifford-winterbourne",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5401,
+            51.516
+          ],
+          [
+            -2.5045,
+            51.5232
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-stoke-gifford",
+        "to_area_id": "satn-centroid-winterbourne",
+        "from_area_name": "Stoke Gifford",
+        "to_area_name": "Winterbourne",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-winterbourne-frampton-cotterell",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5045,
+            51.5232
+          ],
+          [
+            -2.4778,
+            51.5251
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-winterbourne",
+        "to_area_id": "satn-centroid-frampton-cotterell",
+        "from_area_name": "Winterbourne",
+        "to_area_name": "Frampton Cotterell",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-frampton-cotterell-coalpit-heath",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4778,
+            51.5251
+          ],
+          [
+            -2.4681,
+            51.5166
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-frampton-cotterell",
+        "to_area_id": "satn-centroid-coalpit-heath",
+        "from_area_name": "Frampton Cotterell",
+        "to_area_name": "Coalpit Heath",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-coalpit-heath-emersons-green",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4681,
+            51.5166
+          ],
+          [
+            -2.4774,
+            51.4932
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-coalpit-heath",
+        "to_area_id": "satn-centroid-emersons-green",
+        "from_area_name": "Coalpit Heath",
+        "to_area_name": "Emersons Green",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-emersons-green-mangotsfield",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4774,
+            51.4932
+          ],
+          [
+            -2.499,
+            51.4871
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-emersons-green",
+        "to_area_id": "satn-centroid-mangotsfield",
+        "from_area_name": "Emersons Green",
+        "to_area_name": "Mangotsfield",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-mangotsfield-fishponds-church-road",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.499,
+            51.4871
+          ],
+          [
+            -2.5266,
+            51.4787
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-mangotsfield",
+        "to_area_id": "satn-centroid-fishponds-church-road",
+        "from_area_name": "Mangotsfield",
+        "to_area_name": "Fishponds and Church Road",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-coalpit-heath-westerleigh",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4681,
+            51.5166
+          ],
+          [
+            -2.4357,
+            51.5185
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-coalpit-heath",
+        "to_area_id": "satn-centroid-westerleigh",
+        "from_area_name": "Coalpit Heath",
+        "to_area_name": "Westerleigh",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-westerleigh-yate",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4357,
+            51.5185
+          ],
+          [
+            -2.4245715,
+            51.5445532
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-westerleigh",
+        "to_area_id": "satn-centroid-yate",
+        "from_area_name": "Westerleigh",
+        "to_area_name": "Yate",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-emersons-green-warmley",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4774,
+            51.4932
+          ],
+          [
+            -2.4779,
+            51.46
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-emersons-green",
+        "to_area_id": "satn-centroid-warmley",
+        "from_area_name": "Emersons Green",
+        "to_area_name": "Warmley",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-warmley-oldland-common",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4779,
+            51.46
+          ],
+          [
+            -2.4755,
+            51.4418
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-warmley",
+        "to_area_id": "satn-centroid-oldland-common",
+        "from_area_name": "Warmley",
+        "to_area_name": "Oldland Common",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-oldland-common-bitton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4755,
+            51.4418
+          ],
+          [
+            -2.4616,
+            51.4235
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-oldland-common",
+        "to_area_id": "satn-centroid-bitton",
+        "from_area_name": "Oldland Common",
+        "to_area_name": "Bitton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-bitton-saltford",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4616,
+            51.4235
           ],
           [
             -2.4563195,
@@ -861,9 +2555,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "lcwip-urban-keynsham-centroid",
+        "from_area_id": "satn-centroid-bitton",
         "to_area_id": "satn-centroid-saltford",
-        "from_area_name": "Keynsham",
+        "from_area_name": "Bitton",
         "to_area_name": "Saltford",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -871,13 +2565,507 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-saltford-twerton",
+      "id": "satn-connection-saltford-kelston",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
             -2.4563195,
             51.4022024
+          ],
+          [
+            -2.435,
+            51.4018
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-saltford",
+        "to_area_id": "satn-centroid-kelston",
+        "from_area_name": "Saltford",
+        "to_area_name": "Kelston",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-kelston-corston",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.435,
+            51.4018
+          ],
+          [
+            -2.4415,
+            51.3829
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-kelston",
+        "to_area_id": "satn-centroid-corston",
+        "from_area_name": "Kelston",
+        "to_area_name": "Corston",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-corston-newton-st-loe",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4415,
+            51.3829
+          ],
+          [
+            -2.4496,
+            51.3792
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-corston",
+        "to_area_id": "satn-centroid-newton-st-loe",
+        "from_area_name": "Corston",
+        "to_area_name": "Newton St Loe",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-oldland-common-longwell-green",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4755,
+            51.4418
+          ],
+          [
+            -2.4999,
+            51.4397
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-oldland-common",
+        "to_area_id": "satn-centroid-longwell-green",
+        "from_area_name": "Oldland Common",
+        "to_area_name": "Longwell Green",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-longwell-green-keynsham-centroid",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4999,
+            51.4397
+          ],
+          [
+            -2.4977351,
+            51.4108735
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-longwell-green",
+        "to_area_id": "lcwip-urban-keynsham-centroid",
+        "from_area_name": "Longwell Green",
+        "to_area_name": "Keynsham",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-westerleigh-pucklechurch",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4357,
+            51.5185
+          ],
+          [
+            -2.4346,
+            51.4853
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-westerleigh",
+        "to_area_id": "satn-centroid-pucklechurch",
+        "from_area_name": "Westerleigh",
+        "to_area_name": "Pucklechurch",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-pucklechurch-wick",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4346,
+            51.4853
+          ],
+          [
+            -2.4247,
+            51.453
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-pucklechurch",
+        "to_area_id": "satn-centroid-wick",
+        "from_area_name": "Pucklechurch",
+        "to_area_name": "Wick",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-yate-chipping-sodbury",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4245715,
+            51.5445532
+          ],
+          [
+            -2.3915729,
+            51.5371664
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-yate",
+        "to_area_id": "satn-centroid-chipping-sodbury",
+        "from_area_name": "Yate",
+        "to_area_name": "Chipping Sodbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-newton-st-loe-marksbury",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4496,
+            51.3792
+          ],
+          [
+            -2.4792,
+            51.3604
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-newton-st-loe",
+        "to_area_id": "satn-centroid-marksbury",
+        "from_area_name": "Newton St Loe",
+        "to_area_name": "Marksbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-marksbury-farmborough",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4792,
+            51.3604
+          ],
+          [
+            -2.487,
+            51.3436
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-marksbury",
+        "to_area_id": "satn-centroid-farmborough",
+        "from_area_name": "Marksbury",
+        "to_area_name": "Farmborough",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-farmborough-timsbury",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.487,
+            51.3436
+          ],
+          [
+            -2.4765,
+            51.3256
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-farmborough",
+        "to_area_id": "satn-centroid-timsbury",
+        "from_area_name": "Farmborough",
+        "to_area_name": "Timsbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-timsbury-camerton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4765,
+            51.3256
+          ],
+          [
+            -2.4537,
+            51.316
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-timsbury",
+        "to_area_id": "satn-centroid-camerton",
+        "from_area_name": "Timsbury",
+        "to_area_name": "Camerton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-camerton-peasedown-st-john",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4537,
+            51.316
+          ],
+          [
+            -2.4296203,
+            51.3167989
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-camerton",
+        "to_area_id": "satn-centroid-peasedown-st-john",
+        "from_area_name": "Camerton",
+        "to_area_name": "Peasedown St John",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-peasedown-st-john-dunkerton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4296203,
+            51.3167989
+          ],
+          [
+            -2.4238,
+            51.3279
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-peasedown-st-john",
+        "to_area_id": "satn-centroid-dunkerton",
+        "from_area_name": "Peasedown St John",
+        "to_area_name": "Dunkerton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-dunkerton-tunley",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4238,
+            51.3279
+          ],
+          [
+            -2.4322,
+            51.3408
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-dunkerton",
+        "to_area_id": "satn-centroid-tunley",
+        "from_area_name": "Dunkerton",
+        "to_area_name": "Tunley",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-tunley-priston",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4322,
+            51.3408
+          ],
+          [
+            -2.4395,
+            51.3428
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-tunley",
+        "to_area_id": "satn-centroid-priston",
+        "from_area_name": "Tunley",
+        "to_area_name": "Priston",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-peasedown-st-john-shoscombe",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4296203,
+            51.3167989
+          ],
+          [
+            -2.4154,
+            51.3003
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-peasedown-st-john",
+        "to_area_id": "satn-centroid-shoscombe",
+        "from_area_name": "Peasedown St John",
+        "to_area_name": "Shoscombe",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-dunkerton-combe-hay",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4238,
+            51.3279
+          ],
+          [
+            -2.402,
+            51.3385
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-dunkerton",
+        "to_area_id": "satn-centroid-combe-hay",
+        "from_area_name": "Dunkerton",
+        "to_area_name": "Combe Hay",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-combe-hay-englishcombe",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.402,
+            51.3385
+          ],
+          [
+            -2.4059,
+            51.3583
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-combe-hay",
+        "to_area_id": "satn-centroid-englishcombe",
+        "from_area_name": "Combe Hay",
+        "to_area_name": "Englishcombe",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-englishcombe-twerton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4059,
+            51.3583
           ],
           [
             -2.3994,
@@ -887,9 +3075,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-saltford",
+        "from_area_id": "satn-centroid-englishcombe",
         "to_area_id": "satn-centroid-twerton",
-        "from_area_name": "Saltford",
+        "from_area_name": "Englishcombe",
         "to_area_name": "Twerton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -917,6 +3105,162 @@
         "to_area_id": "satn-centroid-weston-bath",
         "from_area_name": "Twerton",
         "to_area_name": "Weston, Bath",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-englishcombe-odd-down",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4059,
+            51.3583
+          ],
+          [
+            -2.3776,
+            51.3538
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-englishcombe",
+        "to_area_id": "satn-centroid-odd-down",
+        "from_area_name": "Englishcombe",
+        "to_area_name": "Odd Down",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-odd-down-southstoke",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3776,
+            51.3538
+          ],
+          [
+            -2.3604,
+            51.3518
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-odd-down",
+        "to_area_id": "satn-centroid-southstoke",
+        "from_area_name": "Odd Down",
+        "to_area_name": "South Stoke",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-southstoke-combe-down",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3604,
+            51.3518
+          ],
+          [
+            -2.3525,
+            51.3547
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-southstoke",
+        "to_area_id": "satn-centroid-combe-down",
+        "from_area_name": "South Stoke",
+        "to_area_name": "Combe Down",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-combe-down-monkton-combe",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3525,
+            51.3547
+          ],
+          [
+            -2.327,
+            51.3565
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-combe-down",
+        "to_area_id": "satn-centroid-monkton-combe",
+        "from_area_name": "Combe Down",
+        "to_area_name": "Monkton Combe",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-monkton-combe-limpley-stoke",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.327,
+            51.3565
+          ],
+          [
+            -2.3148,
+            51.3477
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-monkton-combe",
+        "to_area_id": "satn-centroid-limpley-stoke",
+        "from_area_name": "Monkton Combe",
+        "to_area_name": "Limpley Stoke",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-limpley-stoke-freshford",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3148,
+            51.3477
+          ],
+          [
+            -2.3034,
+            51.3427
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-limpley-stoke",
+        "to_area_id": "satn-centroid-freshford",
+        "from_area_name": "Limpley Stoke",
+        "to_area_name": "Freshford",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
@@ -1001,59 +3345,189 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-bath-batheaston-centroid-combe-down",
+      "id": "satn-connection-bathampton-bathford",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.3627724,
-            51.3832655
+            -2.3227,
+            51.393
           ],
           [
-            -2.3525,
-            51.3547
+            -2.3009,
+            51.3976
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "lcwip-urban-bath-batheaston-centroid",
-        "to_area_id": "satn-centroid-combe-down",
-        "from_area_name": "Bath and Batheaston",
-        "to_area_name": "Combe Down",
+        "from_area_id": "satn-centroid-bathampton",
+        "to_area_id": "satn-centroid-bathford",
+        "from_area_name": "Bathampton",
+        "to_area_name": "Bathford",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-combe-down-odd-down",
+      "id": "satn-connection-farmborough-high-littleton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.3525,
-            51.3547
+            -2.487,
+            51.3436
           ],
           [
-            -2.3776,
-            51.3538
+            -2.5098,
+            51.3245
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-combe-down",
-        "to_area_id": "satn-centroid-odd-down",
-        "from_area_name": "Combe Down",
-        "to_area_name": "Odd Down",
+        "from_area_id": "satn-centroid-farmborough",
+        "to_area_id": "satn-centroid-high-littleton",
+        "from_area_name": "Farmborough",
+        "to_area_name": "High Littleton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-odd-down-peasedown-st-john",
+      "id": "satn-connection-high-littleton-hallatrow",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5098,
+            51.3245
+          ],
+          [
+            -2.5265,
+            51.3185
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-high-littleton",
+        "to_area_id": "satn-centroid-hallatrow",
+        "from_area_name": "High Littleton",
+        "to_area_name": "Hallatrow",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-hallatrow-temple-cloud",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5265,
+            51.3185
+          ],
+          [
+            -2.543,
+            51.3201
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-hallatrow",
+        "to_area_id": "satn-centroid-temple-cloud",
+        "from_area_name": "Hallatrow",
+        "to_area_name": "Temple Cloud",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-temple-cloud-clutton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.543,
+            51.3201
+          ],
+          [
+            -2.5427,
+            51.329
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-temple-cloud",
+        "to_area_id": "satn-centroid-clutton",
+        "from_area_name": "Temple Cloud",
+        "to_area_name": "Clutton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-high-littleton-paulton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5098,
+            51.3245
+          ],
+          [
+            -2.5003171,
+            51.3063436
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-high-littleton",
+        "to_area_id": "satn-centroid-paulton",
+        "from_area_name": "High Littleton",
+        "to_area_name": "Paulton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-hallatrow-farrington-gurney",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5265,
+            51.3185
+          ],
+          [
+            -2.5307,
+            51.297
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-hallatrow",
+        "to_area_id": "satn-centroid-farrington-gurney",
+        "from_area_name": "Hallatrow",
+        "to_area_name": "Farrington Gurney",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-odd-down-wellow",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -1062,30 +3536,30 @@
             51.3538
           ],
           [
-            -2.4296203,
-            51.3167989
+            -2.3747,
+            51.3232
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
         "from_area_id": "satn-centroid-odd-down",
-        "to_area_id": "satn-centroid-peasedown-st-john",
+        "to_area_id": "satn-centroid-wellow",
         "from_area_name": "Odd Down",
-        "to_area_name": "Peasedown St John",
+        "to_area_name": "Wellow",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-peasedown-st-john-somer-valley-centroid",
+      "id": "satn-connection-camerton-somer-valley-centroid",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.4296203,
-            51.3167989
+            -2.4537,
+            51.316
           ],
           [
             -2.4696619,
@@ -1095,9 +3569,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-peasedown-st-john",
+        "from_area_id": "satn-centroid-camerton",
         "to_area_id": "lcwip-urban-somer-valley-centroid",
-        "from_area_name": "Peasedown St John",
+        "from_area_name": "Camerton",
         "to_area_name": "Somer Valley",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -1131,65 +3605,507 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-somer-valley-centroid-paulton",
+      "id": "satn-connection-westfield-holcombe",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.4696619,
-            51.2880242
+            -2.4728,
+            51.2766
           ],
           [
-            -2.5003171,
-            51.3063436
+            -2.4664,
+            51.2491
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "lcwip-urban-somer-valley-centroid",
-        "to_area_id": "satn-centroid-paulton",
-        "from_area_name": "Somer Valley",
-        "to_area_name": "Paulton",
+        "from_area_id": "satn-centroid-westfield",
+        "to_area_id": "satn-centroid-holcombe",
+        "from_area_name": "Westfield",
+        "to_area_name": "Holcombe",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-shirehampton-portishead",
+      "id": "satn-connection-holcombe-kilmersdon",
       "geometry": {
         "type": "LineString",
         "coordinates": [
+          [
+            -2.4664,
+            51.2491
+          ],
+          [
+            -2.4381,
+            51.2698
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-holcombe",
+        "to_area_id": "satn-centroid-kilmersdon",
+        "from_area_name": "Holcombe",
+        "to_area_name": "Kilmersdon",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-whitchurch-village-pensford",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5602,
+            51.4066
+          ],
+          [
+            -2.5484,
+            51.3718
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-whitchurch-village",
+        "to_area_id": "satn-centroid-pensford",
+        "from_area_name": "Whitchurch Village",
+        "to_area_name": "Pensford",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-pensford-stanton-drew",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5484,
+            51.3718
+          ],
+          [
+            -2.5753,
+            51.3676
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-pensford",
+        "to_area_id": "satn-centroid-stanton-drew",
+        "from_area_name": "Pensford",
+        "to_area_name": "Stanton Drew",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-stanton-drew-chew-magna",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5753,
+            51.3676
+          ],
+          [
+            -2.6108,
+            51.3676
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-stanton-drew",
+        "to_area_id": "satn-centroid-chew-magna",
+        "from_area_name": "Stanton Drew",
+        "to_area_name": "Chew Magna",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-chew-magna-chew-stoke",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6108,
+            51.3676
+          ],
+          [
+            -2.6306,
+            51.3533
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-chew-magna",
+        "to_area_id": "satn-centroid-chew-stoke",
+        "from_area_name": "Chew Magna",
+        "to_area_name": "Chew Stoke",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-chew-magna-bishop-sutton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6108,
+            51.3676
+          ],
+          [
+            -2.5945,
+            51.3355
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-chew-magna",
+        "to_area_id": "satn-centroid-bishop-sutton",
+        "from_area_name": "Chew Magna",
+        "to_area_name": "Bishop Sutton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-westfield-chilcompton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4728,
+            51.2766
+          ],
+          [
+            -2.5068,
+            51.2603
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-westfield",
+        "to_area_id": "satn-centroid-chilcompton",
+        "from_area_name": "Westfield",
+        "to_area_name": "Chilcompton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-chilcompton-oakhill",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5068,
+            51.2603
+          ],
+          [
+            -2.5276,
+            51.2245
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-chilcompton",
+        "to_area_id": "satn-centroid-oakhill",
+        "from_area_name": "Chilcompton",
+        "to_area_name": "Oakhill",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-freshford-norton-st-philip",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3034,
+            51.3427
+          ],
+          [
+            -2.3238,
+            51.3028
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-freshford",
+        "to_area_id": "satn-centroid-norton-st-philip",
+        "from_area_name": "Freshford",
+        "to_area_name": "Norton St Philip",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-norton-st-philip-rode",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3238,
+            51.3028
+          ],
+          [
+            -2.2818,
+            51.2839
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-norton-st-philip",
+        "to_area_id": "satn-centroid-rode",
+        "from_area_name": "Norton St Philip",
+        "to_area_name": "Rode",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-farrington-gurney-chewton-mendip",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5307,
+            51.297
+          ],
+          [
+            -2.5797,
+            51.2762
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-farrington-gurney",
+        "to_area_id": "satn-centroid-chewton-mendip",
+        "from_area_name": "Farrington Gurney",
+        "to_area_name": "Chewton Mendip",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-clifton-whiteladies-abbots-leigh",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6118,
+            51.4593
+          ],
+          [
+            -2.6678,
+            51.461
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-clifton-whiteladies",
+        "to_area_id": "satn-centroid-abbots-leigh",
+        "from_area_name": "Clifton Village and Whiteladies Road",
+        "to_area_name": "Abbots Leigh",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-abbots-leigh-pill",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6678,
+            51.461
+          ],
+          [
+            -2.6828,
+            51.481
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-abbots-leigh",
+        "to_area_id": "satn-centroid-pill",
+        "from_area_name": "Abbots Leigh",
+        "to_area_name": "Pill",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-pill-shirehampton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6828,
+            51.481
+          ],
           [
             -2.6799,
             51.4888
-          ],
-          [
-            -2.7701459,
-            51.4826244
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-shirehampton",
-        "to_area_id": "satn-centroid-portishead",
-        "from_area_name": "Shirehampton",
-        "to_area_name": "Portishead",
+        "from_area_id": "satn-centroid-pill",
+        "to_area_id": "satn-centroid-shirehampton",
+        "from_area_name": "Pill",
+        "to_area_name": "Shirehampton",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-portishead-nailsea",
+      "id": "satn-connection-abbots-leigh-long-ashton",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.7701459,
-            51.4826244
+            -2.6678,
+            51.461
+          ],
+          [
+            -2.6608,
+            51.4298
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-abbots-leigh",
+        "to_area_id": "satn-centroid-long-ashton",
+        "from_area_name": "Abbots Leigh",
+        "to_area_name": "Long Ashton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-long-ashton-flax-bourton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6608,
+            51.4298
+          ],
+          [
+            -2.6998,
+            51.4213
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-long-ashton",
+        "to_area_id": "satn-centroid-flax-bourton",
+        "from_area_name": "Long Ashton",
+        "to_area_name": "Flax Bourton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-flax-bourton-wraxall",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.6998,
+            51.4213
+          ],
+          [
+            -2.7265,
+            51.4425
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-flax-bourton",
+        "to_area_id": "satn-centroid-wraxall",
+        "from_area_name": "Flax Bourton",
+        "to_area_name": "Wraxall",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-wraxall-backwell",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.7265,
+            51.4425
+          ],
+          [
+            -2.7381,
+            51.4144
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-wraxall",
+        "to_area_id": "satn-centroid-backwell",
+        "from_area_name": "Wraxall",
+        "to_area_name": "Backwell",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-backwell-nailsea",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.7381,
+            51.4144
           ],
           [
             -2.7630373,
@@ -1199,9 +4115,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-portishead",
+        "from_area_id": "satn-centroid-backwell",
         "to_area_id": "satn-centroid-nailsea",
-        "from_area_name": "Portishead",
+        "from_area_name": "Backwell",
         "to_area_name": "Nailsea",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -1209,13 +4125,273 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-nailsea-clevedon",
+      "id": "satn-connection-nailsea-tickenham",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
             -2.7630373,
             51.430003
+          ],
+          [
+            -2.8034,
+            51.4469
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-nailsea",
+        "to_area_id": "satn-centroid-tickenham",
+        "from_area_name": "Nailsea",
+        "to_area_name": "Tickenham",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-nailsea-cleeve",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.7630373,
+            51.430003
+          ],
+          [
+            -2.7843,
+            51.3902
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-nailsea",
+        "to_area_id": "satn-centroid-cleeve",
+        "from_area_name": "Nailsea",
+        "to_area_name": "Cleeve",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-cleeve-congresbury",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.7843,
+            51.3902
+          ],
+          [
+            -2.8106,
+            51.3715
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-cleeve",
+        "to_area_id": "satn-centroid-congresbury",
+        "from_area_name": "Cleeve",
+        "to_area_name": "Congresbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-congresbury-yatton",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8106,
+            51.3715
+          ],
+          [
+            -2.8235,
+            51.3885
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-congresbury",
+        "to_area_id": "satn-centroid-yatton",
+        "from_area_name": "Congresbury",
+        "to_area_name": "Yatton",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-cleeve-wrington",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.7843,
+            51.3902
+          ],
+          [
+            -2.7623,
+            51.3618
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-cleeve",
+        "to_area_id": "satn-centroid-wrington",
+        "from_area_name": "Cleeve",
+        "to_area_name": "Wrington",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-congresbury-churchill",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8106,
+            51.3715
+          ],
+          [
+            -2.8029,
+            51.3333
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-congresbury",
+        "to_area_id": "satn-centroid-churchill",
+        "from_area_name": "Congresbury",
+        "to_area_name": "Churchill",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-churchill-sandford",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8029,
+            51.3333
+          ],
+          [
+            -2.8354,
+            51.3317
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-churchill",
+        "to_area_id": "satn-centroid-sandford",
+        "from_area_name": "Churchill",
+        "to_area_name": "Sandford",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-sandford-winscombe",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8354,
+            51.3317
+          ],
+          [
+            -2.8312,
+            51.3124
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-sandford",
+        "to_area_id": "satn-centroid-winscombe",
+        "from_area_name": "Sandford",
+        "to_area_name": "Winscombe",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-sandford-banwell",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8354,
+            51.3317
+          ],
+          [
+            -2.8671,
+            51.3281
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-sandford",
+        "to_area_id": "satn-centroid-banwell",
+        "from_area_name": "Sandford",
+        "to_area_name": "Banwell",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-tickenham-portishead",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8034,
+            51.4469
+          ],
+          [
+            -2.7701459,
+            51.4826244
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-tickenham",
+        "to_area_id": "satn-centroid-portishead",
+        "from_area_name": "Tickenham",
+        "to_area_name": "Portishead",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-yatton-clevedon",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8235,
+            51.3885
           ],
           [
             -2.8570061,
@@ -1225,9 +4401,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-nailsea",
+        "from_area_id": "satn-centroid-yatton",
         "to_area_id": "satn-centroid-clevedon",
-        "from_area_name": "Nailsea",
+        "from_area_name": "Yatton",
         "to_area_name": "Clevedon",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -1235,91 +4411,39 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-fishponds-church-road-yate",
+      "id": "satn-connection-wrington-blagdon",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.5266,
-            51.4787
+            -2.7623,
+            51.3618
           ],
           [
-            -2.4245715,
-            51.5445532
+            -2.7171,
+            51.3264
           ]
         ]
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-fishponds-church-road",
-        "to_area_id": "satn-centroid-yate",
-        "from_area_name": "Fishponds and Church Road",
-        "to_area_name": "Yate",
+        "from_area_id": "satn-centroid-wrington",
+        "to_area_id": "satn-centroid-blagdon",
+        "from_area_name": "Wrington",
+        "to_area_name": "Blagdon",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
       }
     },
     {
       "type": "Feature",
-      "id": "satn-connection-yate-chipping-sodbury",
+      "id": "satn-connection-rode-frome",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.4245715,
-            51.5445532
-          ],
-          [
-            -2.3915729,
-            51.5371664
-          ]
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-yate",
-        "to_area_id": "satn-centroid-chipping-sodbury",
-        "from_area_name": "Yate",
-        "to_area_name": "Chipping Sodbury",
-        "connection_rule": "non-crossing-minimum-spanning-tree",
-        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-connection-yate-thornbury",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.4245715,
-            51.5445532
-          ],
-          [
-            -2.5157357,
-            51.6090252
-          ]
-        ]
-      },
-      "properties": {
-        "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-yate",
-        "to_area_id": "satn-centroid-thornbury",
-        "from_area_name": "Yate",
-        "to_area_name": "Thornbury",
-        "connection_rule": "non-crossing-minimum-spanning-tree",
-        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "satn-connection-combe-down-frome",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.3525,
-            51.3547
+            -2.2818,
+            51.2839
           ],
           [
             -2.3215,
@@ -1329,9 +4453,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-combe-down",
+        "from_area_id": "satn-centroid-rode",
         "to_area_id": "satn-centroid-frome",
-        "from_area_name": "Combe Down",
+        "from_area_name": "Rode",
         "to_area_name": "Frome",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
@@ -1339,13 +4463,39 @@
     },
     {
       "type": "Feature",
-      "id": "satn-connection-clevedon-weston-super-mare",
+      "id": "satn-connection-almondsbury-thornbury",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -2.8570061,
-            51.431404
+            -2.5711,
+            51.5541
+          ],
+          [
+            -2.5157357,
+            51.6090252
+          ]
+        ]
+      },
+      "properties": {
+        "satn_feature_type": "centroid-connection",
+        "from_area_id": "satn-centroid-almondsbury",
+        "to_area_id": "satn-centroid-thornbury",
+        "from_area_name": "Almondsbury",
+        "to_area_name": "Thornbury",
+        "connection_rule": "non-crossing-minimum-spanning-tree",
+        "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "satn-connection-banwell-weston-super-mare",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.8671,
+            51.3281
           ],
           [
             -2.958049,
@@ -1355,9 +4505,9 @@
       },
       "properties": {
         "satn_feature_type": "centroid-connection",
-        "from_area_id": "satn-centroid-clevedon",
+        "from_area_id": "satn-centroid-banwell",
         "to_area_id": "satn-centroid-weston-super-mare",
-        "from_area_name": "Clevedon",
+        "from_area_name": "Banwell",
         "to_area_name": "Weston-super-Mare",
         "connection_rule": "non-crossing-minimum-spanning-tree",
         "provenance_notes": "Indicative SATN-style connection between community centroids. Connector set is generated as a non-crossing minimum spanning tree."

@@ -226,8 +226,8 @@ export function hydrateLeafletRouteMap(root, options = {}) {
             color: "#0b0c0c",
             fillColor: "#ffdd00",
             fillOpacity: 1,
-            radius: 5,
-            weight: 2,
+            radius: 4,
+            weight: 1.5,
           });
         },
         style(feature) {
