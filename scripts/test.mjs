@@ -1116,7 +1116,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-phases-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-core-default-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
@@ -1138,7 +1138,10 @@ assert.match(clientScript, /closest\("\[data-map-layer-toggle\]"\)/i);
 assert.match(clientScript, /closest\("\[data-map-layer-action\]"\)/i);
 assert.match(clientScript, /selectedRouteId/i);
 assert.match(clientScript, /showDestinations/i);
+assert.match(clientScript, /showAtmStrategicLayer\s*=\s*false/i);
+assert.match(clientScript, /showUrbanEvidenceLayer\s*=\s*false/i);
 assert.match(clientScript, /showWecaStrategicNetworkLayer/i);
+assert.match(clientScript, /showWecaStrategicNetworkLayer\s*=\s*true/i);
 assert.match(clientScript, /showDeprecatedNcnOpportunitiesLayer/i);
 
 assert.match(

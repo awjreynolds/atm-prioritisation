@@ -48,15 +48,15 @@ if (routeMap) {
   const leafletReady = loadLeaflet();
   let selectedRouteId = null;
   let showDestinations = true;
-  let showAtmStrategicLayer = true;
-  let showAtmQuietLayer = true;
-  let showAtmCommunityConnectionsLayer = true;
-  let showAtmMissingPavementLayer = true;
-  let showUrbanEvidenceLayer = true;
+  let showAtmStrategicLayer = false;
+  let showAtmQuietLayer = false;
+  let showAtmCommunityConnectionsLayer = false;
+  let showAtmMissingPavementLayer = false;
+  let showUrbanEvidenceLayer = false;
   let showWecaStrategicNetworkLayer = true;
-  let showQuietLaneOpportunitiesLayer = true;
-  let showDeprecatedNcnOpportunitiesLayer = true;
-  let showNationalCycleNetworkLayer = true;
+  let showQuietLaneOpportunitiesLayer = false;
+  let showDeprecatedNcnOpportunitiesLayer = false;
+  let showNationalCycleNetworkLayer = false;
 
   function renderSelectedRouteMap() {
     routeMap.innerHTML = renderRouteMap(routes, {

@@ -222,7 +222,20 @@ h3 {
   }
 
   .leaflet-route-map {
+    order: 1;
     min-height: 68vh;
+  }
+
+  .map-layer-controls {
+    order: 2;
+  }
+
+  .leaflet-layer-summary {
+    order: 3;
+  }
+
+  .route-sketch-note {
+    order: 4;
   }
 
   h1 {
