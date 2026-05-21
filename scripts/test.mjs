@@ -1112,7 +1112,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-backbone-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-core-network-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
