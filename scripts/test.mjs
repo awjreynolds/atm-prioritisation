@@ -941,7 +941,7 @@ const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
 
 assert.match(page, /href="styles\.css"/i);
-assert.match(page, /type="module" src="app\.mjs"/i);
+assert.match(page, /type="module" src="app\.mjs\?v=banes-atm-full-20260521"/i);
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);
