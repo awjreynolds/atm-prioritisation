@@ -52,10 +52,10 @@ if (routeMap) {
   let showAtmQuietLayer = true;
   let showAtmCommunityConnectionsLayer = true;
   let showAtmMissingPavementLayer = true;
-  let showLcwipUrbanAreasLayer = true;
-  let showSatnCentroidConnectionsLayer = true;
+  let showUrbanEvidenceLayer = true;
   let showWecaStrategicNetworkLayer = true;
   let showQuietLaneOpportunitiesLayer = true;
+  let showDeprecatedNcnOpportunitiesLayer = true;
   let showNationalCycleNetworkLayer = true;
 
   function renderSelectedRouteMap() {
@@ -73,10 +73,10 @@ if (routeMap) {
       showAtmQuietLayer,
       showAtmCommunityConnectionsLayer,
       showAtmMissingPavementLayer,
-      showLcwipUrbanAreasLayer,
-      showSatnCentroidConnectionsLayer,
+      showUrbanEvidenceLayer,
       showWecaStrategicNetworkLayer,
       showQuietLaneOpportunitiesLayer,
+      showDeprecatedNcnOpportunitiesLayer,
       showNationalCycleNetworkLayer,
     });
     leafletReady
@@ -94,10 +94,10 @@ if (routeMap) {
           showAtmQuietLayer,
           showAtmCommunityConnectionsLayer,
           showAtmMissingPavementLayer,
-          showLcwipUrbanAreasLayer,
-          showSatnCentroidConnectionsLayer,
+          showUrbanEvidenceLayer,
           showWecaStrategicNetworkLayer,
           showQuietLaneOpportunitiesLayer,
+          showDeprecatedNcnOpportunitiesLayer,
           showNationalCycleNetworkLayer,
           onRouteSelect(routeId) {
             selectedRouteId = routeId;
@@ -112,6 +112,22 @@ if (routeMap) {
     const destinationToggle = event.target.closest("[data-destination-toggle]");
     if (destinationToggle) {
       showDestinations = destinationToggle.checked;
+      renderSelectedRouteMap();
+      return;
+    }
+
+    const layerAction = event.target.closest("[data-map-layer-action]");
+    if (layerAction) {
+      const visible = layerAction.dataset.mapLayerAction === "select-all";
+      showAtmStrategicLayer = visible;
+      showAtmQuietLayer = visible;
+      showAtmCommunityConnectionsLayer = visible;
+      showAtmMissingPavementLayer = visible;
+      showUrbanEvidenceLayer = visible;
+      showWecaStrategicNetworkLayer = visible;
+      showQuietLaneOpportunitiesLayer = visible;
+      showDeprecatedNcnOpportunitiesLayer = visible;
+      showNationalCycleNetworkLayer = visible;
       renderSelectedRouteMap();
       return;
     }
@@ -131,17 +147,17 @@ if (routeMap) {
         case "atm-missing-pavement":
           showAtmMissingPavementLayer = layerToggle.checked;
           break;
-        case "lcwip-urban-areas":
-          showLcwipUrbanAreasLayer = layerToggle.checked;
-          break;
-        case "satn-centroid-connections":
-          showSatnCentroidConnectionsLayer = layerToggle.checked;
+        case "urban-evidence":
+          showUrbanEvidenceLayer = layerToggle.checked;
           break;
         case "weca-strategic-network":
           showWecaStrategicNetworkLayer = layerToggle.checked;
           break;
         case "quiet-lane-opportunities":
           showQuietLaneOpportunitiesLayer = layerToggle.checked;
+          break;
+        case "deprecated-ncn-opportunities":
+          showDeprecatedNcnOpportunitiesLayer = layerToggle.checked;
           break;
         case "national-cycle-network":
           showNationalCycleNetworkLayer = layerToggle.checked;

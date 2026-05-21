@@ -927,17 +927,21 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="atm-strategic"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-quiet"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-community-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="atm-missing-pavement"/i);
-assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
-assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
+assert.match(renderedRouteMap, /data-map-layer-action="select-all"/i);
+assert.match(renderedRouteMap, /data-map-layer-action="clear-all"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="urban-evidence"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="weca-strategic-network"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="quiet-lane-opportunities"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="deprecated-ncn-opportunities"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /221 centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="weca-strategic-network"/i);
 assert.match(renderedRouteMap, /18 prioritised corridor links/i);
 assert.match(renderedRouteMap, /data-map-layer="quiet-lane-opportunities"/i);
-assert.match(renderedRouteMap, /76 supporting reach, greenway, or deprecated-NCN opportunity features/i);
+assert.match(renderedRouteMap, /9 supporting reach or greenway opportunity features/i);
+assert.match(renderedRouteMap, /data-map-layer="deprecated-ncn-opportunities"/i);
+assert.match(renderedRouteMap, /67 reclassified\/former NCN features flagged/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
@@ -1112,7 +1116,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-core-network-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-phases-20260521"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
@@ -1131,9 +1135,11 @@ assert.match(clientScript, /addEventListener\("click"/i);
 assert.match(clientScript, /closest\("\[data-route-id\]"\)/i);
 assert.match(clientScript, /closest\("\[data-destination-toggle\]"\)/i);
 assert.match(clientScript, /closest\("\[data-map-layer-toggle\]"\)/i);
+assert.match(clientScript, /closest\("\[data-map-layer-action\]"\)/i);
 assert.match(clientScript, /selectedRouteId/i);
 assert.match(clientScript, /showDestinations/i);
 assert.match(clientScript, /showWecaStrategicNetworkLayer/i);
+assert.match(clientScript, /showDeprecatedNcnOpportunitiesLayer/i);
 
 assert.match(
   visibleText,
@@ -1154,6 +1160,8 @@ assert.match(visibleText, /Low modal shift potential/i);
 assert.match(visibleText, /wider lines indicate stronger potential/i);
 assert.match(visibleText, /Core inter-urban network/i);
 assert.match(visibleText, /Core WECA inter-urban A-road corridor/i);
+assert.match(visibleText, /Phase 3 quiet-lane and greenway reach/i);
+assert.match(visibleText, /Phase 4 deprecated NCN opportunity/i);
 assert.match(visibleText, /Deprecated NCN opportunity/i);
 
 const styles = await readFile("dist/styles.css", "utf8");

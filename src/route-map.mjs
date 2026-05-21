@@ -39,9 +39,10 @@ export function renderRouteMap(routes, options = {}) {
     ? options.destinations
     : [];
   const showDestinations = options.showDestinations !== false;
-  const showLcwipUrbanAreasLayer = options.showLcwipUrbanAreasLayer !== false;
-  const showSatnCentroidConnectionsLayer =
-    options.showSatnCentroidConnectionsLayer !== false;
+  const showUrbanEvidenceLayer =
+    options.showUrbanEvidenceLayer ??
+    (options.showLcwipUrbanAreasLayer !== false &&
+      options.showSatnCentroidConnectionsLayer !== false);
   const backgroundRoutes = routes.filter(
     (route) => route.route_layer === "atm-background",
   );
@@ -60,12 +61,13 @@ export function renderRouteMap(routes, options = {}) {
       wecaSatnCentroidsGeoJson,
       wecaStrategicNetworkGeoJson,
       nationalCycleNetworkGeoJson,
-      showLcwipUrbanAreasLayer,
-      showSatnCentroidConnectionsLayer,
+      showUrbanEvidenceLayer,
       showWecaStrategicNetworkLayer:
         options.showWecaStrategicNetworkLayer !== false,
       showQuietLaneOpportunitiesLayer:
         options.showQuietLaneOpportunitiesLayer !== false,
+      showDeprecatedNcnOpportunitiesLayer:
+        options.showDeprecatedNcnOpportunitiesLayer !== false,
       showNationalCycleNetworkLayer:
         options.showNationalCycleNetworkLayer !== false,
       ...atmVisibilityOptions(options),
@@ -106,11 +108,11 @@ export function hydrateLeafletRouteMap(root, options = {}) {
             visibleAtmClassifications.has(atmClassificationKey(feature)),
         );
   const lcwipUrbanAreaFeatures =
-    options.showLcwipUrbanAreasLayer === false
+    options.showUrbanEvidenceLayer === false
       ? []
       : lcwipUrbanAreaFeaturesForMap(options.wecaLcwipUrbanAreasGeoJson);
   const satnCentroidFeatures =
-    options.showSatnCentroidConnectionsLayer === false
+    options.showUrbanEvidenceLayer === false
       ? []
       : satnCentroidFeaturesForMap(options.wecaSatnCentroidsGeoJson);
   const nationalCycleNetworkFeatures =
@@ -124,10 +126,11 @@ export function hydrateLeafletRouteMap(root, options = {}) {
   const quietLaneOpportunityFeatures =
     options.showQuietLaneOpportunitiesLayer === false
       ? []
-      : quietLaneOpportunityFeaturesForMap(
-          options.wecaStrategicNetworkGeoJson,
-          options.nationalCycleNetworkGeoJson,
-        );
+      : quietLaneOpportunityFeaturesForMap(options.wecaStrategicNetworkGeoJson);
+  const deprecatedNcnOpportunityFeatures =
+    options.showDeprecatedNcnOpportunitiesLayer === false
+      ? []
+      : deprecatedNcnOpportunityFeaturesForMap(options.nationalCycleNetworkGeoJson);
   const prototypeFeatures = prototypePrioritisationFeatures(
     options.routes ?? [],
     atmRoutesGeoJson,
@@ -140,6 +143,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     nationalCycleNetworkFeatures.length === 0 &&
     strategicNetworkFeatures.length === 0 &&
     quietLaneOpportunityFeatures.length === 0 &&
+    deprecatedNcnOpportunityFeatures.length === 0 &&
     prototypeFeatures.length === 0
   ) {
     return;
@@ -330,6 +334,33 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     )
     .addTo(map);
 
+  const deprecatedNcnOpportunityLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: deprecatedNcnOpportunityFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              escapeHtml(properties.corridor_name ?? "Deprecated NCN review"),
+              "</strong>",
+              properties.treatment_intent
+                ? `<br>${escapeHtml(formatKebabLabel(properties.treatment_intent))}`
+                : "",
+            ].join(""),
+          );
+        },
+        style(feature) {
+          return styleQuietLaneOpportunityFeature(feature);
+        },
+      },
+    )
+    .addTo(map);
+
   const sourceLayer = leaflet
     .geoJSON(
       {
@@ -388,6 +419,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     lcwipUrbanAreasLayer,
     strategicNetworkLayer,
     quietLaneOpportunityLayer,
+    deprecatedNcnOpportunityLayer,
     nationalCycleNetworkLayer,
     satnCentroidLayer,
     sourceLayer,
@@ -424,6 +456,8 @@ function renderLeafletMap(options) {
   );
   const quietLaneOpportunityCount = quietLaneOpportunityFeaturesForMap(
     wecaStrategicNetworkGeoJson,
+  ).length;
+  const deprecatedNcnOpportunityCount = deprecatedNcnOpportunityFeaturesForMap(
     nationalCycleNetworkGeoJson,
   ).length;
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
@@ -433,32 +467,36 @@ function renderLeafletMap(options) {
   return [
     "<div class=\"leaflet-map-shell\" aria-label=\"Bath to Somer Valley interactive map\">",
     "<div class=\"map-layer-controls\" aria-label=\"Map layer controls\">",
+    "<div class=\"map-layer-actions\" aria-label=\"Layer selection actions\">",
+    "<button type=\"button\" data-map-layer-action=\"select-all\">Select all</button>",
+    "<button type=\"button\" data-map-layer-action=\"clear-all\">Deselect all</button>",
+    "</div>",
+    renderMapLayerToggle(
+      "urban-evidence",
+      "Phase 1: urban areas and centroids",
+      options.showUrbanEvidenceLayer,
+    ),
+    renderMapLayerToggle(
+      "weca-strategic-network",
+      "Phase 2: core WECA inter-urban network",
+      options.showWecaStrategicNetworkLayer,
+    ),
+    renderMapLayerToggle(
+      "quiet-lane-opportunities",
+      "Phase 3: quiet-lane and greenway reach",
+      options.showQuietLaneOpportunitiesLayer,
+    ),
+    renderMapLayerToggle(
+      "deprecated-ncn-opportunities",
+      "Phase 4: deprecated NCN review",
+      options.showDeprecatedNcnOpportunitiesLayer,
+    ),
     ...atmLayerDefinitions.map((definition) =>
       renderMapLayerToggle(
         definition.id,
         definition.label,
         options[definition.visibleOption] !== false,
       ),
-    ),
-    renderMapLayerToggle(
-      "lcwip-urban-areas",
-      "WECA LCWIP urban areas",
-      options.showLcwipUrbanAreasLayer,
-    ),
-    renderMapLayerToggle(
-      "satn-centroid-connections",
-      "SATN centroids and connections",
-      options.showSatnCentroidConnectionsLayer,
-    ),
-    renderMapLayerToggle(
-      "weca-strategic-network",
-      "Core WECA inter-urban network",
-      options.showWecaStrategicNetworkLayer,
-    ),
-    renderMapLayerToggle(
-      "quiet-lane-opportunities",
-      "Quiet-lane and deprecated NCN opportunities",
-      options.showQuietLaneOpportunitiesLayer,
     ),
     renderMapLayerToggle(
       "national-cycle-network",
@@ -481,9 +519,12 @@ function renderLeafletMap(options) {
     "<p data-map-layer=\"weca-strategic-network\"><strong>Core WECA inter-urban network:</strong> ",
     coreInterUrbanNetworkFeatures.length,
     " prioritised corridor links between urban areas and strategic gateways.</p>",
-    "<p data-map-layer=\"quiet-lane-opportunities\"><strong>Quiet-lane and deprecated NCN opportunities:</strong> ",
+    "<p data-map-layer=\"quiet-lane-opportunities\"><strong>Quiet-lane and greenway opportunities:</strong> ",
     quietLaneOpportunityCount,
-    " supporting reach, greenway, or deprecated-NCN opportunity features.</p>",
+    " supporting reach or greenway opportunity features.</p>",
+    "<p data-map-layer=\"deprecated-ncn-opportunities\"><strong>Deprecated NCN review:</strong> ",
+    deprecatedNcnOpportunityCount,
+    " reclassified/former NCN features flagged for quiet-lane or greenway review.</p>",
     "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
     ncnCurrentCount,
     " current features and ",
@@ -596,11 +637,8 @@ function coreInterUrbanNetworkFeaturesForMap(strategicNetworkGeoJson) {
   );
 }
 
-function quietLaneOpportunityFeaturesForMap(
-  strategicNetworkGeoJson,
-  nationalCycleNetworkGeoJson,
-) {
-  const plannedOpportunities = featureCollectionFeatures(strategicNetworkGeoJson)
+function quietLaneOpportunityFeaturesForMap(strategicNetworkGeoJson) {
+  return featureCollectionFeatures(strategicNetworkGeoJson)
     .filter(
       (feature) =>
         feature.geometry &&
@@ -611,6 +649,9 @@ function quietLaneOpportunityFeaturesForMap(
         feature.properties?.strategic_network_feature_type ===
         "quiet-lane-opportunity",
     );
+}
+
+function deprecatedNcnOpportunityFeaturesForMap(nationalCycleNetworkGeoJson) {
   const deprecatedNcnOpportunities = nationalCycleNetworkFeaturesForMap(
     nationalCycleNetworkGeoJson,
   )
@@ -627,7 +668,7 @@ function quietLaneOpportunityFeaturesForMap(
       },
     }));
 
-  return [...plannedOpportunities, ...deprecatedNcnOpportunities];
+  return deprecatedNcnOpportunities;
 }
 
 function featureCollectionFeatures(geoJson) {
