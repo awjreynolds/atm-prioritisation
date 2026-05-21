@@ -68,7 +68,7 @@ const wecaStrategicNetworkResponse = await fetchBuiltAsset(
 assert.equal(wecaStrategicNetworkResponse.status, 200);
 const wecaStrategicNetwork = await wecaStrategicNetworkResponse.json();
 assert.equal(wecaStrategicNetwork.type, "FeatureCollection");
-assert.equal(wecaStrategicNetwork.features.length, 23);
+assert.equal(wecaStrategicNetwork.features.length, 27);
 
 const nationalCycleNetworkResponse = await fetchBuiltAsset(
   "data/national-cycle-network.geojson",
@@ -99,12 +99,13 @@ assert.match(routeMap.innerHTML, /data-map-layer-toggle="atm-missing-pavement"/i
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="satn-centroid-connections"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="weca-strategic-network"/i);
+assert.match(routeMap.innerHTML, /data-map-layer-toggle="quiet-lane-opportunities"/i);
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
 assert.match(routeMap.innerHTML, /14 bounded urban areas/i);
 assert.match(routeMap.innerHTML, /221 centroid\/connector features/i);
-assert.match(routeMap.innerHTML, /13 A-road backbone\/gateway corridors/i);
-assert.match(routeMap.innerHTML, /quiet-lane or deprecated-NCN opportunity features/i);
+assert.match(routeMap.innerHTML, /18 prioritised corridor links/i);
+assert.match(routeMap.innerHTML, /76 supporting reach, greenway, or deprecated-NCN opportunity features/i);
 assert.match(routeMap.innerHTML, /reclassified\/former features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);

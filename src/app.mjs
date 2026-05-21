@@ -55,6 +55,7 @@ if (routeMap) {
   let showLcwipUrbanAreasLayer = true;
   let showSatnCentroidConnectionsLayer = true;
   let showWecaStrategicNetworkLayer = true;
+  let showQuietLaneOpportunitiesLayer = true;
   let showNationalCycleNetworkLayer = true;
 
   function renderSelectedRouteMap() {
@@ -75,6 +76,7 @@ if (routeMap) {
       showLcwipUrbanAreasLayer,
       showSatnCentroidConnectionsLayer,
       showWecaStrategicNetworkLayer,
+      showQuietLaneOpportunitiesLayer,
       showNationalCycleNetworkLayer,
     });
     leafletReady
@@ -95,6 +97,7 @@ if (routeMap) {
           showLcwipUrbanAreasLayer,
           showSatnCentroidConnectionsLayer,
           showWecaStrategicNetworkLayer,
+          showQuietLaneOpportunitiesLayer,
           showNationalCycleNetworkLayer,
           onRouteSelect(routeId) {
             selectedRouteId = routeId;
@@ -136,6 +139,9 @@ if (routeMap) {
           break;
         case "weca-strategic-network":
           showWecaStrategicNetworkLayer = layerToggle.checked;
+          break;
+        case "quiet-lane-opportunities":
+          showQuietLaneOpportunitiesLayer = layerToggle.checked;
           break;
         case "national-cycle-network":
           showNationalCycleNetworkLayer = layerToggle.checked;

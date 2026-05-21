@@ -1,15 +1,16 @@
 {
   "type": "FeatureCollection",
-  "name": "WECA strategic active travel network synthesis",
+  "name": "Core WECA inter-urban active travel network",
   "metadata": {
-    "created_at": "2026-05-21T11:25:47.675Z",
-    "status": "prototype-corridor-synthesis",
-    "notes": "Corridor-level synthesis for WECA plus strategic external gateways. Lines are planning corridors, not designed alignments. Primary A-road corridors are treated as the default strategic backbone; quiet-lane and greenway corridors show reach and parallel-route opportunities."
+    "created_at": "2026-05-21T12:06:46.219Z",
+    "status": "satn-style-stage-1-prototype",
+    "network_scope": "WECA plus strategic external gateways",
+    "methodology_notes": "SATN-style Stage 1 network: prioritised inter-urban links between bounded urban areas and strategic external gateways. Geometry follows named A-road corridors with coarse intermediate control points where possible, but remains corridor/desire-line evidence rather than design alignment."
   },
   "features": [
     {
       "type": "Feature",
-      "id": "backbone-a4-bristol-bath",
+      "id": "core-bristol-bath-a4",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -40,19 +41,31 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A4 Bristol to Bath via Keynsham",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A4",
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A4 Bristol to Bath and Batheaston",
+        "from_node": "Bristol",
+        "to_node": "Bath and Batheaston",
+        "corridor_ref": "A4",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Keynsham",
+          "Saltford"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "backbone-a367-bath-radstock-msn",
+      "id": "core-bath-radstock-msn-a367",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -79,51 +92,32 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A367 Bath to Radstock and Midsomer Norton",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A367",
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A367 Bath and Batheaston to Midsomer Norton",
+        "from_node": "Bath and Batheaston",
+        "to_node": "Midsomer Norton",
+        "corridor_ref": "A367",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a362-msn-frome",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.4846,
-            51.2855
-          ],
-          [
-            -2.4381,
-            51.2698
-          ],
-          [
-            -2.3215,
-            51.2308
-          ]
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Odd Down",
+          "Tunley",
+          "Radstock"
         ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "external-gateway-backbone",
-        "corridor_name": "A362 Midsomer Norton to Frome gateway",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A362",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
-        "external_gateway": "Frome"
       }
     },
     {
       "type": "Feature",
-      "id": "backbone-a37-bristol-somer-valley",
+      "id": "core-bristol-msn-a37",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -150,19 +144,595 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A37 Bristol to Somer Valley",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A37",
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A37 Bristol to Midsomer Norton",
+        "from_node": "Bristol",
+        "to_node": "Midsomer Norton",
+        "corridor_ref": "A37",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Whitchurch Village",
+          "Pensford",
+          "Farrington Gurney"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "backbone-a39-bath-wells",
+      "id": "core-bristol-yate-a432",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5879,
+            51.4545
+          ],
+          [
+            -2.5266,
+            51.4787
+          ],
+          [
+            -2.4774,
+            51.4932
+          ],
+          [
+            -2.416,
+            51.541
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A432 Bristol to Yate",
+        "from_node": "Bristol",
+        "to_node": "Yate",
+        "corridor_ref": "A432",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Fishponds",
+          "Emersons Green"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-yate-chipping-sodbury-a432",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.416,
+            51.541
+          ],
+          [
+            -2.393,
+            51.538
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A432 Yate to Chipping Sodbury",
+        "from_node": "Yate",
+        "to_node": "Chipping Sodbury",
+        "corridor_ref": "A432",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-bristol-thornbury-a38",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5879,
+            51.4545
+          ],
+          [
+            -2.5761,
+            51.5107
+          ],
+          [
+            -2.5711,
+            51.5541
+          ],
+          [
+            -2.521,
+            51.608
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A38 Bristol to Thornbury",
+        "from_node": "Bristol",
+        "to_node": "Thornbury",
+        "corridor_ref": "A38",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Filton",
+          "Almondsbury"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-bristol-portishead-a369",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5879,
+            51.4545
+          ],
+          [
+            -2.6678,
+            51.461
+          ],
+          [
+            -2.6828,
+            51.481
+          ],
+          [
+            -2.769,
+            51.485
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A369 Bristol to Portishead",
+        "from_node": "Bristol",
+        "to_node": "Portishead",
+        "corridor_ref": "A369",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Abbots Leigh",
+          "Pill"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-bristol-weston-a370",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5879,
+            51.4545
+          ],
+          [
+            -2.6608,
+            51.4298
+          ],
+          [
+            -2.7381,
+            51.4144
+          ],
+          [
+            -2.8235,
+            51.3885
+          ],
+          [
+            -2.977,
+            51.346
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A370 Bristol to Weston-super-Mare",
+        "from_node": "Bristol",
+        "to_node": "Weston-super-Mare",
+        "corridor_ref": "A370",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Long Ashton",
+          "Backwell",
+          "Yatton"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-bristol-airport-weston-a38",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.5879,
+            51.4545
+          ],
+          [
+            -2.6608,
+            51.4298
+          ],
+          [
+            -2.7171,
+            51.3264
+          ],
+          [
+            -2.8029,
+            51.3333
+          ],
+          [
+            -2.8671,
+            51.3281
+          ],
+          [
+            -2.977,
+            51.346
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A38 Bristol to Weston-super-Mare",
+        "from_node": "Bristol",
+        "to_node": "Weston-super-Mare",
+        "corridor_ref": "A38",
+        "core_network_priority": "P1",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Bristol Airport",
+          "Churchill",
+          "Banwell"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-clevedon-nailsea-bristol",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.857,
+            51.439
+          ],
+          [
+            -2.7265,
+            51.4425
+          ],
+          [
+            -2.7381,
+            51.4144
+          ],
+          [
+            -2.6608,
+            51.4298
+          ],
+          [
+            -2.5879,
+            51.4545
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "B3130/A370 Clevedon to Bristol",
+        "from_node": "Clevedon",
+        "to_node": "Bristol",
+        "corridor_ref": "B3130/A370",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Wraxall",
+          "Nailsea",
+          "Long Ashton"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-portishead-clevedon-weston",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.769,
+            51.485
+          ],
+          [
+            -2.8034,
+            51.4469
+          ],
+          [
+            -2.857,
+            51.439
+          ],
+          [
+            -2.8235,
+            51.3885
+          ],
+          [
+            -2.977,
+            51.346
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "B3124/A370 Portishead to Weston-super-Mare",
+        "from_node": "Portishead",
+        "to_node": "Weston-super-Mare",
+        "corridor_ref": "B3124/A370",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Tickenham",
+          "Clevedon",
+          "Yatton"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "core-keynsham-somer-valley-a39-a37",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4977,
+            51.4311
+          ],
+          [
+            -2.5484,
+            51.3718
+          ],
+          [
+            -2.543,
+            51.3201
+          ],
+          [
+            -2.4846,
+            51.2855
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A39/A37 Keynsham to Midsomer Norton",
+        "from_node": "Keynsham",
+        "to_node": "Midsomer Norton",
+        "corridor_ref": "A39/A37",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "via_nodes": [
+          "Pensford",
+          "Temple Cloud"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gateway-msn-frome-a362",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.4846,
+            51.2855
+          ],
+          [
+            -2.4381,
+            51.2698
+          ],
+          [
+            -2.3215,
+            51.2308
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A362 Midsomer Norton to Frome",
+        "from_node": "Midsomer Norton",
+        "to_node": "Frome",
+        "corridor_ref": "A362",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "external_gateway": "Frome"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gateway-bath-chippenham-a4",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3591,
+            51.3811
+          ],
+          [
+            -2.3009,
+            51.3976
+          ],
+          [
+            -2.214,
+            51.417
+          ],
+          [
+            -2.115,
+            51.46
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A4 Bath and Batheaston to Chippenham/Corsham",
+        "from_node": "Bath and Batheaston",
+        "to_node": "Chippenham/Corsham",
+        "corridor_ref": "A4",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "external_gateway": "Chippenham/Corsham"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gateway-bath-trowbridge-a363",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3591,
+            51.3811
+          ],
+          [
+            -2.3278,
+            51.3756
+          ],
+          [
+            -2.252,
+            51.346
+          ],
+          [
+            -2.208,
+            51.319
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A363 Bath and Batheaston to Bradford-on-Avon/Trowbridge",
+        "from_node": "Bath and Batheaston",
+        "to_node": "Bradford-on-Avon/Trowbridge",
+        "corridor_ref": "A363",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "external_gateway": "Bradford-on-Avon/Trowbridge"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gateway-bath-wells-a39",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -189,263 +759,28 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "external-gateway-backbone",
-        "corridor_name": "A39 Bath to Wells gateway",
-        "treatment_intent": "parallel-quiet-route-to-assess",
-        "geometry_basis": "A39",
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A39 Bath and Batheaston to Wells",
+        "from_node": "Bath and Batheaston",
+        "to_node": "Wells",
+        "corridor_ref": "A39",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
         "external_gateway": "Wells"
       }
     },
     {
       "type": "Feature",
-      "id": "backbone-a4-bath-chippenham",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.3591,
-            51.3811
-          ],
-          [
-            -2.3009,
-            51.3976
-          ],
-          [
-            -2.214,
-            51.417
-          ],
-          [
-            -2.115,
-            51.46
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "external-gateway-backbone",
-        "corridor_name": "A4 Bath to Chippenham gateway",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A4",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
-        "external_gateway": "Chippenham/Corsham"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a363-bath-bradford-trowbridge",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.3591,
-            51.3811
-          ],
-          [
-            -2.3278,
-            51.3756
-          ],
-          [
-            -2.252,
-            51.346
-          ],
-          [
-            -2.208,
-            51.319
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "external-gateway-backbone",
-        "corridor_name": "A363 Bath to Bradford-on-Avon and Trowbridge gateway",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A363",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
-        "external_gateway": "Bradford-on-Avon/Trowbridge"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a432-bristol-yate",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.5879,
-            51.4545
-          ],
-          [
-            -2.5266,
-            51.4787
-          ],
-          [
-            -2.4774,
-            51.4932
-          ],
-          [
-            -2.416,
-            51.541
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A432 Bristol to Yate",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A432",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a432-yate-chipping-sodbury",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.416,
-            51.541
-          ],
-          [
-            -2.393,
-            51.538
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A432 Yate to Chipping Sodbury",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A432",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a38-bristol-thornbury",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.5879,
-            51.4545
-          ],
-          [
-            -2.5761,
-            51.5107
-          ],
-          [
-            -2.5711,
-            51.5541
-          ],
-          [
-            -2.521,
-            51.608
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A38 Bristol to Thornbury",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A38",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a370-bristol-weston",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.5879,
-            51.4545
-          ],
-          [
-            -2.6608,
-            51.4298
-          ],
-          [
-            -2.7381,
-            51.4144
-          ],
-          [
-            -2.8235,
-            51.3885
-          ],
-          [
-            -2.977,
-            51.346
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A370 Bristol to Weston-super-Mare",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A370",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a369-bristol-portishead",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.5879,
-            51.4545
-          ],
-          [
-            -2.6678,
-            51.461
-          ],
-          [
-            -2.6828,
-            51.481
-          ],
-          [
-            -2.769,
-            51.485
-          ]
-        ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "primary-a-road-backbone",
-        "corridor_name": "A369 Bristol to Portishead",
-        "treatment_intent": "a-road-adjacent-path-preferred",
-        "geometry_basis": "A369",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "backbone-a371-weston-wells",
+      "id": "gateway-weston-wells-a371",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -472,20 +807,72 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "external-gateway-backbone",
-        "corridor_name": "A371 Weston-super-Mare to Wells gateway",
-        "treatment_intent": "parallel-quiet-route-to-assess",
-        "geometry_basis": "A371",
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A371 Weston-super-Mare to Wells",
+        "from_node": "Weston-super-Mare",
+        "to_node": "Wells",
+        "corridor_ref": "A371",
+        "core_network_priority": "P2",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
         "external_gateway": "Wells"
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-reach-chew-valley",
+      "id": "gateway-bath-warminster-a36",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -2.3591,
+            51.3811
+          ],
+          [
+            -2.3034,
+            51.3427
+          ],
+          [
+            -2.252,
+            51.346
+          ],
+          [
+            -2.188,
+            51.204
+          ]
+        ]
+      },
+      "properties": {
+        "strategic_network_feature_type": "core-interurban-link",
+        "corridor_name": "A36 Bath and Batheaston to Warminster",
+        "from_node": "Bath and Batheaston",
+        "to_node": "Warminster",
+        "corridor_ref": "A36",
+        "core_network_priority": "P3",
+        "satn_stage": "stage-1-prioritised-corridor",
+        "alignment_status": "road-corridor-proxy",
+        "default_treatment_intent": "make-good-a-road-active-travel-corridor",
+        "urban_complexity_handling": "Treat bounded urban areas as LCWIP/interface zones; do not solve detailed urban alignments in this layer.",
+        "quiet_route_policy": "Quiet routes may provide reach or parallel options but do not replace the direct inter-urban A-road corridor unless the route audit shows the A-road is not viable.",
+        "personal_safety_policy": "Direct, legible, overlooked corridors are preferred where a suitable A-road-adjacent facility can be delivered.",
+        "source_layer": "weca-strategic-network-synthesis",
+        "status": "prototype-core-network",
+        "provenance_notes": "Prototype link selected from WECA urban areas, major neighbouring gateways and named A-road corridors.",
+        "uncertainty_notes": "Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion.",
+        "external_gateway": "Warminster"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "quiet-chew-valley-reach",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -512,19 +899,23 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
         "corridor_name": "Chew Valley quiet-lane reach",
         "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "feeder_to_core_link_ids": [
+          "core-bristol-msn-a37",
+          "core-keynsham-somer-valley-a39-a37"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-reach-cam-brook-valley",
+      "id": "quiet-cam-brook-reach",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -551,19 +942,22 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
         "corridor_name": "Cam Brook villages quiet-lane reach",
         "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "feeder_to_core_link_ids": [
+          "core-bath-radstock-msn-a367"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-reach-bath-south-villages",
+      "id": "quiet-bath-south-villages",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -586,50 +980,23 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
         "corridor_name": "Bath southern villages quiet-lane reach",
         "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "quiet-reach-bath-avon-valley",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            -2.3591,
-            51.3811
-          ],
-          [
-            -2.3227,
-            51.393
-          ],
-          [
-            -2.3009,
-            51.3976
-          ]
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "feeder_to_core_link_ids": [
+          "core-bath-radstock-msn-a367",
+          "gateway-bath-wells-a39"
         ]
-      },
-      "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
-        "corridor_name": "Bath Avon Valley quiet-lane reach",
-        "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
-        "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-reach-north-somerset-villages",
+      "id": "quiet-north-somerset-villages",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -656,19 +1023,23 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
         "corridor_name": "North Somerset villages quiet-lane reach",
         "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "feeder_to_core_link_ids": [
+          "core-bristol-weston-a370",
+          "core-portishead-clevedon-weston"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-reach-south-glos-villages",
+      "id": "quiet-south-glos-villages",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -691,19 +1062,22 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "quiet-lane-rural-reach",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
         "corridor_name": "South Gloucestershire villages quiet-lane reach",
         "treatment_intent": "20mph-quiet-lane-priority",
-        "geometry_basis": "rural lanes",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "feeder_to_core_link_ids": [
+          "core-bristol-yate-a432"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-opportunity-bristol-bath-railway-path",
+      "id": "greenway-bristol-bath-railway-path",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -730,19 +1104,22 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "strategic-quiet-route-opportunity",
-        "corridor_name": "Bristol and Bath Railway Path strategic quiet-route opportunity",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
+        "corridor_name": "Bristol and Bath Railway Path parallel strategic opportunity",
         "treatment_intent": "protect-upgrade-greenway",
-        "geometry_basis": "greenway",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "parallel_to_core_link_ids": [
+          "core-bristol-bath-a4"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-opportunity-two-tunnels-colliers-way",
+      "id": "greenway-two-tunnels-colliers-way",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -769,19 +1146,22 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "strategic-quiet-route-opportunity",
-        "corridor_name": "Two Tunnels and Colliers Way strategic quiet-route opportunity",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
+        "corridor_name": "Two Tunnels and Colliers Way parallel strategic opportunity",
         "treatment_intent": "protect-upgrade-greenway",
-        "geometry_basis": "greenway",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "parallel_to_core_link_ids": [
+          "core-bath-radstock-msn-a367"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-opportunity-strawberry-line",
+      "id": "greenway-strawberry-line",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -804,19 +1184,22 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "strategic-quiet-route-opportunity",
-        "corridor_name": "Strawberry Line strategic quiet-route opportunity",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
+        "corridor_name": "Strawberry Line parallel strategic opportunity",
         "treatment_intent": "protect-upgrade-greenway",
-        "geometry_basis": "greenway",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "parallel_to_core_link_ids": [
+          "core-bristol-weston-a370"
+        ]
       }
     },
     {
       "type": "Feature",
-      "id": "quiet-opportunity-festival-way",
+      "id": "greenway-festival-way",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -839,14 +1222,17 @@
         ]
       },
       "properties": {
-        "strategic_network_feature_type": "strategic-quiet-route-opportunity",
-        "corridor_name": "Festival Way strategic quiet-route opportunity",
+        "strategic_network_feature_type": "quiet-lane-opportunity",
+        "corridor_name": "Festival Way parallel strategic opportunity",
         "treatment_intent": "protect-upgrade-greenway",
-        "geometry_basis": "greenway",
+        "satn_stage": "stage-1-supporting-opportunity",
         "source_layer": "weca-strategic-network-synthesis",
-        "status": "prototype-corridor",
-        "provenance_notes": "Prototype corridor geometry sketched from known settlement centres, A-road names, NCN/greenway context and SATN-style settlement reach logic.",
-        "uncertainty_notes": "Indicative corridor only. Requires route audit, highway boundary review, traffic-speed context and land/constraint checks before any design conclusion."
+        "status": "prototype-supporting-network",
+        "provenance_notes": "Prototype supporting corridor for village reach, parallel greenway logic, walking, wheeling, cycling and equestrian access.",
+        "uncertainty_notes": "Not a substitute for the core inter-urban route unless audited as a viable, attractive and safe strategic alternative.",
+        "parallel_to_core_link_ids": [
+          "core-bristol-weston-a370"
+        ]
       }
     }
   ]

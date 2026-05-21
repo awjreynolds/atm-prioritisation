@@ -253,33 +253,35 @@ for (const bathCentroidName of [
   );
 }
 assert.equal(wecaStrategicNetwork.type, "FeatureCollection");
-assert.equal(wecaStrategicNetwork.features.length, 23);
+assert.equal(wecaStrategicNetwork.features.length, 27);
 assert.equal(
   wecaStrategicNetwork.features.filter(
     (feature) =>
       feature.properties.strategic_network_feature_type ===
-      "primary-a-road-backbone",
+      "core-interurban-link",
   ).length,
-  8,
+  18,
 );
 assert.equal(
   wecaStrategicNetwork.features.filter(
     (feature) =>
       feature.properties.strategic_network_feature_type ===
-      "external-gateway-backbone",
+      "quiet-lane-opportunity",
   ).length,
-  5,
+  9,
 );
 assert.equal(
   wecaStrategicNetwork.features.some(
-    (feature) => feature.properties.corridor_name === "A370 Bristol to Weston-super-Mare",
+    (feature) =>
+      feature.properties.corridor_name === "A370 Bristol to Weston-super-Mare",
   ),
   true,
 );
 assert.equal(
   wecaStrategicNetwork.features.some(
     (feature) =>
-      feature.properties.treatment_intent === "20mph-quiet-lane-priority",
+      feature.properties.default_treatment_intent ===
+      "make-good-a-road-active-travel-corridor",
   ),
   true,
 );
@@ -928,12 +930,14 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="atm-missing-pavement"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="weca-strategic-network"/i);
+assert.match(renderedRouteMap, /data-map-layer-toggle="quiet-lane-opportunities"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /221 centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="weca-strategic-network"/i);
-assert.match(renderedRouteMap, /13 A-road backbone\/gateway corridors/i);
-assert.match(renderedRouteMap, /77 quiet-lane or deprecated-NCN opportunity features/i);
+assert.match(renderedRouteMap, /18 prioritised corridor links/i);
+assert.match(renderedRouteMap, /data-map-layer="quiet-lane-opportunities"/i);
+assert.match(renderedRouteMap, /76 supporting reach, greenway, or deprecated-NCN opportunity features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
@@ -1148,8 +1152,8 @@ assert.match(visibleText, /line pattern/i);
 assert.match(visibleText, /High modal shift potential/i);
 assert.match(visibleText, /Low modal shift potential/i);
 assert.match(visibleText, /wider lines indicate stronger potential/i);
-assert.match(visibleText, /WECA strategic network/i);
-assert.match(visibleText, /Primary A-road backbone/i);
+assert.match(visibleText, /Core inter-urban network/i);
+assert.match(visibleText, /Core WECA inter-urban A-road corridor/i);
 assert.match(visibleText, /Deprecated NCN opportunity/i);
 
 const styles = await readFile("dist/styles.css", "utf8");

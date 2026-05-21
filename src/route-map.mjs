@@ -64,6 +64,8 @@ export function renderRouteMap(routes, options = {}) {
       showSatnCentroidConnectionsLayer,
       showWecaStrategicNetworkLayer:
         options.showWecaStrategicNetworkLayer !== false,
+      showQuietLaneOpportunitiesLayer:
+        options.showQuietLaneOpportunitiesLayer !== false,
       showNationalCycleNetworkLayer:
         options.showNationalCycleNetworkLayer !== false,
       ...atmVisibilityOptions(options),
@@ -118,7 +120,11 @@ export function hydrateLeafletRouteMap(root, options = {}) {
   const strategicNetworkFeatures =
     options.showWecaStrategicNetworkLayer === false
       ? []
-      : strategicNetworkFeaturesForMap(
+      : coreInterUrbanNetworkFeaturesForMap(options.wecaStrategicNetworkGeoJson);
+  const quietLaneOpportunityFeatures =
+    options.showQuietLaneOpportunitiesLayer === false
+      ? []
+      : quietLaneOpportunityFeaturesForMap(
           options.wecaStrategicNetworkGeoJson,
           options.nationalCycleNetworkGeoJson,
         );
@@ -133,6 +139,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     satnCentroidFeatures.length === 0 &&
     nationalCycleNetworkFeatures.length === 0 &&
     strategicNetworkFeatures.length === 0 &&
+    quietLaneOpportunityFeatures.length === 0 &&
     prototypeFeatures.length === 0
   ) {
     return;
@@ -292,6 +299,37 @@ export function hydrateLeafletRouteMap(root, options = {}) {
     )
     .addTo(map);
 
+  const quietLaneOpportunityLayer = leaflet
+    .geoJSON(
+      {
+        type: "FeatureCollection",
+        features: quietLaneOpportunityFeatures,
+      },
+      {
+        onEachFeature(feature, layer) {
+          const properties = feature.properties ?? {};
+          layer.bindPopup?.(
+            [
+              "<strong>",
+              escapeHtml(
+                properties.corridor_name ??
+                  properties.Desc_ ??
+                  "Quiet-lane opportunity",
+              ),
+              "</strong>",
+              properties.treatment_intent
+                ? `<br>${escapeHtml(formatKebabLabel(properties.treatment_intent))}`
+                : "",
+            ].join(""),
+          );
+        },
+        style(feature) {
+          return styleQuietLaneOpportunityFeature(feature);
+        },
+      },
+    )
+    .addTo(map);
+
   const sourceLayer = leaflet
     .geoJSON(
       {
@@ -349,6 +387,7 @@ export function hydrateLeafletRouteMap(root, options = {}) {
   const fitLayers = [
     lcwipUrbanAreasLayer,
     strategicNetworkLayer,
+    quietLaneOpportunityLayer,
     nationalCycleNetworkLayer,
     satnCentroidLayer,
     sourceLayer,
@@ -380,23 +419,12 @@ function renderLeafletMap(options) {
   const ncnReclassifiedCount = ncnFeatures.filter(
     (feature) => feature.properties?.ncn_status === "reclassified",
   ).length;
-  const strategicNetworkFeatures = strategicNetworkFeaturesForMap(
+  const coreInterUrbanNetworkFeatures = coreInterUrbanNetworkFeaturesForMap(
+    wecaStrategicNetworkGeoJson,
+  );
+  const quietLaneOpportunityCount = quietLaneOpportunityFeaturesForMap(
     wecaStrategicNetworkGeoJson,
     nationalCycleNetworkGeoJson,
-  );
-  const strategicBackboneCount = strategicNetworkFeatures.filter(
-    (feature) =>
-      feature.properties?.strategic_network_feature_type ===
-        "primary-a-road-backbone" ||
-      feature.properties?.strategic_network_feature_type ===
-        "external-gateway-backbone",
-  ).length;
-  const quietLaneOpportunityCount = strategicNetworkFeatures.filter((feature) =>
-    [
-      "quiet-lane-rural-reach",
-      "strategic-quiet-route-opportunity",
-      "deprecated-ncn-quiet-lane-opportunity",
-    ].includes(feature.properties?.strategic_network_feature_type),
   ).length;
   const sourceSummary = isBanesAtmPortalGeoJson(atmRoutesGeoJson)
     ? " full B&amp;NES portal features from the public Active Travel Masterplan layer."
@@ -424,8 +452,13 @@ function renderLeafletMap(options) {
     ),
     renderMapLayerToggle(
       "weca-strategic-network",
-      "WECA strategic network",
+      "Core WECA inter-urban network",
       options.showWecaStrategicNetworkLayer,
+    ),
+    renderMapLayerToggle(
+      "quiet-lane-opportunities",
+      "Quiet-lane and deprecated NCN opportunities",
+      options.showQuietLaneOpportunitiesLayer,
     ),
     renderMapLayerToggle(
       "national-cycle-network",
@@ -445,11 +478,12 @@ function renderLeafletMap(options) {
     "<p data-map-layer=\"satn-centroid-connections\"><strong>SATN centroids and connections:</strong> ",
     satnFeatureCount,
     " centroid/connector features, with non-crossing connector lines.</p>",
-    "<p data-map-layer=\"weca-strategic-network\"><strong>WECA strategic network:</strong> ",
-    strategicBackboneCount,
-    " A-road backbone/gateway corridors and ",
+    "<p data-map-layer=\"weca-strategic-network\"><strong>Core WECA inter-urban network:</strong> ",
+    coreInterUrbanNetworkFeatures.length,
+    " prioritised corridor links between urban areas and strategic gateways.</p>",
+    "<p data-map-layer=\"quiet-lane-opportunities\"><strong>Quiet-lane and deprecated NCN opportunities:</strong> ",
     quietLaneOpportunityCount,
-    " quiet-lane or deprecated-NCN opportunity features.</p>",
+    " supporting reach, greenway, or deprecated-NCN opportunity features.</p>",
     "<p data-map-layer=\"national-cycle-network\"><strong>National Cycle Network:</strong> ",
     ncnCurrentCount,
     " current features and ",
@@ -550,12 +584,33 @@ function nationalCycleNetworkFeaturesForMap(geoJson) {
   );
 }
 
-function strategicNetworkFeaturesForMap(strategicNetworkGeoJson, nationalCycleNetworkGeoJson) {
-  const plannedCorridors = featureCollectionFeatures(strategicNetworkGeoJson).filter(
+function coreInterUrbanNetworkFeaturesForMap(strategicNetworkGeoJson) {
+  return featureCollectionFeatures(strategicNetworkGeoJson).filter(
     (feature) =>
       feature.geometry &&
       feature.properties?.source_layer === "weca-strategic-network-synthesis",
+  ).filter(
+    (feature) =>
+      feature.properties?.strategic_network_feature_type ===
+      "core-interurban-link",
   );
+}
+
+function quietLaneOpportunityFeaturesForMap(
+  strategicNetworkGeoJson,
+  nationalCycleNetworkGeoJson,
+) {
+  const plannedOpportunities = featureCollectionFeatures(strategicNetworkGeoJson)
+    .filter(
+      (feature) =>
+        feature.geometry &&
+        feature.properties?.source_layer === "weca-strategic-network-synthesis",
+    )
+    .filter(
+      (feature) =>
+        feature.properties?.strategic_network_feature_type ===
+        "quiet-lane-opportunity",
+    );
   const deprecatedNcnOpportunities = nationalCycleNetworkFeaturesForMap(
     nationalCycleNetworkGeoJson,
   )
@@ -572,7 +627,7 @@ function strategicNetworkFeaturesForMap(strategicNetworkGeoJson, nationalCycleNe
       },
     }));
 
-  return [...plannedCorridors, ...deprecatedNcnOpportunities];
+  return [...plannedOpportunities, ...deprecatedNcnOpportunities];
 }
 
 function featureCollectionFeatures(geoJson) {
@@ -747,39 +802,10 @@ function stylePrototypeFeature(feature, isSelected) {
 }
 
 function styleStrategicNetworkFeature(feature) {
-  const featureType = feature.properties?.strategic_network_feature_type;
-
-  if (featureType === "deprecated-ncn-quiet-lane-opportunity") {
-    return {
-      color: "#6f72af",
-      dashArray: "2 7",
-      opacity: 0.86,
-      weight: 4,
-    };
-  }
-
-  if (featureType === "quiet-lane-rural-reach") {
-    return {
-      color: "#00703c",
-      dashArray: "4 7",
-      opacity: 0.9,
-      weight: 4,
-    };
-  }
-
-  if (featureType === "strategic-quiet-route-opportunity") {
-    return {
-      color: "#1d7f5d",
-      dashArray: "8 5",
-      opacity: 0.9,
-      weight: 5,
-    };
-  }
-
-  if (featureType === "external-gateway-backbone") {
+  if (feature.properties?.external_gateway) {
     return {
       color: "#d4351c",
-      dashArray: "10 5",
+      dashArray: "8 5",
       opacity: 0.92,
       weight: 6,
     };
@@ -790,6 +816,36 @@ function styleStrategicNetworkFeature(feature) {
     dashArray: undefined,
     opacity: 0.94,
     weight: 7,
+  };
+}
+
+function styleQuietLaneOpportunityFeature(feature) {
+  if (
+    feature.properties?.strategic_network_feature_type ===
+    "deprecated-ncn-quiet-lane-opportunity"
+  ) {
+    return {
+      color: "#6f72af",
+      dashArray: "2 7",
+      opacity: 0.86,
+      weight: 4,
+    };
+  }
+
+  if (feature.properties?.treatment_intent === "protect-upgrade-greenway") {
+    return {
+      color: "#1d7f5d",
+      dashArray: "8 5",
+      opacity: 0.9,
+      weight: 5,
+    };
+  }
+
+  return {
+    color: "#00703c",
+    dashArray: "4 7",
+    opacity: 0.9,
+    weight: 4,
   };
 }
 
