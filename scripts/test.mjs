@@ -1122,7 +1122,7 @@ const visibleText = page.replace(/\s+/g, " ");
 assert.match(page, /href="styles\.css"/i);
 assert.match(
   page,
-  /type="module" src="app\.mjs\?v=weca-clean-default-20260521"/i,
+  /type="module" src="app\.mjs\?v=weca-clean-default-20260521b"/i,
 );
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
