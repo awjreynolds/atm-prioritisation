@@ -184,12 +184,18 @@ assert.deepEqual(
   ["Bristol", "Bath and Batheaston", "Keynsham", "Somer Valley"],
 );
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
-assert.equal(wecaSatnCentroids.features.length, 8);
+assert.equal(wecaSatnCentroids.features.length, 59);
+assert.equal(
+  wecaSatnCentroids.features.filter(
+    (feature) => feature.properties.satn_feature_type === "community-centroid",
+  ).length,
+  30,
+);
 assert.equal(
   wecaSatnCentroids.features.filter(
     (feature) => feature.properties.satn_feature_type === "centroid-connection",
   ).length,
-  4,
+  29,
 );
 assert.equal(nationalCycleNetwork.type, "FeatureCollection");
 assert.equal(
@@ -833,7 +839,7 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
-assert.match(renderedRouteMap, /8 centroid\/connector features/i);
+assert.match(renderedRouteMap, /59 centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);

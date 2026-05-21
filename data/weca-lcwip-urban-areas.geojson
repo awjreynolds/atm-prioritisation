@@ -5,7 +5,7 @@
     "source_boundary_dataset": "ONS Built Up Areas (December 2022) Boundaries GB BGG",
     "source_boundary_url": "https://geoportal.statistics.gov.uk/datasets/ons::built-up-areas-december-2022-boundaries-gb-bgg",
     "source_lcwip_url": "https://www.westofengland-ca.gov.uk/wp-content/uploads/2022/04/Full-LCWIP-Jan-2021.pdf",
-    "extracted_at": "2026-05-21T10:31:09.435Z",
+    "extracted_at": "2026-05-21T10:47:57.974Z",
     "notes": "LCWIP/SATN urban-area context represented with ONS 2022 built-up-area boundaries and grouped into the requested WECA LCWIP areas."
   },
   "features": [
