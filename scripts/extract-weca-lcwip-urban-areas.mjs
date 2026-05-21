@@ -39,6 +39,19 @@ const areaDefinitions = [
     lcwipEvidence: "WECA LCWIP Somer Valley urban area context.",
   },
 ];
+const satnUrbanCentroidDefinitions = [
+  ...areaDefinitions.filter((area) => area.id !== "lcwip-urban-somer-valley"),
+  {
+    id: "satn-centroid-radstock",
+    name: "Radstock",
+    componentNames: ["Radstock"],
+  },
+  {
+    id: "satn-centroid-midsomer-norton",
+    name: "Midsomer Norton",
+    componentNames: ["Midsomer Norton"],
+  },
+];
 const additionalBuiltUpAreaCentroids = [
   { id: "satn-centroid-saltford", name: "Saltford", componentNames: ["Saltford"] },
   {
@@ -158,6 +171,66 @@ const manualCentroids = [
     id: "satn-centroid-bathampton",
     name: "Bathampton",
     coordinates: [-2.3227, 51.393],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-bath-city-centre",
+    name: "Bath city centre",
+    coordinates: [-2.3591, 51.3811],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-walcot-london-road",
+    name: "Walcot and London Road",
+    coordinates: [-2.3511, 51.3883],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-lansdown-camden",
+    name: "Lansdown and Camden",
+    coordinates: [-2.3641, 51.3919],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-bathwick",
+    name: "Bathwick",
+    coordinates: [-2.3456, 51.383],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-widcombe",
+    name: "Widcombe",
+    coordinates: [-2.3542, 51.3755],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-bear-flat",
+    name: "Bear Flat",
+    coordinates: [-2.3657, 51.3705],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-oldfield-park",
+    name: "Oldfield Park",
+    coordinates: [-2.3826, 51.3767],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-moorlands",
+    name: "Moorlands",
+    coordinates: [-2.3872, 51.368],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-newbridge",
+    name: "Newbridge",
+    coordinates: [-2.4022, 51.3851],
+    centroidSource: "manual-city-village-centroid",
+  },
+  {
+    id: "satn-centroid-claverton-down",
+    name: "Claverton Down",
+    coordinates: [-2.3278, 51.3756],
     centroidSource: "manual-city-village-centroid",
   },
   {
@@ -657,17 +730,17 @@ const featureCollection = {
   }),
 };
 const centroidsByAreaId = new Map(
-  areaDefinitions.map((area) => {
+  satnUrbanCentroidDefinitions.map((area) => {
     const components = area.componentNames.map((name) => sourceFeatures.get(name));
     return [area.id, areaCentroid(components)];
   }),
 );
 const satnCentroids = [
-  ...areaDefinitions.map((area) => {
+  ...satnUrbanCentroidDefinitions.map((area) => {
     const components = area.componentNames.map((name) => sourceFeatures.get(name));
 
     return {
-      id: `${area.id}-centroid`,
+      id: area.id.startsWith("satn-centroid-") ? area.id : `${area.id}-centroid`,
       areaId: area.id,
       name: area.name,
       coordinates: centroidsByAreaId.get(area.id),

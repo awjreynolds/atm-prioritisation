@@ -60,7 +60,7 @@ const wecaSatnCentroidsResponse = await fetchBuiltAsset(
 assert.equal(wecaSatnCentroidsResponse.status, 200);
 const wecaSatnCentroids = await wecaSatnCentroidsResponse.json();
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
-assert.equal(wecaSatnCentroids.features.length, 199);
+assert.equal(wecaSatnCentroids.features.length, 221);
 
 const nationalCycleNetworkResponse = await fetchBuiltAsset(
   "data/national-cycle-network.geojson",
@@ -93,7 +93,7 @@ assert.match(routeMap.innerHTML, /data-map-layer-toggle="satn-centroid-connectio
 assert.match(routeMap.innerHTML, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(routeMap.innerHTML, /776 full B&amp;NES portal features/i);
 assert.match(routeMap.innerHTML, /4 bounded urban areas/i);
-assert.match(routeMap.innerHTML, /199 centroid\/connector features/i);
+assert.match(routeMap.innerHTML, /221 centroid\/connector features/i);
 assert.match(routeMap.innerHTML, /reclassified\/former features/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap/i);
 assert.match(routeMap.innerHTML, /OpenStreetMap contributors/i);

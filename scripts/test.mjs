@@ -184,19 +184,56 @@ assert.deepEqual(
   ["Bristol", "Bath and Batheaston", "Keynsham", "Somer Valley"],
 );
 assert.equal(wecaSatnCentroids.type, "FeatureCollection");
-assert.equal(wecaSatnCentroids.features.length, 199);
+assert.equal(wecaSatnCentroids.features.length, 221);
 assert.equal(
   wecaSatnCentroids.features.filter(
     (feature) => feature.properties.satn_feature_type === "community-centroid",
   ).length,
-  100,
+  111,
 );
 assert.equal(
   wecaSatnCentroids.features.filter(
     (feature) => feature.properties.satn_feature_type === "centroid-connection",
   ).length,
-  99,
+  110,
 );
+assert.equal(
+  wecaSatnCentroids.features.some(
+    (feature) => feature.properties.area_name === "Somer Valley",
+  ),
+  false,
+);
+assert.equal(
+  wecaSatnCentroids.features.some(
+    (feature) => feature.properties.area_name === "Radstock",
+  ),
+  true,
+);
+assert.equal(
+  wecaSatnCentroids.features.some(
+    (feature) => feature.properties.area_name === "Midsomer Norton",
+  ),
+  true,
+);
+for (const bathCentroidName of [
+  "Bath city centre",
+  "Walcot and London Road",
+  "Lansdown and Camden",
+  "Bathwick",
+  "Widcombe",
+  "Bear Flat",
+  "Oldfield Park",
+  "Moorlands",
+  "Newbridge",
+  "Claverton Down",
+]) {
+  assert.equal(
+    wecaSatnCentroids.features.some(
+      (feature) => feature.properties.area_name === bathCentroidName,
+    ),
+    true,
+  );
+}
 assert.equal(nationalCycleNetwork.type, "FeatureCollection");
 assert.equal(
   nationalCycleNetwork.features.some(
@@ -839,7 +876,7 @@ assert.match(renderedRouteMap, /data-map-layer-toggle="lcwip-urban-areas"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="satn-centroid-connections"/i);
 assert.match(renderedRouteMap, /data-map-layer-toggle="national-cycle-network"/i);
 assert.match(renderedRouteMap, /data-map-layer="satn-centroid-connections"/i);
-assert.match(renderedRouteMap, /199 centroid\/connector features/i);
+assert.match(renderedRouteMap, /221 centroid\/connector features/i);
 assert.match(renderedRouteMap, /data-map-layer="national-cycle-network"/i);
 assert.match(renderedRouteMap, /reclassified\/former features/i);
 assert.match(renderedRouteMap, /data-map-layer="prototype-prioritisation"/i);
@@ -1011,7 +1048,10 @@ const page = await readFile("dist/index.html", "utf8");
 const visibleText = page.replace(/\s+/g, " ");
 
 assert.match(page, /href="styles\.css"/i);
-assert.match(page, /type="module" src="app\.mjs\?v=village-centroids-20260521"/i);
+assert.match(
+  page,
+  /type="module" src="app\.mjs\?v=bath-centre-centroids-20260521"/i,
+);
 
 const clientScript = await readFile("dist/app.mjs", "utf8");
 assert.match(clientScript, /import \{ hydrateLeafletRouteMap, renderRouteMap \}/i);
