@@ -1,0 +1,3 @@
+# Use an ATM dataset manifest instead of one source mega-file
+
+The app will consume an **ATM Dataset Manifest** that references validated **Extraction Batches**, rather than one combined source mega-file. A single mega-file would make agent-led extraction harder to review, increase merge conflicts, and hide useful geographic provenance; the manifest still lets the product present one coherent ATM Source Layer without forcing every feature into one file. The manifest is a product index, not just a file list, so it carries enough status, bounds, confidence, and visibility metadata for the UI to caveat incomplete source evidence correctly; only **Review-Safe Extraction Batches** should appear by default.
